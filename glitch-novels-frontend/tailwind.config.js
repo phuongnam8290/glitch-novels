@@ -8,6 +8,12 @@ module.exports = {
       fontFamily: {
         serif: ["Proxima Nova", fontFamily.serif],
       },
+      colors: {
+        "white-ink-1": "#EBE5DE",
+        "gold-brand-1": "#C9A882",
+        "gold-brand-2": "#8E6E48",
+        "gray-bg-1": "#191A1C",
+      },
     },
   },
   plugins: [],

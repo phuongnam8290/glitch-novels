@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    background: linear-gradient(rgba(10, 11, 11, 0.95), rgba(10, 11, 11, 0.95)),
+      url(@/assets/images/common/background.png) fixed top left/cover no-repeat;
+  }
+}
+
+@layer utilities {
+  .title-text {
+    font-weight: bold;
+    font-size: 1.3rem;
+  }
+}
