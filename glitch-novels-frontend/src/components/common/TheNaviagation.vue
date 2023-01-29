@@ -4,7 +4,7 @@
     ref="header"
   >
     <img
-      class="ml-16 max-h-full"
+      class="ml-12 max-h-9"
       ref="logo"
       src="@/assets/images/common/logo.png"
       alt="Glitch logo"
@@ -22,24 +22,23 @@
     ref="nav"
   >
     <div
-      class="toggle-btn absolute top-5 -right-5 z-50 cursor-pointer text-white-ink-1"
+      class="toggle-btn absolute top-[1.375rem] -right-4 z-50 cursor-pointer text-white-ink-1"
       @click="toggleSidebar"
     >
-      <!--      <i class="fa-sharp fa-solid fa-2xl fa-bars"></i>-->
       <div class="toggle-btn-icon h-full w-full">
         <div class="toggle-btn-bar"></div>
       </div>
     </div>
     <div class="title-text sidebar-content h-full bg-gray-bg-1 px-10 pt-5 text-white-ink-1">
       <img
-        class="max-h-10"
+        class="mt-0.5 max-h-9"
         src="@/assets/images/common/logo.png"
         alt="Glitch logo"
       />
-      <div class="mt-7 space-y-3">
+      <div class="mt-8 space-y-3">
         <a
           href="#"
-          class="py-0.5 px-2"
+          class="py-1 px-2"
         >
           <span class="icon mr-2">
             <i class="fa-sharp fa-solid fa-house"></i>
@@ -49,14 +48,14 @@
         <div>
           <a
             href="#"
-            class="py-0.5 px-2"
+            class="py-1 px-2"
           >
             <span class="icon mr-2">
               <i class="fa-sharp fa-solid fa-book-open-cover"></i>
             </span>
             Titles
           </a>
-          <ul class="space-y-1 font-normal">
+          <ul class="font-normal">
             <li>
               <a href="#">Advanced Search</a>
             </li>
@@ -112,26 +111,28 @@ header img {
 }
 
 header.moveRight img {
-  margin-left: 0.25rem;
+  margin-left: 0;
   opacity: 0;
   visibility: hidden;
 }
 
 li {
-  padding: 0.125rem 0 0.125rem 1.5rem;
+  padding: 0.25rem 0 0.25rem 1.5rem;
 }
 
 a {
   display: block;
 }
 
-nav {
+nav,
+nav a,
+nav li {
   transition: all 0.25s ease-in-out;
 }
 
 nav.close {
   top: 0;
-  left: -16.25rem;
+  left: -16.5rem;
 }
 
 nav.open {
@@ -141,16 +142,16 @@ nav.open {
 
 .toggle-btn-icon {
   position: relative;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2.25rem;
+  height: 2.25rem;
   display: flex;
   align-items: center;
 }
 
 .toggle-btn-bar {
   @apply bg-white-ink-1;
-  width: 1.75rem;
-  height: 0.3rem;
+  width: 1.5rem;
+  height: 0.2rem;
   transition: all 0.5s ease-in-out;
 }
 
@@ -160,17 +161,18 @@ nav.open {
   content: "";
   position: absolute;
   left: 0;
-  height: 0.3rem;
+  height: 0.2rem;
+  transition: all 0.5s ease-in-out;
 }
 
 .toggle-btn-bar:before {
-  width: 2.5rem;
-  transform: translateY(-15px);
+  width: 2.25rem;
+  transform: translateY(-10px);
 }
 
 .toggle-btn-bar:after {
-  width: 1rem;
-  transform: translateY(15px);
+  width: 0.75rem;
+  transform: translateY(10px);
 }
 
 .toggle-btn.open .toggle-btn-bar {
@@ -185,6 +187,16 @@ nav.open {
 .toggle-btn.open .toggle-btn-bar:after {
   width: 2.5rem;
   transform: rotate(-45deg);
+}
+
+.toggle-btn:hover .toggle-btn-bar,
+.toggle-btn:hover .toggle-btn-bar:before,
+.toggle-btn:hover .toggle-btn-bar:after {
+  @apply bg-gold-brand-1;
+}
+
+.toggle-btn.open:hover .toggle-btn-bar {
+  background: transparent;
 }
 
 nav.close .sidebar-content {
@@ -208,8 +220,12 @@ nav .active {
   @apply bg-gold-brand-2 text-white-ink-1;
 }
 
-li:hover,
 a:hover {
   @apply text-gold-brand-1;
+}
+
+a.active:hover,
+li.active a:hover {
+  @apply text-white-ink-1;
 }
 </style>
