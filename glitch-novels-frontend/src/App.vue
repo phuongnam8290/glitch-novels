@@ -1,12 +1,12 @@
 <template>
-  <the-naviagation />
+  <the-navigation />
   <router-view />
   <div class="h-screen"></div>
   <div class="h-screen"></div>
 </template>
 
 <script setup>
-import TheNaviagation from "@/components/common/TheNaviagation.vue";
+import TheNavigation from "@/components/common/navigation/TheNavigation.vue";
 </script>
 
 <style scoped></style>
