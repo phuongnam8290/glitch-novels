@@ -1,6 +1,6 @@
 <template>
   <header
-    class="fixed top-0 right-0 flex h-20 w-full items-center justify-between bg-gray-bg-1 px-10 py-5"
+    class="fixed top-0 right-0 z-40 flex h-20 w-full items-center justify-between bg-gray-bg-1 px-10 py-5"
     ref="header"
   >
     <!--  Logo  -->
@@ -22,22 +22,13 @@
 </template>
 
 <script setup>
-import { useNavigationStore } from "@/stores/navigation";
-import { computed, ref, watch } from "vue";
+// import { useNavigationStore } from "@/stores/navigation";
+import { ref } from "vue";
+import useMoveRight from "@/composable/useMoveRight";
 
-const navigationStore = useNavigationStore();
-
-// Slide header to right base on state set in navigationStore
-const IS_SIDEBAR_OPEN = computed(() => navigationStore.IS_SIDEBAR_OPEN);
+// Slide header to right when sidebar open
 const header = ref(null);
-
-watch(IS_SIDEBAR_OPEN, (isOpen) => {
-  if (isOpen) {
-    header.value.classList.add("moveRight");
-  } else {
-    header.value.classList.remove("moveRight");
-  }
-});
+useMoveRight(header);
 </script>
 
 <style scoped>
@@ -51,10 +42,6 @@ header .logo {
 }
 
 /* Header style when sidebar open */
-header.moveRight {
-  width: calc(100% - 20rem);
-}
-
 header.moveRight .logo {
   margin-left: 0;
   opacity: 0;

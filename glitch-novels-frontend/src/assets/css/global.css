@@ -14,4 +14,8 @@
     font-weight: bold;
     font-size: 1.3rem;
   }
+
+  .moveRight {
+    width: calc(100% - 20rem);
+  }
 }
