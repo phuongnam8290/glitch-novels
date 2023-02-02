@@ -6,7 +6,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        serif: ["Proxima Nova", fontFamily.serif],
+        sans: ["Metropolis", fontFamily.sans],
       },
       colors: {
         "white-ink-1": "#EBE5DE",

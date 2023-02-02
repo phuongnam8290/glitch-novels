@@ -5,7 +5,7 @@ import router from "@/router";
 import App from "./App.vue";
 
 // import "@/index.css";
-import "@/assets/fonts/proxima-nova/proxima-nova-font.css";
+import "@/assets/fonts/metropolis/metropolis.css";
 import "@/assets/fonts/font-awesome/css/all.css";
 import "@/assets/fonts/font-awesome/css/sharp-solid.css";
 import "@/assets/css/global.css";

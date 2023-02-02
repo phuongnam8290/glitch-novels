@@ -99,6 +99,7 @@ import TheTag from "@/components/common/tag/TheTag.vue";
 .synopsis {
   grid-area: synopsis;
   mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 0.1) 100%);
+  scrollbar-gutter: stable;
 }
 
 .synopsis::-webkit-scrollbar {
