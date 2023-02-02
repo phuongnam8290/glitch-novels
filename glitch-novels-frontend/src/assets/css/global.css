@@ -4,8 +4,22 @@
 
 @layer base {
   body {
+    @apply text-white-ink-1;
     background: linear-gradient(rgba(10, 11, 11, 0.95), rgba(10, 11, 11, 0.95)),
       url(@/assets/images/common/background.png) fixed top left/cover no-repeat;
+  }
+
+  a {
+    @apply hover:text-gold-brand-1;
+    transition: all 0.25s ease-in-out;
+  }
+
+  p {
+    word-spacing: 2px;
+  }
+
+  p ~ p {
+    margin-top: 0.5rem;
   }
 }
 
@@ -13,6 +27,18 @@
   .title-text {
     font-weight: bold;
     font-size: 1.3rem;
+    line-height: calc(1.3rem * 1.3);
+  }
+
+  .subtitle-text {
+    font-weight: 100;
+    font-style: italic;
+    font-size: 0.8rem;
+    line-height: calc(0.8rem * 1.3);
+  }
+
+  .ratings {
+    @apply text-gold-brand-1;
   }
 
   .moveRight {
