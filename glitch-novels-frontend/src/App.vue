@@ -7,8 +7,6 @@
   >
     <router-view> </router-view>
   </div>
-  <div class="h-screen"></div>
-  <div class="h-screen"></div>
 </template>
 
 <script setup>

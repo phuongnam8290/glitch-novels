@@ -129,7 +129,7 @@ nav {
 
 nav {
   top: 0;
-  left: -16.5rem;
+  left: -13.75rem;
 }
 
 nav .sidebar-content {

@@ -1,5 +1,5 @@
 <template>
-  <div class="title-card grid h-[250px] max-w-[700px]">
+  <div class="title-card grid h-[250px]">
     <div class="cover">
       <img
         src="src/assets/images/titles/covers/01.png"
