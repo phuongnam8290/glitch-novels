@@ -7,13 +7,13 @@
         class="h-full w-full object-cover"
       />
     </div>
-    <h1 class="title overflow-hidden">
+    <h1 class="title inline-block overflow-hidden">
       <a
         href="#"
         class="title-text inline-block w-full truncate"
         ref="title"
       >
-        <span> Solo Leveling </span>
+        <span>Solo Leveling</span>
       </a>
     </h1>
     <h2 class="author overflow-hidden">
@@ -22,7 +22,7 @@
         class="subtitle-text inline-block w-full truncate"
         ref="author"
       >
-        <span> 추공 (Chugong) </span>
+        <span>추공 (Chugong)</span>
       </a>
     </h2>
     <div class="ratings self-center">
