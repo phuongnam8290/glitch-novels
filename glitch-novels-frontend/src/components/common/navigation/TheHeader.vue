@@ -24,7 +24,7 @@
 <script setup>
 // import { useNavigationStore } from "@/stores/navigation";
 import { ref } from "vue";
-import useMoveRight from "@/composable/useMoveRight";
+import { useMoveRight } from "@/composable/animations/move-right";
 
 // Slide header to right when sidebar open
 const header = ref(null);

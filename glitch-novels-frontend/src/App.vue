@@ -13,7 +13,7 @@
 
 <script setup>
 import { ref } from "vue";
-import useMoveRight from "@/composable/useMoveRight";
+import { useMoveRight } from "@/composable/animations/move-right";
 
 import TheNavigation from "@/components/common/navigation/TheNavigation.vue";
 
