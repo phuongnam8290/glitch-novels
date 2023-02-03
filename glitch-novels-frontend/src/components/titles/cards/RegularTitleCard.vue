@@ -38,17 +38,18 @@
         <i class="fa-regular fa-star-sharp"></i>
       </span>
     </div>
-    <div class="tags overflow-hidden">
-      <div class="flex space-x-4 py-4">
-        <the-tag>Action</the-tag>
-        <the-tag>Adventure</the-tag>
-        <the-tag>Weak to Strong</the-tag>
-        <the-tag>Game Element</the-tag>
-        <the-tag>Game Element</the-tag>
-        <the-tag>Game Element</the-tag>
-        <the-tag>Game Element</the-tag>
-      </div>
-    </div>
+    <scrollable-tags
+      :tags="[
+        'Action',
+        'Adventure',
+        'Weak to Strong',
+        'Game Element',
+        'Accelerated Growth',
+        'Gate to Another World',
+        'Hiding True Abilities',
+      ]"
+      class="tags py-4"
+    />
     <div class="synopsis overflow-y-hidden pb-10 pr-1 hover:overflow-y-scroll">
       <p>
         In this world where Hunters with various magical powers battle monsters from invading the defenceless humanity,
@@ -69,7 +70,7 @@
 <script setup>
 import { useStartMarquee, useStopMarquee } from "@/composable/animations/marquee";
 
-import TheTag from "@/components/common/tag/TheTag.vue";
+import ScrollableTags from "@/components/common/tag/ScrollableTags.vue";
 
 const startMarquee = (event, padding) => {
   useStartMarquee(event.currentTarget, padding);
