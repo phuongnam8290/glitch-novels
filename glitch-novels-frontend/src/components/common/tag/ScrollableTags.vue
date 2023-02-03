@@ -12,6 +12,10 @@
 
     <div
       class="tag-list flex space-x-4 overflow-x-scroll"
+      v-drag-scroll.x
+      @dragscrollstart="startDragging"
+      @dragscrollend="endDragging"
+      @click="handleCLickLink"
       ref="tagList"
     >
       <the-tag
@@ -38,6 +42,7 @@
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from "vue";
+import { dragscroll as vDragScroll } from "vue-dragscroll";
 
 import TheTag from "@/components/common/tag/TheTag.vue";
 
@@ -116,6 +121,25 @@ const scroll = (direction) => {
       left: scrollPosition + scrollWidth,
       behavior: "smooth",
     });
+  }
+};
+
+// Prevent click event after drag scroll
+let dragging = false;
+let timer = null;
+
+const startDragging = () => {
+  timer = setTimeout(() => (dragging = true), 100);
+};
+
+const endDragging = () => {
+  clearTimeout(timer);
+  setTimeout(() => (dragging = false), 10);
+};
+
+const handleCLickLink = (event) => {
+  if (dragging) {
+    event.preventDefault();
   }
 };
 </script>

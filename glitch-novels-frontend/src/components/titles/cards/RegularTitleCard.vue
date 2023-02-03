@@ -50,7 +50,10 @@
       ]"
       class="tags py-4"
     />
-    <div class="synopsis overflow-y-hidden pb-10 pr-1 hover:overflow-y-scroll">
+    <div
+      class="synopsis cursor-pointer overflow-y-hidden pb-10 pr-1 hover:overflow-y-scroll"
+      v-drag-scroll.y
+    >
       <p>
         In this world where Hunters with various magical powers battle monsters from invading the defenceless humanity,
         Seong Jin-Woo was the weakest of all the Hunters, barely able to make a living.
@@ -69,6 +72,7 @@
 
 <script setup>
 import { useStartMarquee, useStopMarquee } from "@/composable/animations/marquee";
+import { dragscroll as vDragScroll } from "vue-dragscroll";
 
 import ScrollableTags from "@/components/common/tag/ScrollableTags.vue";
 
