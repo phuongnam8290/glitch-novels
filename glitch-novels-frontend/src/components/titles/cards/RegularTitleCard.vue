@@ -12,8 +12,10 @@
         href="#"
         class="title-text inline-block w-full truncate"
         ref="title"
+        @mouseenter="startMarquee($event, 2)"
+        @mouseleave="stopMarquee"
       >
-        <span>Solo Leveling</span>
+        <span>Solo Leveling 123 123 123 123 123 123 123 123</span>
       </a>
     </h1>
     <h2 class="author overflow-hidden">
@@ -21,6 +23,8 @@
         href="#"
         class="subtitle-text inline-block w-full truncate"
         ref="author"
+        @mouseenter="startMarquee($event, 2)"
+        @mouseleave="stopMarquee"
       >
         <span>추공 (Chugong)</span>
       </a>
@@ -63,7 +67,17 @@
 </template>
 
 <script setup>
+import { useStartMarquee, useStopMarquee } from "@/composable/animations/marquee";
+
 import TheTag from "@/components/common/tag/TheTag.vue";
+
+const startMarquee = (event, padding) => {
+  useStartMarquee(event.currentTarget, padding);
+};
+
+const stopMarquee = (event) => {
+  useStopMarquee(event.currentTarget);
+};
 </script>
 
 <style scoped>
