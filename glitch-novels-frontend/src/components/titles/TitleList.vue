@@ -1,5 +1,5 @@
 <template>
-  <div class="columns-1 gap-14 space-y-14 xl:columns-2">
+  <div class="grid grid-cols-1 gap-10 xl:grid-cols-2">
     <regular-title-card
       v-for="i in 10"
       :key="i"
