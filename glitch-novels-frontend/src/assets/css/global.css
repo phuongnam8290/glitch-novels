@@ -51,5 +51,6 @@
 
   .moveRight {
     width: calc(100% - 20rem);
+    left: 20rem;
   }
 }

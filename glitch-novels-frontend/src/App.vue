@@ -1,11 +1,15 @@
 <template>
-  <the-navigation />
-
   <div
-    class="view absolute top-20 right-0 w-full"
-    ref="view"
+    class="wrapper relative left-0 flex min-h-screen w-full flex-col justify-between"
+    ref="wrapper"
   >
-    <router-view> </router-view>
+    <the-navigation />
+
+    <main class="pt-20">
+      <router-view> </router-view>
+    </main>
+
+    <the-footer />
   </div>
 </template>
 
@@ -14,13 +18,15 @@ import { ref } from "vue";
 import { useMoveRight } from "@/composable/animations/move-right";
 
 import TheNavigation from "@/components/common/navigation/TheNavigation.vue";
+import TheFooter from "@/components/common/navigation/TheFooter.vue";
 
-const view = ref(null);
-useMoveRight(view);
+const wrapper = ref(null);
+
+useMoveRight(wrapper);
 </script>
 
 <style scoped>
-.view {
+.wrapper {
   transition: all 0.25s ease-in-out;
 }
 </style>

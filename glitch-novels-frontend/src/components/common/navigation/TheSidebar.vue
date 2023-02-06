@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="fixed z-40 h-full w-[20rem]"
+    class="z-40 h-full w-[20rem]"
     ref="nav"
   >
     <!--  Toggle button  -->
@@ -125,11 +125,6 @@ watch(IS_SIDEBAR_OPEN, (isOpen) => {
 /* Sidebar position */
 nav {
   transition: all 0.25s ease-in-out;
-}
-
-nav {
-  top: 0;
-  left: -13.75rem;
 }
 
 nav .sidebar-content {
