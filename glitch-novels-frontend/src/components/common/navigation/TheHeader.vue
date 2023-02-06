@@ -1,6 +1,6 @@
 <template>
   <header
-    class="z-40 flex h-20 w-full items-center justify-between bg-gray-bg-1 px-20 py-5"
+    class="z-50 flex h-20 w-full items-center justify-between bg-gray-bg-1 px-20 py-5"
     ref="header"
   >
     <!--  Logo  -->

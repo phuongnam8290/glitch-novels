@@ -1,7 +1,7 @@
 <template>
   <div class="relative">
     <div
-      class="left-arrow absolute top-0 left-0 z-50 flex hidden h-full cursor-pointer items-center hover:text-gold-brand-1"
+      class="left-arrow absolute top-0 left-0 z-10 flex hidden h-full cursor-pointer items-center hover:text-gold-brand-1"
       ref="leftArrow"
       @click="scroll('left')"
     >
@@ -29,7 +29,7 @@
     </div>
 
     <div
-      class="right-arrow absolute top-0 right-0 z-50 flex hidden h-full cursor-pointer items-center hover:text-gold-brand-1"
+      class="right-arrow absolute top-0 right-0 z-10 flex hidden h-full cursor-pointer items-center hover:text-gold-brand-1"
       ref="rightArrow"
       @click="scroll('right')"
     >

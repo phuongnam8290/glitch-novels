@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="z-40 h-full w-[20rem]"
+    class="z-50 h-full w-[20rem]"
     ref="nav"
   >
     <!--  Toggle button  -->
