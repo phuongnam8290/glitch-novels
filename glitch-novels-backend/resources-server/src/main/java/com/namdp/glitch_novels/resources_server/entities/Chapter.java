@@ -1,0 +1,49 @@
+package com.namdp.glitch_novels.resources_server.entities;
+
+import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.Hibernate;
+
+import java.time.LocalDateTime;
+import java.util.Objects;
+
+@Entity
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
+@Builder
+public class Chapter {
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private int id;
+
+  @Column(name = "chapter_number")
+  private double number;
+
+  @Column(name = "chapter_name")
+  private String name;
+
+  @Column(name = "content")
+  private String content;
+
+  @Column(name = "created_date")
+  private LocalDateTime createdDate;
+
+  @ManyToOne
+  @JoinColumn(name = "novel_id")
+  private Novel novel;
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+    Chapter chapter = (Chapter) o;
+    return Objects.equals(id, chapter.id);
+  }
+
+  @Override
+  public int hashCode() {
+    return getClass().hashCode();
+  }
+}
