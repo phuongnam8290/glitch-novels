@@ -1,5 +1,7 @@
 package com.namdp.glitch_novels.resources_server.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Hibernate;
@@ -12,12 +14,14 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
+
 public class Novel {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
+  private Integer id;
 
   @Column(name = "novel_title")
   private String title;
@@ -34,14 +38,17 @@ public class Novel {
   @Column(name = "last_update_date")
   private LocalDateTime lastUpdateDate;
 
+  @JsonBackReference // Prevent circular reference when serialized.
   @ManyToOne
   @JoinColumn(name = "author_id")
   private Author author;
 
+  @JsonManagedReference // Prevent circular reference when serialized.
   @OneToMany(mappedBy = "novel")
   @ToString.Exclude
   private List<Chapter> chapters;
 
+  @JsonManagedReference // Prevent circular reference when serialized.
   @ManyToMany
   @JoinTable(
       name = "novel_has_genre",
@@ -56,7 +63,7 @@ public class Novel {
     if (this == o) return true;
     if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
     Novel novel = (Novel) o;
-    return Objects.equals(id, novel.id);
+    return id != null && Objects.equals(id, novel.id);
   }
 
   @Override
