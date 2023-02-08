@@ -2,7 +2,7 @@
   <div class="title-card grid h-[250px]">
     <div class="cover">
       <img
-        src="src/assets/images/titles/covers/01.png"
+        :src="title.coverUrl"
         alt="Title cover"
         class="h-full w-full object-cover"
       />
@@ -15,7 +15,7 @@
         @mouseenter="startMarquee($event, 2)"
         @mouseleave="stopMarquee"
       >
-        <span>Solo Leveling 123 123 123 123 123 123 123 123</span>
+        <span>{{ title.title }}</span>
       </a>
     </h1>
     <h2 class="author overflow-hidden">
@@ -26,7 +26,7 @@
         @mouseenter="startMarquee($event, 2)"
         @mouseleave="stopMarquee"
       >
-        <span>추공 (Chugong)</span>
+        <span>{{ title.author.name }}</span>
       </a>
     </h2>
     <div class="ratings self-center">
@@ -39,33 +39,14 @@
       </span>
     </div>
     <scrollable-tags
-      :tags="[
-        'Action',
-        'Adventure',
-        'Weak to Strong',
-        'Game Element',
-        'Accelerated Growth',
-        'Gate to Another World',
-        'Hiding True Abilities',
-      ]"
+      :tags="title.genres"
       class="tags py-4"
     />
     <div
-      class="synopsis cursor-pointer overflow-y-hidden pb-10 pr-1 hover:overflow-y-scroll"
+      class="synopsis cursor-pointer overflow-y-hidden pb-10 pr-4 hover:overflow-y-scroll"
       v-drag-scroll.y
+      v-html="title.description"
     >
-      <p>
-        In this world where Hunters with various magical powers battle monsters from invading the defenceless humanity,
-        Seong Jin-Woo was the weakest of all the Hunters, barely able to make a living.
-      </p>
-      <p>
-        However, a mysterious System grants him the power of the ‘Player’, setting him on a course for an incredible and
-        often times perilous Journey.
-      </p>
-      <p>
-        Follow Sang Jin-Woo as he embarks on an adventure to become an unparalleled existence through his “Level-Up”
-        system - the only one in the entire world!
-      </p>
     </div>
   </div>
 </template>
@@ -75,6 +56,13 @@ import { useStartMarquee, useStopMarquee } from "@/composable/animations/marquee
 import { dragscroll as vDragScroll } from "vue-dragscroll";
 
 import ScrollableTags from "@/components/common/tag/ScrollableTags.vue";
+
+defineProps({
+  title: {
+    required: true,
+    type: Object,
+  },
+});
 
 const startMarquee = (event, padding) => {
   useStartMarquee(event.currentTarget, padding);
@@ -124,7 +112,7 @@ const stopMarquee = (event) => {
 }
 
 .synopsis::-webkit-scrollbar {
-  width: 5px;
+  width: 3px;
   background: transparent;
 }
 

@@ -1,7 +1,8 @@
 package com.namdp.glitch_novels.resources_server.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Hibernate;
@@ -17,7 +18,10 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-
+@JsonIdentityInfo(
+    generator = ObjectIdGenerators.PropertyGenerator.class,
+    property = "id"
+)
 public class Novel {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,7 +42,7 @@ public class Novel {
   @Column(name = "last_update_date")
   private LocalDateTime lastUpdateDate;
 
-  @JsonBackReference // Prevent circular reference when serialized.
+  //  @JsonBackReference // Prevent circular reference when serialized.
   @ManyToOne
   @JoinColumn(name = "author_id")
   private Author author;
