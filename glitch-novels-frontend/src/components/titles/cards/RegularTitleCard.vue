@@ -52,6 +52,8 @@
 </template>
 
 <script setup>
+import { array, number, object, string } from "yup";
+
 import { useStartMarquee, useStopMarquee } from "@/composable/animations/marquee";
 import { dragscroll as vDragScroll } from "vue-dragscroll";
 
@@ -61,6 +63,36 @@ defineProps({
   title: {
     required: true,
     type: Object,
+    validator(value) {
+      // Define title's schema.
+      const schema = object({
+        id: number().required().positive(),
+        title: string().required(),
+        coverUrl: string().required().url(),
+        description: string().required(),
+        author: object({
+          id: number().required(),
+          name: string().required(),
+        }),
+        genres: array().of(
+          object({
+            id: number().required(),
+            name: string().required(),
+            description: string().required(),
+          })
+        ),
+      });
+
+      // Validate the title's structure against the schema. Print validate errors, if any.
+      try {
+        schema.validateSync(value);
+      } catch (error) {
+        console.warn(error.errors);
+        return false;
+      }
+
+      return true;
+    },
   },
 });
 
