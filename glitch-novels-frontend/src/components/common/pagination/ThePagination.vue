@@ -14,7 +14,7 @@
       </pagination-number>
     </li>
     <li v-if="pageList[0] > 2">
-      <pagination-ellipsis />
+      <pagination-ellipsis @change-page="(page) => $emit('changePage', page)" />
     </li>
 
     <li
@@ -30,7 +30,7 @@
     </li>
 
     <li v-if="pageList[pageList.length - 1] < totalPages - 1">
-      <pagination-ellipsis />
+      <pagination-ellipsis @change-page="(page) => $emit('changePage', page)" />
     </li>
     <li v-if="!(totalPages === 1)">
       <pagination-number

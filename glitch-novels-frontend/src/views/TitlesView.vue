@@ -33,10 +33,11 @@ const CURRENT_TITLES = computed(() => titlesStore.CURRENT_TITLES);
 const TOTAL_PAGES = computed(() => titlesStore.TOTAL_PAGES);
 const CURRENT_PAGE = computed(() => titlesStore.CURRENT_PAGE);
 
+// Handle change page event.
 const changePage = (page) => {
   titlesStore.CHANGE_PAGE(page);
 
-  // Scroll to top when load new batch of titles.
+  // Scroll to top after load new batch of titles.
   window.scrollTo({
     top: 150,
     behavior: "smooth",

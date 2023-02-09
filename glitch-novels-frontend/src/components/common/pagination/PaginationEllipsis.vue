@@ -21,7 +21,8 @@
 
 <script setup>
 import { nextTick, ref } from "vue";
-import { useTitlesStore } from "@/stores/titles";
+
+const emit = defineEmits(["changePage"]);
 
 const input = ref(null);
 const isInputVisible = ref(false);
@@ -62,19 +63,10 @@ const changeWidth = (event) => {
   event.currentTarget.style.width = `${event.currentTarget.value.length + 2}ch `;
 };
 
-// Change page when input lost focus or when enter
-const titlesStore = useTitlesStore();
-const CHANGE_PAGE = titlesStore.CHANGE_PAGE;
-
+// Emit change page event when input lost focus or when enter key pressed.
 const confirmInput = (event) => {
   isInputVisible.value = false;
-  CHANGE_PAGE(event.currentTarget.value);
-
-  // Scroll to top when load new batch of titles.
-  window.scrollTo({
-    top: 150,
-    behavior: "smooth",
-  });
+  emit("changePage", event.currentTarget.value);
 };
 </script>
 
