@@ -1,12 +1,17 @@
 <template>
   <ul class="flex justify-center space-x-2">
-    <li>
-      <pagination-step>
+    <li v-if="currentPage !== 1">
+      <pagination-step @click="$emit('changePage', currentPage - 1)">
         <i class="fa-sharp fa-solid fa-backward"></i>
       </pagination-step>
     </li>
     <li>
-      <pagination-number :class="setActiveClass(1)"> 1 </pagination-number>
+      <pagination-number
+        :class="setActiveClass(1)"
+        @click="$emit('changePage', 1)"
+      >
+        1
+      </pagination-number>
     </li>
     <li v-if="pageList[0] > 2">
       <pagination-ellipsis />
@@ -16,17 +21,27 @@
       v-for="page in pageList"
       :key="page"
     >
-      <pagination-number :class="setActiveClass(page)">{{ page }}</pagination-number>
+      <pagination-number
+        :class="setActiveClass(page)"
+        @click="$emit('changePage', page)"
+      >
+        {{ page }}
+      </pagination-number>
     </li>
 
-    <li v-if="pageList[pageList.length - 1] < pages - 1">
+    <li v-if="pageList[pageList.length - 1] < totalPages - 1">
       <pagination-ellipsis />
     </li>
-    <li v-if="!(pages === 1)">
-      <pagination-number :class="setActiveClass(pages)"> {{ pages }} </pagination-number>
+    <li v-if="!(totalPages === 1)">
+      <pagination-number
+        :class="setActiveClass(totalPages)"
+        @click="$emit('changePage', totalPages)"
+      >
+        {{ totalPages }}
+      </pagination-number>
     </li>
-    <li>
-      <pagination-step>
+    <li v-if="currentPage !== totalPages">
+      <pagination-step @click="$emit('changePage', currentPage + 1)">
         <i class="fa-sharp fa-solid fa-forward"></i>
       </pagination-step>
     </li>
@@ -41,22 +56,20 @@ import PaginationEllipsis from "@/components/common/pagination/PaginationEllipsi
 import PaginationStep from "@/components/common/pagination/PaginationStep.vue";
 
 const props = defineProps({
-  pages: {
+  totalPages: {
     type: Number,
     required: true,
-    default: 15,
   },
   currentPage: {
     type: Number,
-    required: false,
-    default: 9,
+    required: true,
   },
 
   // Number of page items in each side of current (exclude first, last, ellipsis)
   offset: {
     type: Number,
     required: false,
-    default: 2,
+    default: 1,
   },
 });
 
@@ -73,7 +86,7 @@ const pageList = computed(() => {
 
   for (let i = 1; i <= props.offset; i++) {
     const page = props.currentPage + i;
-    if (page < props.pages) {
+    if (page < props.totalPages) {
       pushPageToList(page, pageList);
     }
   }
@@ -82,7 +95,7 @@ const pageList = computed(() => {
 });
 
 const pushPageToList = (page, pageList) => {
-  if (page <= 1 || page >= props.pages) {
+  if (page <= 1 || page >= props.totalPages) {
     return;
   }
 

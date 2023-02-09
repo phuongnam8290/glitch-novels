@@ -6,6 +6,8 @@ export const useTitlesStore = defineStore("titles", {
     return {
       total: 0,
       titles: [],
+      currentPage: 1,
+      titlesPerPage: Number.parseInt(import.meta.env.VITE_TITLES_PER_PAGE),
     };
   },
   actions: {
@@ -16,13 +18,39 @@ export const useTitlesStore = defineStore("titles", {
       this.total = response.data.total;
       this.titles = response.data.titles;
     },
+    CHANGE_PAGE(page) {
+      console.log(page);
+      // Convert page parameter to Integer, prevent String concatenation.
+      page = Number.parseInt(page);
+
+      // If cannot convert page parameter, do nothing.
+      if (!Number.isInteger(page)) {
+        return;
+      }
+
+      // Page parameter must be between the boundary of 1 and max page. If not, assign to its the nearest valid value.
+      if (page > this.TOTAL_PAGES) {
+        page = this.TOTAL_PAGES;
+      }
+      if (page < 1) {
+        page = 1;
+      }
+
+      this.currentPage = page;
+    },
   },
   getters: {
-    ALL_TITLES(state) {
-      return state.titles;
+    CURRENT_TITLES(state) {
+      const startTitleIndex = (state.currentPage - 1) * state.titlesPerPage;
+      const endTitleIndex = startTitleIndex + state.titlesPerPage;
+
+      return state.titles.slice(startTitleIndex, endTitleIndex);
     },
-    TOTAL_TITLES(state) {
-      return state.total;
+    TOTAL_PAGES(state) {
+      return Math.ceil(state.total / state.titlesPerPage);
+    },
+    CURRENT_PAGE(state) {
+      return state.currentPage;
     },
   },
 });

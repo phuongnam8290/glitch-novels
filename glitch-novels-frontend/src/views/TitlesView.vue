@@ -7,11 +7,15 @@
   </header>
 
   <section class="mx-20 my-16 space-y-10">
-    <title-list :titles="ALL_TITLES" />
+    <title-list :titles="CURRENT_TITLES" />
   </section>
 
   <section class="mx-20 my-16 space-y-10">
-    <the-pagination />
+    <the-pagination
+      :total-pages="TOTAL_PAGES"
+      :current-page="CURRENT_PAGE"
+      @changePage="changePage"
+    />
   </section>
 </template>
 
@@ -25,5 +29,17 @@ import ThePagination from "@/components/common/pagination/ThePagination.vue";
 const titlesStore = useTitlesStore();
 onMounted(titlesStore.FETCH_TITLES);
 
-const ALL_TITLES = computed(() => titlesStore.ALL_TITLES);
+const CURRENT_TITLES = computed(() => titlesStore.CURRENT_TITLES);
+const TOTAL_PAGES = computed(() => titlesStore.TOTAL_PAGES);
+const CURRENT_PAGE = computed(() => titlesStore.CURRENT_PAGE);
+
+const changePage = (page) => {
+  titlesStore.CHANGE_PAGE(page);
+
+  // Scroll to top when load new batch of titles.
+  window.scrollTo({
+    top: 150,
+    behavior: "smooth",
+  });
+};
 </script>

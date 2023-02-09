@@ -39,6 +39,7 @@
       </span>
     </div>
     <scrollable-tags
+      v-if="title.genres.length > 0"
       :tags="title.genres"
       class="tags py-4"
     />

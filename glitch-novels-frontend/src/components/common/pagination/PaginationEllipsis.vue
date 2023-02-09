@@ -14,13 +14,14 @@
       v-else
       @keydown="handleKeyPress"
       @input="changeWidth"
-      @blur="isInputVisible = false"
+      @blur="confirmInput"
     />
   </div>
 </template>
 
 <script setup>
 import { nextTick, ref } from "vue";
+import { useTitlesStore } from "@/stores/titles";
 
 const input = ref(null);
 const isInputVisible = ref(false);
@@ -37,10 +38,9 @@ const showInput = async () => {
 const handleKeyPress = (event) => {
   const charCode = event.which ? event.which : event.keyCode;
 
-  // CharCode 13 is enter key.
+  // CharCode 13 is enter key. Emit event with current input's value.
   if (charCode === 13) {
-    // TODO: Change page on enter keypress
-    console.log("Enter key press!");
+    confirmInput(event);
     return;
   }
 
@@ -60,6 +60,21 @@ const handleKeyPress = (event) => {
 // Change the input width when its value changed.
 const changeWidth = (event) => {
   event.currentTarget.style.width = `${event.currentTarget.value.length + 2}ch `;
+};
+
+// Change page when input lost focus or when enter
+const titlesStore = useTitlesStore();
+const CHANGE_PAGE = titlesStore.CHANGE_PAGE;
+
+const confirmInput = (event) => {
+  isInputVisible.value = false;
+  CHANGE_PAGE(event.currentTarget.value);
+
+  // Scroll to top when load new batch of titles.
+  window.scrollTo({
+    top: 150,
+    behavior: "smooth",
+  });
 };
 </script>
 

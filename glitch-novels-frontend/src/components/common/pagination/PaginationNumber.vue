@@ -1,10 +1,9 @@
 <template>
-  <a
+  <button
     class="pagination-item inline-block min-w-[3.5rem] border border-2 border-white-ink-1 py-2 px-3 text-center font-bold"
-    href="#"
   >
     <slot>1</slot>
-  </a>
+  </button>
 </template>
 
 <script setup></script>
