@@ -1,7 +1,6 @@
 package com.namdp.glitch_novels.resources_server.entities;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Hibernate;
@@ -16,10 +15,6 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@JsonIdentityInfo(
-    generator = ObjectIdGenerators.PropertyGenerator.class,
-    property = "id"
-)
 public class Author {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +23,8 @@ public class Author {
   @Column(name = "author_name")
   private String name;
 
-  //  @JsonManagedReference // Prevent circular reference when serialized.
+  // Prevent circular reference when serialized. Doing this will prevent reference back to the list of novels.
+  @JsonBackReference
   @OneToMany(mappedBy = "author")
   @ToString.Exclude
   List<Novel> novels;
