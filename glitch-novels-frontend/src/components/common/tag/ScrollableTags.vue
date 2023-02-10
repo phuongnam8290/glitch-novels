@@ -1,6 +1,6 @@
 <template>
   <div class="relative">
-    <div
+    <button
       class="left-arrow absolute top-0 left-0 z-10 flex hidden h-full cursor-pointer items-center hover:text-gold-brand-1"
       ref="leftArrow"
       @click="scroll('left')"
@@ -8,7 +8,7 @@
       <span>
         <i class="fa-sharp fa-solid fa-chevrons-left"></i>
       </span>
-    </div>
+    </button>
 
     <div
       class="tag-list flex space-x-4 overflow-x-scroll"
@@ -28,7 +28,7 @@
       </the-tag>
     </div>
 
-    <div
+    <button
       class="right-arrow absolute top-0 right-0 z-10 flex hidden h-full cursor-pointer items-center hover:text-gold-brand-1"
       ref="rightArrow"
       @click="scroll('right')"
@@ -36,12 +36,12 @@
       <span>
         <i class="fa-sharp fa-solid fa-chevrons-right"></i>
       </span>
-    </div>
+    </button>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from "vue";
+import { ref, onMounted, onBeforeUnmount, onUpdated } from "vue";
 import { dragscroll as vDragScroll } from "vue-dragscroll";
 
 import TheTag from "@/components/common/tag/TheTag.vue";
@@ -84,7 +84,7 @@ const toggleArrowIcons = (entries) => {
   }
 };
 
-// Create an intersection observer on mounted, then remove it on unmounted.
+// Create an intersection observer on mounted.
 let intersectionObserver = null;
 onMounted(() => {
   let options = {
@@ -93,13 +93,25 @@ onMounted(() => {
   };
 
   intersectionObserver = new IntersectionObserver(toggleArrowIcons, options);
+
+  // Add first and last tags to intersection observer.
+  intersectionObserver.observe(tagList.value.querySelector(".start"));
+  intersectionObserver.observe(tagList.value.querySelector(".end"));
+});
+
+// When the component is updated, it could have removed observed tags. To avoid this, remove them from the intersection
+// observer and add the first and last tags again.
+onUpdated(() => {
+  // Remove all observed tags.
+  intersectionObserver.disconnect();
+
+  // Add the first and last tags again.
   intersectionObserver.observe(tagList.value.querySelector(".start"));
   intersectionObserver.observe(tagList.value.querySelector(".end"));
 });
 
 onBeforeUnmount(() => {
-  intersectionObserver.unobserve(tagList.value.querySelector(".start"));
-  intersectionObserver.unobserve(tagList.value.querySelector(".end"));
+  intersectionObserver.disconnect();
 });
 
 // Scroll when clicking the arrow icons.

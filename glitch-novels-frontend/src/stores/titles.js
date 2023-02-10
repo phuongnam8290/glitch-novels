@@ -19,7 +19,6 @@ export const useTitlesStore = defineStore("titles", {
       this.titles = response.data.titles;
     },
     CHANGE_PAGE(page) {
-      console.log(page);
       // Convert page parameter to Integer, prevent String concatenation.
       page = Number.parseInt(page);
 
