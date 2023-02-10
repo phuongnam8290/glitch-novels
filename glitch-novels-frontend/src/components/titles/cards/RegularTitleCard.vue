@@ -1,5 +1,5 @@
 <template>
-  <div class="title-card grid h-[250px]">
+  <div class="title-card grid h-[275px] bg-gray-bg-1 p-3">
     <div class="cover">
       <img
         :src="title.coverUrl"

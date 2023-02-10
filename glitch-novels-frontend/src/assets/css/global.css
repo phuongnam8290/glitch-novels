@@ -5,7 +5,7 @@
 @layer base {
   body {
     @apply text-white-ink-1;
-    background: linear-gradient(rgba(10, 11, 11, 0.95), rgba(10, 11, 11, 0.95)),
+    background: linear-gradient(rgba(10, 11, 11, 0.9), rgba(10, 11, 11, 0.9)),
       url(@/assets/images/common/background.png) fixed top left/cover no-repeat;
     min-height: 100vh;
   }

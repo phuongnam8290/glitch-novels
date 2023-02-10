@@ -22,13 +22,30 @@
 </template>
 
 <script setup>
-// import { useNavigationStore } from "@/stores/navigation";
-import { ref } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 import { useMoveRight } from "@/composable/animations/move-right";
 
 // Slide header to right when sidebar open
 const header = ref(null);
 useMoveRight(header);
+
+// Show/hide the header border base on its position.
+const toggleHeaderDivider = () => {
+  // If scrolling more than the header's height, show the border.
+  if (window.scrollY >= header.value.offsetHeight) {
+    header.value.classList.add("border-b-2", "border-gold-brand-2");
+  } else {
+    header.value.classList.remove("border-b-2", "border-gold-brand-2");
+  }
+};
+
+onMounted(() => {
+  document.addEventListener("scroll", toggleHeaderDivider);
+});
+
+onUnmounted(() => {
+  document.removeEventListener("scroll", toggleHeaderDivider);
+});
 </script>
 
 <style scoped>
