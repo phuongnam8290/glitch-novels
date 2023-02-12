@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import HomeView from "@/views/HomeView.vue";
 import TitlesView from "@/views/TitlesView.vue";
+import DetailsView from "@/views/DetailsView.vue";
 
 const routes = [
   {
@@ -12,6 +13,11 @@ const routes = [
     path: "/titles",
     name: "Titles",
     component: TitlesView,
+  },
+  {
+    path: "/title",
+    name: "Details",
+    component: DetailsView,
   },
 ];
 

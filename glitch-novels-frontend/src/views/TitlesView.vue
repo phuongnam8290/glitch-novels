@@ -1,16 +1,14 @@
 <template>
-  <header class="my-16 mx-20">
-    <h1 class="section-header flex items-center">
-      <span class="mr-4"><i class="fa-sharp fa-solid fa-magnifying-glass"></i></span>
-      Advanced Search
-    </h1>
-  </header>
+  <h1 class="section-header mt-16 flex items-center">
+    <span class="mr-4"><i class="fa-sharp fa-solid fa-magnifying-glass"></i></span>
+    Advanced Search
+  </h1>
 
-  <section class="mx-20 my-16 space-y-10">
+  <section>
     <title-list :titles="CURRENT_TITLES" />
   </section>
 
-  <section class="mx-20 my-16 space-y-10">
+  <section>
     <the-pagination
       :total-pages="TOTAL_PAGES"
       :current-page="CURRENT_PAGE"
