@@ -96,47 +96,62 @@
           </aside>
         </div>
       </div>
-      <div class="genres space-y-4 bg-gray-bg-1 p-4">
-        <h2 class="title-text">Genres</h2>
-        <div class="flex flex-wrap gap-4">
-          <the-tag
-            v-for="genre in genres"
-            :key="genre"
+
+      <collapsable-section
+        :collapsed-height="genresCollapsedHeight"
+        :expand-text="genresExpandText"
+        class="genres"
+      >
+        <template #title>
+          <h2 class="title-text"> Genres </h2>
+        </template>
+
+        <template #content>
+          <ul
+            class="flex flex-wrap gap-4"
+            ref="genreList"
           >
-            {{ genre }}
-          </the-tag>
-        </div>
-      </div>
-      <div class="tags space-y-4 bg-gray-bg-1 p-4">
-        <h2 class="title-text"> Tags </h2>
-        <ul
-          class="tag-list flex flex-wrap gap-4"
-          ref="tagList"
-        >
-          <li
-            v-for="tag in tags"
-            :key="tag"
+            <li
+              v-for="genre in genres"
+              :key="genre"
+            >
+              <the-tag> {{ genre }} </the-tag>
+            </li>
+          </ul>
+        </template>
+      </collapsable-section>
+
+      <collapsable-section
+        :collapsed-height="tagsCollapsedHeight"
+        :expand-text="tagsExpandText"
+        class="tags"
+      >
+        <template #title>
+          <h2 class="title-text"> Tags </h2>
+        </template>
+
+        <template #content>
+          <ul
+            class="flex flex-wrap gap-4"
+            ref="tagList"
           >
-            <the-tag> {{ tag }} </the-tag>
-          </li>
-        </ul>
-        <button
-          class="expand-btn flex w-full justify-center"
-          ref="expandBtn"
-          @click="toggleExpand"
-        >
-          <span> {{ toggleText }} </span>
-          <span class="ml-2">
-            <i class="fa-solid fa-chevrons-down fa-xs"></i>
-          </span>
-        </button>
-      </div>
+            <li
+              v-for="tag in tags"
+              :key="tag"
+            >
+              <the-tag> {{ tag }} </the-tag>
+            </li>
+          </ul>
+        </template>
+      </collapsable-section>
     </div>
   </div>
 </template>
 
 <script setup>
 import { onMounted, ref } from "vue";
+
+import CollapsableSection from "@/components/common/CollapsableSection.vue";
 import TheTag from "@/components/common/tag/TheTag.vue";
 
 const genres = ref(["Action", "Adventure", "Drama", "Fantasy", "Mystery", "Shounen", "Supernatural"]);
@@ -182,58 +197,34 @@ const tags = ref([
 ]);
 
 const tagList = ref(null);
-const expandBtn = ref(null);
+const tagsExpandText = ref("");
+const tagsCollapsedHeight = 85;
 
-const toggleText = ref("");
-let toggleExpandText = "";
-let toggleCollapseText = "Show less";
+const genreList = ref(null);
+const genresExpandText = ref("");
+const genresCollapsedHeight = 85;
 
 onMounted(() => {
-  const maxHeight = 80;
-  const scrollHeight = tagList.value.scrollHeight;
-
-  // If the content is longer than the pre-defined height, set up styles. If not, remove unnecessary elements.
-  if (scrollHeight > maxHeight) {
-    // Set css variables to hide overflowed content.
-    tagList.value.style.setProperty("--scroll-height", `${scrollHeight}px`);
-    tagList.value.style.setProperty("--collapsed-height", `${maxHeight}px`);
-
-    // Add class to signify that the content is collapsed.
-    tagList.value.classList.add("collapsed");
-
-    // Set expand prompt text with the number of hidden tags.
-    toggleExpandText = `Show ${countHiddenTags()} more tags`;
-
-    // Set initial value for toggle prompt text.
-    toggleText.value = toggleExpandText;
-  } else {
-    expandBtn.value.remove();
-  }
+  genresExpandText.value = `Show ${countHiddenChildren(genreList.value, tagsCollapsedHeight)} more genres`;
+  tagsExpandText.value = `Show ${countHiddenChildren(tagList.value, tagsCollapsedHeight)} more tags`;
 });
 
-// Count the number of overflowed tags.
-const countHiddenTags = () => {
-  const tags = [...tagList.value.children];
-  let hiddenTags = 0;
+// Count the number of overflowed children. collapsedHeight is the height of the container that applied overflow-hidden.
+const countHiddenChildren = (parent, collapsedHeight = parent.clientHeight) => {
+  if (!parent) {
+    return;
+  }
 
-  tags.forEach((tag) => {
-    isHidden(tagList.value, tag) ? hiddenTags++ : null;
+  const children = [...parent.children];
+  let hiddenChildren = 0;
+
+  children.forEach((child) => {
+    // If the child is vertically overflowed, then the top position of it will be lower than the container's bottom
+    // position, which signifies by the collapsedHeight attribute.
+    child.offsetTop >= collapsedHeight ? hiddenChildren++ : null;
   });
 
-  return hiddenTags;
-};
-
-// Check if the child element is hidden (overflowed) from the parent element. Only use with vertical overflow.
-const isHidden = (parent, child) => {
-  // If the child is vertically overflowed, then the top position of it will be lower than the parent's bottom position,
-  // which signifies by the clientHeight attribute.
-  return child.offsetTop >= parent.clientHeight;
-};
-
-// Handle expand button click event.
-const toggleExpand = () => {
-  tagList.value.classList.toggle("collapsed");
-  toggleText.value = tagList.value.classList.contains("collapsed") ? toggleExpandText : toggleCollapseText;
+  return hiddenChildren;
 };
 </script>
 
@@ -275,23 +266,6 @@ const toggleExpand = () => {
 }
 
 .tags {
-  position: relative;
   grid-area: tags;
-}
-
-.tag-list {
-  position: relative;
-  overflow: hidden;
-  max-height: var(--scroll-height);
-  transition: all 0.25s ease-in-out;
-}
-
-.tag-list.collapsed {
-  max-height: var(--collapsed-height);
-  transition: all 0.25s ease-in-out;
-}
-
-.tag-list:not(.collapsed) + .expand-btn i {
-  transform: rotate(180deg);
 }
 </style>
