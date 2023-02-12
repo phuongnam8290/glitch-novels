@@ -16,7 +16,7 @@
     <!--  End of toggle button  -->
 
     <!--  Sidebar  -->
-    <div class="title-text sidebar-content h-full bg-gray-bg-1 px-10 pt-5 text-white-ink-1">
+    <div class="title-text sidebar-content h-full bg-gray-bg-2 px-10 pt-5 text-white-ink-1">
       <!--  Logo  -->
       <img
         class="logo mt-0.5 max-h-9"

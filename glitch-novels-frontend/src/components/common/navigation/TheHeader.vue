@@ -1,6 +1,6 @@
 <template>
   <header
-    class="z-50 flex h-20 w-full items-center justify-between bg-gray-bg-1 px-20 py-5"
+    class="z-50 flex h-20 w-full items-center justify-between bg-gray-bg-2 px-20 py-5"
     ref="header"
   >
     <!--  Logo  -->
@@ -13,7 +13,7 @@
 
     <!--  Search bar  -->
     <input
-      class="h-fit w-[30rem] border border-white-ink-1 bg-gray-bg-1 px-4 py-1.5 text-white-ink-1 focus:border-gold-brand-1 focus:outline-0"
+      class="h-fit w-[30rem] border border-white-ink-1 bg-gray-bg-2 px-4 py-1.5 text-white-ink-1 focus:border-gold-brand-1 focus:outline-0"
       style="font-family: 'Metropolis', FontAwesome, serif"
       type="text"
       placeholder="&#xF002; Search for anything"

@@ -1,6 +1,6 @@
 <template>
   <div class="details mt-16 flex items-start gap-x-6">
-    <div class="left-col sticky top-36 flex flex-col bg-gray-bg-1">
+    <div class="left-col sticky top-36 flex flex-col bg-gray-bg-1/80">
       <div class="cover px-3 pt-3">
         <img
           src="https://res.cloudinary.com/dy9vrfexa/image/upload/v1675824419/glitch-novels/covers/01_t3nmts.jpg"
@@ -31,7 +31,7 @@
         <h1 class="title size font-bold"> The Lady and the Beast </h1>
         <a href="#"> Chugong </a>
       </div>
-      <div class="synopsis space-y-4 bg-gray-bg-1 p-4">
+      <div class="synopsis space-y-4 bg-gray-bg-1/80 p-4">
         <h2 class="title-text">Synopsis</h2>
         <div class="flex items-start gap-x-10">
           <article>

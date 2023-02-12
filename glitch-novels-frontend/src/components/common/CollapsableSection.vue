@@ -1,5 +1,5 @@
 <template>
-  <section class="space-y-4 bg-gray-bg-1 p-4">
+  <section class="space-y-4 bg-gray-bg-1/80 p-4">
     <slot name="title"></slot>
     <article
       ref="content"
