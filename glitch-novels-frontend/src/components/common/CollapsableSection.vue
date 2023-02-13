@@ -56,7 +56,8 @@ const expandBtn = ref(null);
 const isCollapse = ref(false);
 
 onMounted(() => {
-  const scrollHeight = content.value.scrollHeight;
+  // +1 to offset fraction value.
+  const scrollHeight = content.value.scrollHeight + 1;
 
   // If the content is longer than the pre-defined height, set up styles. If not, remove unnecessary elements.
   if (scrollHeight > props.collapsedHeight) {
