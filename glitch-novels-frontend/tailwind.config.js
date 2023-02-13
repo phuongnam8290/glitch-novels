@@ -14,6 +14,7 @@ module.exports = {
         "gold-brand-2": "#8E6E48",
         "gray-bg-1": "#343A40",
         "gray-bg-2": "#212529",
+        "gray-selected-bg": "#1c2023",
       },
     },
   },

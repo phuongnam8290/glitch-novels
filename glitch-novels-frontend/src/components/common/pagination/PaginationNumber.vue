@@ -10,7 +10,7 @@
 
 <style scoped>
 .pagination-item:hover {
-  @apply border-gold-brand-1 text-gold-brand-1;
+  @apply border-gold-brand-1 bg-gray-selected-bg text-gold-brand-1;
 }
 
 .pagination-item.active {

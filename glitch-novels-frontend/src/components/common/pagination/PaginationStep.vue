@@ -10,6 +10,6 @@
 
 <style scoped>
 .pagination-step:hover {
-  @apply border-gold-brand-1 text-gold-brand-1;
+  @apply border-gold-brand-1 bg-gray-selected-bg text-gold-brand-1;
 }
 </style>

@@ -4,7 +4,7 @@
     Advanced Search
   </h1>
 
-  <section>
+  <section ref="titleList">
     <title-list :titles="CURRENT_TITLES" />
   </section>
 
@@ -37,7 +37,7 @@ const changePage = (page) => {
 
   // Scroll to top after load new batch of titles.
   window.scrollTo({
-    top: 150,
+    top: 95,
     behavior: "smooth",
   });
 };

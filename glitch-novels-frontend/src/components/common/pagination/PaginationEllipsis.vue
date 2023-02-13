@@ -9,7 +9,7 @@
     </span>
     <input
       type="text"
-      class="w-[3.5rem] min-w-[3.5rem] border border-2 border-white-ink-1 bg-transparent py-2 px-3 font-bold"
+      class="w-[3.5rem] min-w-[3.5rem] border border-2 border-gold-brand-1 bg-gray-selected-bg py-2 px-3 font-bold"
       ref="input"
       v-else
       @keydown="handleKeyPress"
