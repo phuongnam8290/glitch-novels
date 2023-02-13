@@ -3,7 +3,7 @@ package com.namdp.glitch_novels.resources_server.controllers;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.namdp.glitch_novels.resources_server.entities.Novel;
+import com.namdp.glitch_novels.resources_server.dto.NovelDTO;
 import com.namdp.glitch_novels.resources_server.services.NovelService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,7 +25,8 @@ public class NovelController {
     ObjectNode response = mapper.createObjectNode();
 
     // Get all novels in the db, then convert them to json node for serialization.
-    List<Novel> novels = novelService.listAll();
+    List<NovelDTO> novels = novelService.findAll();
+//    List<Novel> novels = novelService.findAll();
     JsonNode titles = mapper.valueToTree(novels);
 
     // Build response json.

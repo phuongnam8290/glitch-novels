@@ -1,7 +1,5 @@
 package com.namdp.glitch_novels.resources_server.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Hibernate;
@@ -15,7 +13,6 @@ import java.util.Objects;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Chapter {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,14 +24,12 @@ public class Chapter {
   @Column(name = "chapter_name")
   private String name;
 
-  @JsonInclude(JsonInclude.Include.NON_NULL) // Omit this field when serialized if it doesn't exist (null).
   @Column(name = "content")
   private String content;
 
   @Column(name = "created_date")
   private LocalDateTime createdDate;
 
-  @JsonBackReference // Prevent circular reference when serialized.
   @ManyToOne
   @JoinColumn(name = "novel_id")
   private Novel novel;

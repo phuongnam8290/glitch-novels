@@ -1,6 +1,5 @@
 package com.namdp.glitch_novels.resources_server.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Hibernate;
@@ -14,7 +13,6 @@ import java.util.Objects;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Author {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,8 +21,6 @@ public class Author {
   @Column(name = "author_name")
   private String name;
 
-  // Prevent circular reference when serialized. Doing this will prevent reference back to the list of novels.
-  @JsonBackReference
   @OneToMany(mappedBy = "author")
   @ToString.Exclude
   List<Novel> novels;

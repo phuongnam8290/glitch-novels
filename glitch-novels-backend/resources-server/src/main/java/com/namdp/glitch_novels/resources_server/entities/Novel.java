@@ -1,6 +1,5 @@
 package com.namdp.glitch_novels.resources_server.entities;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Hibernate;
@@ -15,7 +14,6 @@ import java.util.Objects;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Novel {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,17 +34,14 @@ public class Novel {
   @Column(name = "last_update_date")
   private LocalDateTime lastUpdateDate;
 
-  @JsonManagedReference // Prevent circular reference when serialized. Doing this will reference to author.
   @ManyToOne
   @JoinColumn(name = "author_id")
   private Author author;
 
-  @JsonManagedReference // Prevent circular reference when serialized.
   @OneToMany(mappedBy = "novel")
   @ToString.Exclude
   private List<Chapter> chapters;
 
-  @JsonManagedReference // Prevent circular reference when serialized.
   @ManyToMany
   @JoinTable(
       name = "novel_has_genre",
