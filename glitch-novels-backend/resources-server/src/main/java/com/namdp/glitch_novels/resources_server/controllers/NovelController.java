@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.namdp.glitch_novels.resources_server.dto.NovelDTO;
 import com.namdp.glitch_novels.resources_server.services.NovelService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class NovelController {
   }
 
   @GetMapping("/titles")
-  public ObjectNode listAll() {
+  public ObjectNode findAll() {
     ObjectNode response = mapper.createObjectNode();
 
     // Get all novels in the db, then convert them to json node for serialization.
@@ -33,5 +34,10 @@ public class NovelController {
     response.set("titles", titles);
 
     return response;
+  }
+
+  @GetMapping("/title/{id}")
+  public NovelDTO findById(@PathVariable("id") int id) {
+    return novelService.findById(id);
   }
 }

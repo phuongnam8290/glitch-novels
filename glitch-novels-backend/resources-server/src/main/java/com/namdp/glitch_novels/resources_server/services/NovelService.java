@@ -3,8 +3,10 @@ package com.namdp.glitch_novels.resources_server.services;
 import com.namdp.glitch_novels.resources_server.dto.NovelDTO;
 import com.namdp.glitch_novels.resources_server.entities.Novel;
 import com.namdp.glitch_novels.resources_server.repositories.NovelRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,5 +36,15 @@ public class NovelService {
     }
 
     return apiNovels;
+  }
+
+  @Transactional
+  public NovelDTO findById(int id) {
+    Novel dbNovel = novelRepository
+        .findById(id)
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+            "No novels founded"));
+
+    return NovelDTO.mapEntity(dbNovel, true);
   }
 }
