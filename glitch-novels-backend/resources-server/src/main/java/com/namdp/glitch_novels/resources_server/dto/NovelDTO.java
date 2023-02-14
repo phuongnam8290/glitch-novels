@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.namdp.glitch_novels.resources_server.entities.Chapter;
 import com.namdp.glitch_novels.resources_server.entities.Genre;
 import com.namdp.glitch_novels.resources_server.entities.Novel;
+import com.namdp.glitch_novels.resources_server.entities.Tag;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,6 +32,9 @@ public class NovelDTO {
   @Singular
   private List<GenreDTO> genres;
 
+  @Singular
+  private List<TagDTO> tags;
+
   /**
    * Map a novel record in the database to its corresponding api instance.
    *
@@ -56,6 +60,11 @@ public class NovelDTO {
     for (Genre dbGenre : dbNovel.getGenres()) {
       GenreDTO apiGenre = GenreDTO.mapEntity(dbGenre, true);
       builder.genre(apiGenre);
+    }
+
+    for (Tag dbTag : dbNovel.getTags()) {
+      TagDTO apiTag = TagDTO.mapEntity(dbTag, true);
+      builder.tag(apiTag);
     }
 
     return builder.build();

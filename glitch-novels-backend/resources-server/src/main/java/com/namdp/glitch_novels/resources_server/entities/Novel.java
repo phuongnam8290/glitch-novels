@@ -51,6 +51,15 @@ public class Novel {
   @ToString.Exclude
   private List<Genre> genres;
 
+  @ManyToMany
+  @JoinTable(
+      name = "novel_has_tag",
+      joinColumns = {@JoinColumn(name = "novel_id")},
+      inverseJoinColumns = {@JoinColumn(name = "tag_id")}
+  )
+  @ToString.Exclude
+  private List<Tag> tags;
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
