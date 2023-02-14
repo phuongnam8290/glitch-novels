@@ -26,7 +26,6 @@ public class NovelController {
 
     // Get all novels in the db, then convert them to json node for serialization.
     List<NovelDTO> novels = novelService.findAll();
-//    List<Novel> novels = novelService.findAll();
     JsonNode titles = mapper.valueToTree(novels);
 
     // Build response json.
