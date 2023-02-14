@@ -1,22 +1,24 @@
 <template>
   <div class="title-card grid h-[275px] bg-gray-bg-1/80 p-3">
     <div class="cover">
-      <img
-        :src="title.coverUrl"
-        alt="Title cover"
-        class="h-full w-full object-cover"
-      />
+      <router-link :to="{ name: 'details', params: { id: title.id } }">
+        <img
+          :src="title.coverUrl"
+          alt="Title cover"
+          class="h-full w-full object-cover"
+        />
+      </router-link>
     </div>
     <h1 class="title inline-block overflow-hidden">
-      <a
-        href="#"
+      <router-link
+        :to="{ name: 'details', params: { id: title.id } }"
         class="title-text inline-block w-full truncate"
         ref="title"
         @mouseenter="startMarquee($event, 2)"
         @mouseleave="stopMarquee"
       >
         <span>{{ title.title }}</span>
-      </a>
+      </router-link>
     </h1>
     <h2 class="author overflow-hidden">
       <a

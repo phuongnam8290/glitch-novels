@@ -1,38 +1,67 @@
 <template>
-  <div class="details mt-16 flex items-start gap-x-6">
+  <div
+    class="details mt-16 flex items-start gap-x-6"
+    v-if="novel"
+  >
     <div class="left-col sticky top-36 flex flex-col bg-gray-bg-1/80">
       <div class="cover px-3 pt-3">
         <img
-          src="https://res.cloudinary.com/dy9vrfexa/image/upload/v1675824419/glitch-novels/covers/01_t3nmts.jpg"
+          :src="novel.coverUrl"
           alt="Cover"
           class="h-full object-cover"
         />
       </div>
       <div class="flex justify-center py-6">
-        <publish-info />
+        <publish-info
+          :createdDate="novel.createdDate"
+          :lastUpdatedDate="novel.lastUpdatedDate"
+          :numberOfChapters="novel.chapters.length"
+        />
       </div>
     </div>
 
-    <div class="right-col grid gap-y-6">
+    <div class="right-col grid w-full gap-y-6">
       <div>
-        <h1 class="title size font-bold"> The Lady and the Beast </h1>
-        <a href="#"> Chugong </a>
+        <h1 class="title size font-bold"> {{ novel.title }} </h1>
+        <a href="#"> {{ novel.author.name }} </a>
       </div>
 
-      <novel-synopsis class="synopsis" />
-      <novel-genres class="genres" />
-      <novel-tags class="tags" />
+      <novel-synopsis
+        class="synopsis"
+        :synopsis="novel.description"
+      />
+      <novel-genres
+        class="genres"
+        :genres="novel.genres"
+        v-if="novel.genres.length !== 0"
+      />
+      <novel-tags
+        class="tags"
+        :tags="novel.tags"
+        v-if="novel.tags.length !== 0"
+      />
       <novel-chapter-list class="table-of-contents" />
     </div>
   </div>
 </template>
 
 <script setup>
+import { useDetailsStore } from "@/stores/details";
+import { useRoute } from "vue-router";
+
 import PublishInfo from "@/components/details/PublishInfo.vue";
 import NovelSynopsis from "@/components/details/NovelSynopsis.vue";
 import NovelGenres from "@/components/details/NovelGenres.vue";
 import NovelTags from "@/components/details/NovelTags.vue";
 import NovelChapterList from "@/components/details/NovelChapterList.vue";
+import { computed, onMounted } from "vue";
+
+const detailsStore = useDetailsStore();
+const route = useRoute();
+
+onMounted(() => detailsStore.FETCH_DETAIL(route.params.id));
+
+const novel = computed(() => detailsStore.NOVEL_DETAILS);
 </script>
 
 <style scoped>

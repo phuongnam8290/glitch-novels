@@ -23,7 +23,7 @@ public class NovelDTO {
   private String coverUrl;
   private String description;
   private LocalDateTime createdDate;
-  private LocalDateTime lastUpdateDate;
+  private LocalDateTime lastUpdatedDate;
   private AuthorDTO author;
 
   @Singular
@@ -49,7 +49,7 @@ public class NovelDTO {
         .coverUrl(dbNovel.getCoverUrl())
         .description(dbNovel.getDescription())
         .createdDate(dbNovel.getCreatedDate())
-        .lastUpdateDate(dbNovel.getLastUpdateDate())
+        .lastUpdatedDate(dbNovel.getLastUpdatedDate())
         .author(AuthorDTO.mapEntity(dbNovel.getAuthor(), true));
 
     for (Chapter dbChapter : dbNovel.getChapters()) {

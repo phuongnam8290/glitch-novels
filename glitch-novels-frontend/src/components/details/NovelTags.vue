@@ -14,10 +14,10 @@
         ref="tagList"
       >
         <li
-          v-for="tag in tags"
-          :key="tag"
+          v-for="tag in props.tags"
+          :key="tag.id"
         >
-          <the-tag> {{ tag }} </the-tag>
+          <the-tag> {{ tag.name }} </the-tag>
         </li>
       </ul>
     </template>
@@ -30,47 +30,32 @@ import { countVerticalOverflowedChildren } from "@/utils/countHiddenChildren";
 
 import CollapsableSection from "@/components/common/CollapsableSection.vue";
 import TheTag from "@/components/common/tag/TheTag.vue";
+import { array, object, number, string } from "yup";
 
-const tags = ref([
-  "Accelerated Growth",
-  "Adapted to Anime",
-  "Adapted to Manhwa",
-  "Adventurers",
-  "Appearance Changes",
-  "Army Building",
-  "BeautifulFemale Lead",
-  "Calm Protagonist",
-  "Caring Protagonist",
-  "Cheats",
-  "Determined Protagonist",
-  "Dungeons",
-  "Famous Protagonist",
-  "Game Elements",
-  "Gate to Another World",
-  "Grinding",
-  "Guilds",
-  "Handsome Male Lead",
-  "Hard-Working Protagonist",
-  "Hiding True Abilities",
-  "Hunters",
-  "Kuudere",
-  "Late Romance",
-  "Level System",
-  "Loner Protagonist",
-  "Loyal Subordinates",
-  "Male Protagonist",
-  "Misunderstandings",
-  "Modern Day",
-  "Multiple POV",
-  "Nationalism",
-  "Near-Death Experience",
-  "Necromancer",
-  "Overpowered Protagonist",
-  "Personality Changes",
-  "Romantic Subplot",
-  "Time Travel",
-  "Weak to Strong",
-]);
+const props = defineProps({
+  tags: {
+    type: Array,
+    required: true,
+    validator(value) {
+      const schema = array().of(
+        object({
+          id: number().required().positive(),
+          name: string().required(),
+          description: string().required(),
+        })
+      );
+
+      try {
+        schema.validateSync(value);
+      } catch (error) {
+        console.warn(error.errors);
+        return false;
+      }
+
+      return true;
+    },
+  },
+});
 
 const tagList = ref(null);
 const tagsExpandText = ref("");

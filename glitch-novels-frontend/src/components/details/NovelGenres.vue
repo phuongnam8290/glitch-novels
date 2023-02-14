@@ -13,10 +13,10 @@
         ref="genreList"
       >
         <li
-          v-for="genre in genres"
-          :key="genre"
+          v-for="genre in props.genres"
+          :key="genre.id"
         >
-          <the-tag> {{ genre }} </the-tag>
+          <the-tag> {{ genre.name }} </the-tag>
         </li>
       </ul>
     </template>
@@ -29,8 +29,32 @@ import { countVerticalOverflowedChildren } from "@/utils/countHiddenChildren";
 
 import CollapsableSection from "@/components/common/CollapsableSection.vue";
 import TheTag from "@/components/common/tag/TheTag.vue";
+import { array, number, object, string } from "yup";
 
-const genres = ref(["Action", "Adventure", "Drama", "Fantasy", "Mystery", "Shounen", "Supernatural"]);
+const props = defineProps({
+  genres: {
+    type: Array,
+    required: true,
+    validator(value) {
+      const schema = array().of(
+        object({
+          id: number().required().positive(),
+          name: string().required(),
+          description: string().required(),
+        })
+      );
+
+      try {
+        schema.validateSync(value);
+      } catch (error) {
+        console.warn(error.errors);
+        return false;
+      }
+
+      return true;
+    },
+  },
+});
 
 const genreList = ref(null);
 const genresExpandText = ref("");

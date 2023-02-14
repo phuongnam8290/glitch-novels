@@ -31,8 +31,8 @@ public class Novel {
   @Column(name = "created_date")
   private LocalDateTime createdDate;
 
-  @Column(name = "last_update_date")
-  private LocalDateTime lastUpdateDate;
+  @Column(name = "last_updated_date")
+  private LocalDateTime lastUpdatedDate;
 
   @ManyToOne
   @JoinColumn(name = "author_id")

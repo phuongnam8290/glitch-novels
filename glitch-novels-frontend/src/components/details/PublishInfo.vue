@@ -1,13 +1,13 @@
 <template>
   <div class="publish-info grid gap-x-8 gap-y-2">
     <span class="font-bold">Publish date</span>
-    <span>Nov 14, 2018</span>
+    <span> {{ displayDate(createdDate) }} </span>
 
     <span class="font-bold">Last update</span>
-    <span>Feb 12, 2023</span>
+    <span> {{ displayDate(lastUpdatedDate) }} </span>
 
     <span class="font-bold">Chapters</span>
-    <span>1450</span>
+    <span> {{ numberOfChapters }}</span>
 
     <span class="font-bold">Status</span>
     <span>Ongoing</span>
@@ -17,7 +17,37 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import moment from "moment";
+import { computed } from "vue";
+
+const props = defineProps({
+  createdDate: {
+    type: String,
+    required: true,
+  },
+  lastUpdatedDate: {
+    type: String,
+    required: true,
+  },
+  numberOfChapters: {
+    type: Number,
+    required: true,
+  },
+});
+
+const createdDate = computed(() => moment(props.createdDate));
+const lastUpdatedDate = computed(() => moment(props.lastUpdatedDate));
+
+const displayDate = (date) => {
+  console.log(moment().diff(date, "days"));
+  if (moment().diff(date, "days") <= 6) {
+    return date.fromNow();
+  }
+
+  return date.format("MMM D, YYYY");
+};
+</script>
 
 <style scoped>
 .publish-info {
