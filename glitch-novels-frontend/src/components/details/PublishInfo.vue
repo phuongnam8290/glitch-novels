@@ -40,7 +40,6 @@ const createdDate = computed(() => moment(props.createdDate));
 const lastUpdatedDate = computed(() => moment(props.lastUpdatedDate));
 
 const displayDate = (date) => {
-  console.log(moment().diff(date, "days"));
   if (moment().diff(date, "days") <= 6) {
     return date.fromNow();
   }

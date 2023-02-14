@@ -11,6 +11,7 @@
 
     <button
       class="expand-btn flex w-full justify-center"
+      :class="{ hidden: scrollHeight < props.collapsedHeight }"
       ref="expandBtn"
       @click="toggleExpand"
     >
@@ -32,7 +33,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 
 const props = defineProps({
   expandText: {
@@ -51,26 +52,49 @@ const props = defineProps({
   },
 });
 
+const emit = defineEmits(["changeScrollHeight"]);
+
+let resizeObserver = null;
 const content = ref(null);
-const expandBtn = ref(null);
-const isCollapse = ref(false);
 
 onMounted(() => {
-  // +1 to offset fraction value.
-  const scrollHeight = content.value.scrollHeight + 1;
+  // Initialize resizeObserver & begin to observe changes in the content's dimension.
+  resizeObserver = new ResizeObserver(setScrollHeightVariable);
+  resizeObserver.observe(content.value);
 
-  // If the content is longer than the pre-defined height, set up styles. If not, remove unnecessary elements.
-  if (scrollHeight > props.collapsedHeight) {
-    // Set css variables to hide overflowed content.
-    content.value.style.setProperty("--scroll-height", `${scrollHeight}px`);
-    content.value.style.setProperty("--collapsed-height", `${props.collapsedHeight}px`);
-
-    // Signify that the content is collapsed.
-    isCollapse.value = true;
-  } else {
-    expandBtn.value.remove();
-  }
+  content.value.style.setProperty("--collapsed-height", `${props.collapsedHeight}px`);
 });
+
+const scrollHeight = ref(0);
+let currenContentWidth = null;
+
+// ResizeObserver's callback function, invoked once on mounted circle hook since the resizeObserver began to observe the
+// content in its & when the content's dimension changed.
+const setScrollHeightVariable = () => {
+  const newContentWidth = content.value.offsetWidth;
+
+  // If the content's width does not change, do nothing.
+  if (currenContentWidth === newContentWidth) {
+    return;
+  }
+
+  // Recalculate the scrollHeight when the content's width changes. Always do once in the mounted circle hook since the
+  // currentContentWidth variable at that time is null.
+  scrollHeight.value = content.value.scrollHeight + 1;
+  content.value.style.setProperty("--scroll-height", `${scrollHeight.value}px`);
+
+  // After changing scrollHeight, emit an event to parent. Useful if the parent wants to alter expand/collapse messages
+  // based on scrollHeight stat.
+  emit("changeScrollHeight");
+};
+
+onUnmounted(() => {
+  // Stop observing changes in the content's dimension.
+  resizeObserver.disconnect();
+});
+
+// The component collapsed by default.
+const isCollapse = ref(true);
 
 // Handle expand button click event.
 const toggleExpand = () => {

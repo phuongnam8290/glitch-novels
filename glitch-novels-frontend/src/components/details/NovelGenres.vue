@@ -2,6 +2,7 @@
   <collapsable-section
     :collapsed-height="genresCollapsedHeight"
     :expand-text="genresExpandText"
+    @change-scroll-height="renderGenresExpandText"
   >
     <template #title>
       <h2 class="section-text"> Genres </h2>
@@ -24,7 +25,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 import { countVerticalOverflowedChildren } from "@/utils/countHiddenChildren";
 
 import CollapsableSection from "@/components/common/CollapsableSection.vue";
@@ -60,12 +61,14 @@ const genreList = ref(null);
 const genresExpandText = ref("");
 const genresCollapsedHeight = 85;
 
-onMounted(() => {
+// Render expand text prompt, invoked when collapsable section emits scrollHeight change event (Collapsable section
+// always emits this event once when mounted, so there is no need to set up this text prompt manually).
+const renderGenresExpandText = () => {
   genresExpandText.value = `Show ${countVerticalOverflowedChildren(
     genreList.value,
     genresCollapsedHeight
   )} more genres`;
-});
+};
 </script>
 
 <style scoped></style>
