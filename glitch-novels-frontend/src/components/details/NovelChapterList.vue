@@ -3,8 +3,8 @@
     <h2 class="section-text bg-gray-bg-1/80 p-4">Table of Contents</h2>
     <ul class="chapter-list grid grid-cols-2">
       <li
-        v-for="(chapter, index) in chapters"
-        :key="chapter['chapter-number']"
+        v-for="(chapter, index) in props.chapters"
+        :key="chapter.id"
         class="border-y border-gray-bg-2"
         :class="setChapterBg(index)"
       >
@@ -16,13 +16,13 @@
             class="chapter-number flex items-center justify-center"
             :class="setChapterBorder(index)"
           >
-            <span> {{ chapter["chapter-number"] }}</span>
+            <span> {{ chapter.number }}</span>
           </div>
           <div class="chapter-name">
-            <span>{{ chapter["chapter-name"] }}</span>
+            <span>{{ chapter.name }}</span>
           </div>
           <div class="chapter-release-date subtitle-text">
-            <span>9 mth</span>
+            <span> {{ moment(chapter.createdDate).fromNow() }} </span>
           </div>
         </a>
       </li>
@@ -36,38 +36,63 @@
     </ul>
     <div class="bg-gray-bg-1/80 pb-4 pt-8">
       <the-pagination
-        :current-page="5"
-        :total-pages="10"
+        :total-pages="TOTAL_PAGES"
+        :current-page="CURRENT_PAGE"
+        @changePage="changePage"
       />
     </div>
   </section>
 </template>
 
 <script setup>
-import { ref } from "vue";
-import ThePagination from "@/components/common/pagination/ThePagination.vue";
+import { useDetailsStore } from "@/stores/details";
+import { array, number, object, string } from "yup";
+import moment from "moment";
 
-const chapters = ref([
-  { "chapter-number": 1, "chapter-name": "A Strange Circumstance" },
-  { "chapter-number": 2, "chapter-name": "Alexander Romanoff" },
-  { "chapter-number": 3, "chapter-name": "Realization" },
-  { "chapter-number": 4, "chapter-name": "I Will Save You" },
-  { "chapter-number": 5, "chapter-name": "First Day?" },
-  { "chapter-number": 6, "chapter-name": "First Decisions" },
-  { "chapter-number": 7, "chapter-name": "Working Hard" },
-  { "chapter-number": 8, "chapter-name": "Things About to Get Serious" },
-  { "chapter-number": 9, "chapter-name": "The Romanoff's Decision" },
-  { "chapter-number": 10, "chapter-name": "The First Day of August" },
-  { "chapter-number": 11, "chapter-name": "What the Ruthenian People Needs" },
-  { "chapter-number": 12, "chapter-name": "Acceptance" },
-  { "chapter-number": 13, "chapter-name": "The Hope" },
-  { "chapter-number": 14, "chapter-name": "I Guess it's a Success" },
-  { "chapter-number": 15, "chapter-name": "The Cure" },
-  { "chapter-number": 16, "chapter-name": "Progress" },
-  { "chapter-number": 17, "chapter-name": "Siblings" },
-  { "chapter-number": 18, "chapter-name": "New Personnel" },
-  { "chapter-number": 19, "chapter-name": "Learning about the People Part 1" },
-]);
+import ThePagination from "@/components/common/pagination/ThePagination.vue";
+import { computed } from "vue";
+
+const props = defineProps({
+  chapters: {
+    type: Array,
+    required: true,
+    validator(value) {
+      const schema = array().of(
+        object({
+          id: number().required(),
+          name: string().required(),
+          number: number().required().min(0),
+          createdDate: string().required(),
+        })
+      );
+
+      try {
+        schema.validateSync(value);
+      } catch (error) {
+        console.warn(error);
+        return false;
+      }
+
+      return true;
+    },
+  },
+});
+
+const detailsStore = useDetailsStore();
+// const CURRENT_CHAPTERS = computed(() => detailsStore.CURRENT_CHAPTERS);
+const TOTAL_PAGES = computed(() => detailsStore.TOTAL_PAGES);
+const CURRENT_PAGE = computed(() => detailsStore.CURRENT_PAGE);
+
+// Handle change page event.
+const changePage = (page) => {
+  detailsStore.CHANGE_PAGE(page);
+
+  // Scroll to top after load new batch of titles.
+  window.scrollTo({
+    top: 95,
+    behavior: "smooth",
+  });
+};
 
 // Get the chapter's position in the rendered table (left or right column, in odd or even row)
 const getRenderedChapterPosition = (chapterIndex) => {

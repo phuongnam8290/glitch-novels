@@ -40,7 +40,10 @@
         :tags="novel.tags"
         v-if="novel.tags.length !== 0"
       />
-      <novel-chapter-list class="table-of-contents" />
+      <novel-chapter-list
+        class="table-of-contents"
+        :chapters="CURRENT_CHAPTERS"
+      />
     </div>
   </div>
 </template>
@@ -62,6 +65,7 @@ const route = useRoute();
 onMounted(() => detailsStore.FETCH_DETAIL(route.params.id));
 
 const novel = computed(() => detailsStore.NOVEL_DETAILS);
+const CURRENT_CHAPTERS = computed(() => detailsStore.CURRENT_CHAPTERS);
 </script>
 
 <style scoped>
