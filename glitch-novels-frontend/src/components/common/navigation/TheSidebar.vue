@@ -77,7 +77,7 @@ const navigationLinkGroups = ref([
     linkGroupItems: [],
   },
   {
-    linkGroupHeader: "Titles",
+    linkGroupHeader: "Novels",
     icon: "fa-book-open-cover",
     linkGroupItems: [
       { title: "Advanced Search", isActive: true },

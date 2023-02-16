@@ -24,7 +24,7 @@
         :key="tag"
         :class="{ start: index === 0, end: index === tags.length - 1 }"
       >
-        {{ tag.name }}
+        {{ tag.title }}
       </the-tag>
     </div>
 

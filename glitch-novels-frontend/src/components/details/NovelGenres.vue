@@ -17,7 +17,7 @@
           v-for="genre in props.genres"
           :key="genre.id"
         >
-          <the-tag> {{ genre.name }} </the-tag>
+          <the-tag> {{ genre.title }} </the-tag>
         </li>
       </ul>
     </template>
@@ -40,7 +40,7 @@ const props = defineProps({
       const schema = array().of(
         object({
           id: number().required().positive(),
-          name: string().required(),
+          title: string().required(),
           description: string().required(),
         })
       );

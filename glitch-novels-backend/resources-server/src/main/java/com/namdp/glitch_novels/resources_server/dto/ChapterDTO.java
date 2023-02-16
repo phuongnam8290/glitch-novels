@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class ChapterDTO {
   private Integer id;
   private double number;
-  private String name;
+  private String title;
   private String content;
   private LocalDateTime createdDate;
   private NovelDTO novel;
@@ -32,7 +32,7 @@ public class ChapterDTO {
     builder
         .id(dbChapter.getId())
         .number(dbChapter.getNumber())
-        .name(dbChapter.getName())
+        .title(dbChapter.getTitle())
         .createdDate(dbChapter.getCreatedDate())
         .novel(NovelDTO.builder()
             .id(dbChapter.getNovel().getId())

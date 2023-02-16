@@ -9,7 +9,7 @@ export const useDetailsStore = defineStore("details", {
   state() {
     return {
       ...pagination.state,
-      titleInfo: null,
+      novelInfo: null,
       chapters: [],
       currentPage: 1,
       chaptersPerPage: Number.parseInt(import.meta.env.VITE_CHAPTERS_PER_PAGE),
@@ -18,11 +18,11 @@ export const useDetailsStore = defineStore("details", {
   actions: {
     async FETCH_DETAIL(id) {
       const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
-      const response = await axios.get(`${baseUrl}/title/${id}`);
+      const response = await axios.get(`${baseUrl}/novel/${id}`);
 
-      const { chapters, ...titleInfo } = response.data;
-      this.titleInfo = titleInfo;
-      this.titleInfo.numberOfChapters = chapters.length;
+      const { chapters, ...novelInfo } = response.data;
+      this.novelInfo = novelInfo;
+      this.novelInfo.numberOfChapters = chapters.length;
       this.chapters = chapters;
     },
 
@@ -30,7 +30,7 @@ export const useDetailsStore = defineStore("details", {
   },
   getters: {
     NOVEL_DETAILS(state) {
-      return state.titleInfo;
+      return state.novelInfo;
     },
 
     ...pagination.getters,

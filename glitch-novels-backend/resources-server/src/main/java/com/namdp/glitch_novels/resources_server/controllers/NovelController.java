@@ -21,22 +21,22 @@ public class NovelController {
     this.novelService = novelService;
   }
 
-  @GetMapping("/titles")
+  @GetMapping("/novels")
   public ObjectNode findAll() {
     ObjectNode response = mapper.createObjectNode();
 
     // Get all novels in the db, then convert them to json node for serialization.
     List<NovelDTO> novels = novelService.findAll();
-    JsonNode titles = mapper.valueToTree(novels);
+    JsonNode novelsNode = mapper.valueToTree(novels);
 
     // Build response json.
     response.put("total", novels.size());
-    response.set("titles", titles);
+    response.set("novels", novelsNode);
 
     return response;
   }
 
-  @GetMapping("/title/{id}")
+  @GetMapping("/novel/{id}")
   public NovelDTO findById(@PathVariable("id") int id) {
     return novelService.findById(id);
   }

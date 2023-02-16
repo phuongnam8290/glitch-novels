@@ -28,7 +28,7 @@
 
       <novel-synopsis
         class="synopsis"
-        :synopsis="NOVEL_DETAILS.description"
+        :synopsis="NOVEL_DETAILS.synopsis"
       />
       <novel-genres
         class="genres"

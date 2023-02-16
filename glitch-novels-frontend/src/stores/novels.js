@@ -3,23 +3,23 @@ import axios from "axios";
 
 import paginateUtils from "@/stores/paginateUtils";
 
-const pagination = paginateUtils("titles");
+const pagination = paginateUtils("novels");
 
-export const useTitlesStore = defineStore("titles", {
+export const useNovelsStore = defineStore("novels", {
   state() {
     return {
       ...pagination.state,
-      titles: [],
+      novels: [],
       currentPage: 1,
-      titlesPerPage: Number.parseInt(import.meta.env.VITE_TITLES_PER_PAGE),
+      novelsPerPage: Number.parseInt(import.meta.env.VITE_NOVELS_PER_PAGE),
     };
   },
   actions: {
-    async FETCH_TITLES() {
+    async FETCH_NOVELS() {
       const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
-      const response = await axios.get(`${baseUrl}/titles`);
+      const response = await axios.get(`${baseUrl}/novels`);
 
-      this.titles = response.data.titles;
+      this.novels = response.data.novels;
     },
 
     ...pagination.actions,

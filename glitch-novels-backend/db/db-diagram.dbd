@@ -54,8 +54,8 @@
               <Parent>0</Parent>
             </CustomProperties>
             <Location>
-              <X>170 px</X>
-              <Y>1080 px</Y>
+              <X>840 px</X>
+              <Y>750 px</Y>
             </Location>
             <Size>
               <Width>191 px</Width>
@@ -77,12 +77,12 @@
               <Parent>0</Parent>
             </CustomProperties>
             <Location>
-              <X>920 px</X>
-              <Y>1050 px</Y>
+              <X>-80 px</X>
+              <Y>680 px</Y>
             </Location>
             <Size>
-              <Width>218 px</Width>
-              <Height>195 px</Height>
+              <Width>250 px</Width>
+              <Height>229 px</Height>
             </Size>
             <DbOid>
               <Path>glitch_novels.chapter</Path>
@@ -94,14 +94,172 @@
               <TriggersCollapsed>True</TriggersCollapsed>
             </Compartments>
           </Model>
-          <Model xsi:type="TableModel">
+          <Model xsi:type="RelationLinkModel">
             <CustomProperties>
               <OID>3</OID>
+              <Comment>4</Comment>
+              <OutModel>2</OutModel>
+              <InModel>2</InModel>
+              <OutPort>5</OutPort>
+              <InPort>6</InPort>
+              <Parent>0</Parent>
+            </CustomProperties>
+            <PortAnchors>
+              <Port>
+                <Location>
+                  <X>0 px</X>
+                  <Y>114.5 px</Y>
+                </Location>
+                <Anchors>Top Bottom</Anchors>
+                <Align>Left</Align>
+                <CustomProperties>
+                  <OID>5</OID>
+                  <PortType>FloatAnchor</PortType>
+                </CustomProperties>
+              </Port>
+              <Port>
+                <Location>
+                  <X>0 px</X>
+                  <Y>171.75 px</Y>
+                </Location>
+                <Anchors>Top Bottom</Anchors>
+                <Align>Left</Align>
+                <CustomProperties>
+                  <OID>6</OID>
+                  <PortType>FloatAnchor</PortType>
+                </CustomProperties>
+              </Port>
+            </PortAnchors>
+            <BendPoints>
+              <PointD>
+                <X>-99 px</X>
+                <Y>794.5 px</Y>
+              </PointD>
+              <PointD>
+                <X>-99 px</X>
+                <Y>851.75 px</Y>
+              </PointD>
+            </BendPoints>
+            <IsManuallyRouted>false</IsManuallyRouted>
+            <DbOid>
+              <Path>glitch_novels.chapter.FK_chapter_next_chapter</Path>
+              <TypeName>ForeignKey</TypeName>
+            </DbOid>
+          </Model>
+          <Model xsi:type="RelationCommentModel">
+            <CustomProperties>
+              <OID>4</OID>
+              <HolderModel>3</HolderModel>
+              <Port>7</Port>
+              <Parent>0</Parent>
+            </CustomProperties>
+            <PortAnchors>
+              <Port xsi:type="LinkPort">
+                <Location>
+                  <X>19 px</X>
+                  <Y>-28.625 px</Y>
+                </Location>
+                <Anchors>None</Anchors>
+                <Align>Left</Align>
+                <CustomProperties>
+                  <OID>7</OID>
+                  <PortType>FixedAnchor</PortType>
+                </CustomProperties>
+                <LinkPortAnchor>OutPoint</LinkPortAnchor>
+              </Port>
+            </PortAnchors>
+            <CommentOffset>
+              <X>40.4253845214844 px</X>
+              <Y>25.5 px</Y>
+            </CommentOffset>
+          </Model>
+          <Model xsi:type="RelationLinkModel">
+            <CustomProperties>
+              <OID>8</OID>
+              <Comment>9</Comment>
+              <OutModel>2</OutModel>
+              <InModel>2</InModel>
+              <OutPort>10</OutPort>
+              <InPort>11</InPort>
+              <Parent>0</Parent>
+            </CustomProperties>
+            <PortAnchors>
+              <Port>
+                <Location>
+                  <X>0 px</X>
+                  <Y>57.25 px</Y>
+                </Location>
+                <Anchors>Top Bottom</Anchors>
+                <Align>Left</Align>
+                <CustomProperties>
+                  <OID>10</OID>
+                  <PortType>FloatAnchor</PortType>
+                </CustomProperties>
+              </Port>
+              <Port>
+                <Location>
+                  <X>0 px</X>
+                  <Y>200.375 px</Y>
+                </Location>
+                <Anchors>Top Bottom</Anchors>
+                <Align>Left</Align>
+                <CustomProperties>
+                  <OID>11</OID>
+                  <PortType>FloatAnchor</PortType>
+                </CustomProperties>
+              </Port>
+            </PortAnchors>
+            <BendPoints>
+              <PointD>
+                <X>-113 px</X>
+                <Y>737.25 px</Y>
+              </PointD>
+              <PointD>
+                <X>-113 px</X>
+                <Y>880.375 px</Y>
+              </PointD>
+            </BendPoints>
+            <IsManuallyRouted>false</IsManuallyRouted>
+            <DbOid>
+              <Path>glitch_novels.chapter.FK_chapter_previous_chapter</Path>
+              <TypeName>ForeignKey</TypeName>
+            </DbOid>
+          </Model>
+          <Model xsi:type="RelationCommentModel">
+            <CustomProperties>
+              <OID>9</OID>
+              <HolderModel>8</HolderModel>
+              <Port>12</Port>
+              <Parent>0</Parent>
+            </CustomProperties>
+            <PortAnchors>
+              <Port xsi:type="LinkPort">
+                <Location>
+                  <X>33 px</X>
+                  <Y>-71.5625 px</Y>
+                </Location>
+                <Anchors>None</Anchors>
+                <Align>Left</Align>
+                <CustomProperties>
+                  <OID>12</OID>
+                  <PortType>FixedAnchor</PortType>
+                </CustomProperties>
+                <LinkPortAnchor>OutPoint</LinkPortAnchor>
+              </Port>
+            </PortAnchors>
+            <CommentOffset>
+              <X>25.7183532714844 px</X>
+              <Y>32.75 px</Y>
+            </CommentOffset>
+          </Model>
+          <Model xsi:type="TableModel">
+            <CustomProperties>
+              <OID>13</OID>
               <Parent>0</Parent>
             </CustomProperties>
             <Location>
-              <X>30 px</X>
-              <Y>1340 px</Y>
+              <X>-50 px</X>
+              <Y>980 px</Y>
             </Location>
             <Size>
               <Width>219 px</Width>
@@ -119,15 +277,15 @@
           </Model>
           <Model xsi:type="TableModel">
             <CustomProperties>
-              <OID>4</OID>
+              <OID>14</OID>
               <Parent>0</Parent>
             </CustomProperties>
             <Location>
-              <X>540 px</X>
-              <Y>1050 px</Y>
+              <X>409 px</X>
+              <Y>697 px</Y>
             </Location>
             <Size>
-              <Width>224 px</Width>
+              <Width>270 px</Width>
               <Height>195 px</Height>
             </Size>
             <DbOid>
@@ -142,40 +300,50 @@
           </Model>
           <Model xsi:type="RelationLinkModel">
             <CustomProperties>
-              <OID>5</OID>
-              <Comment>6</Comment>
-              <OutModel>4</OutModel>
+              <OID>15</OID>
+              <Comment>16</Comment>
+              <OutModel>14</OutModel>
               <InModel>1</InModel>
-              <OutPort>7</OutPort>
-              <InPort>8</InPort>
+              <OutPort>17</OutPort>
+              <InPort>18</InPort>
               <Parent>0</Parent>
             </CustomProperties>
             <PortAnchors>
               <Port>
                 <Location>
-                  <X>0 px</X>
-                  <Y>92 px</Y>
+                  <X>271.555528512709 px</X>
+                  <Y>111.333301213054 px</Y>
                 </Location>
-                <Anchors>Top Bottom</Anchors>
-                <Align>Left</Align>
+                <Anchors>None</Anchors>
+                <Align>Right</Align>
                 <CustomProperties>
-                  <OID>7</OID>
-                  <PortType>FloatAnchor</PortType>
+                  <OID>17</OID>
+                  <PortType>FixedAnchor</PortType>
                 </CustomProperties>
               </Port>
               <Port>
                 <Location>
-                  <X>0 px</X>
-                  <Y>62 px</Y>
+                  <X>0.555518578601436 px</X>
+                  <Y>59.2592271021867 px</Y>
                 </Location>
-                <Anchors>Top Bottom</Anchors>
-                <Align>Right</Align>
+                <Anchors>None</Anchors>
+                <Align>Left</Align>
                 <CustomProperties>
-                  <OID>8</OID>
-                  <PortType>FloatAnchor</PortType>
+                  <OID>18</OID>
+                  <PortType>FixedAnchor</PortType>
                 </CustomProperties>
               </Port>
             </PortAnchors>
+            <BendPoints>
+              <PointD>
+                <X>684 px</X>
+                <Y>808.333312988281 px</Y>
+              </PointD>
+              <PointD>
+                <X>684 px</X>
+                <Y>809.259216308594 px</Y>
+              </PointD>
+            </BendPoints>
             <IsManuallyRouted>false</IsManuallyRouted>
             <DbOid>
               <Path>glitch_novels.novel.FK_novel_author</Path>
@@ -184,75 +352,75 @@
           </Model>
           <Model xsi:type="RelationCommentModel">
             <CustomProperties>
-              <OID>6</OID>
-              <HolderModel>5</HolderModel>
-              <Port>9</Port>
+              <OID>16</OID>
+              <HolderModel>15</HolderModel>
+              <Port>19</Port>
               <Parent>0</Parent>
             </CustomProperties>
             <PortAnchors>
               <Port xsi:type="LinkPort">
                 <Location>
-                  <X>89.5 px</X>
-                  <Y>0 px</Y>
+                  <X>-83 px</X>
+                  <Y>-0.925915095539949 px</Y>
                 </Location>
                 <Anchors>None</Anchors>
-                <Align>Left</Align>
+                <Align>Right</Align>
                 <CustomProperties>
-                  <OID>9</OID>
+                  <OID>19</OID>
                   <PortType>FixedAnchor</PortType>
                 </CustomProperties>
                 <LinkPortAnchor>OutPoint</LinkPortAnchor>
               </Port>
             </PortAnchors>
             <CommentOffset>
-              <X>33.4852600097656 px</X>
-              <Y>8 px</Y>
+              <X>31 px</X>
+              <Y>11.6666987869462 px</Y>
             </CommentOffset>
           </Model>
           <Model xsi:type="RelationLinkModel">
             <CustomProperties>
-              <OID>10</OID>
-              <Comment>11</Comment>
+              <OID>20</OID>
+              <Comment>21</Comment>
               <OutModel>2</OutModel>
-              <InModel>4</InModel>
-              <OutPort>12</OutPort>
-              <InPort>13</InPort>
+              <InModel>14</InModel>
+              <OutPort>22</OutPort>
+              <InPort>23</InPort>
               <Parent>0</Parent>
             </CustomProperties>
             <PortAnchors>
               <Port>
                 <Location>
-                  <X>5.00136058885334 px</X>
-                  <Y>91.2354448823517 px</Y>
+                  <X>250.37036360046 px</X>
+                  <Y>113.518486986927 px</Y>
                 </Location>
                 <Anchors>None</Anchors>
-                <Align>Left</Align>
+                <Align>Right</Align>
                 <CustomProperties>
-                  <OID>12</OID>
+                  <OID>22</OID>
                   <PortType>FixedAnchor</PortType>
                 </CustomProperties>
               </Port>
               <Port>
                 <Location>
-                  <X>222.279751701322 px</X>
-                  <Y>92.3275362171671 px</Y>
+                  <X>3.96294655328978 px</X>
+                  <Y>95.5925610977939 px</Y>
                 </Location>
                 <Anchors>None</Anchors>
-                <Align>Right</Align>
+                <Align>Left</Align>
                 <CustomProperties>
-                  <OID>13</OID>
+                  <OID>23</OID>
                   <PortType>FixedAnchor</PortType>
                 </CustomProperties>
               </Port>
             </PortAnchors>
             <BendPoints>
               <PointD>
-                <X>900 px</X>
-                <Y>1141.23544488235 px</Y>
+                <X>190 px</X>
+                <Y>793.518486986927 px</Y>
               </PointD>
               <PointD>
-                <X>900 px</X>
-                <Y>1142.32753621717 px</Y>
+                <X>190 px</X>
+                <Y>792.592561097794 px</Y>
               </PointD>
             </BendPoints>
             <IsManuallyRouted>false</IsManuallyRouted>
@@ -263,39 +431,39 @@
           </Model>
           <Model xsi:type="RelationCommentModel">
             <CustomProperties>
-              <OID>11</OID>
-              <HolderModel>10</HolderModel>
-              <Port>14</Port>
+              <OID>21</OID>
+              <HolderModel>20</HolderModel>
+              <Port>24</Port>
               <Parent>0</Parent>
             </CustomProperties>
             <PortAnchors>
               <Port xsi:type="LinkPort">
                 <Location>
-                  <X>88 px</X>
-                  <Y>-1.09206976608584 px</Y>
+                  <X>-129.5 px</X>
+                  <Y>0.92589665489561 px</Y>
                 </Location>
                 <Anchors>None</Anchors>
-                <Align>Left</Align>
+                <Align>Right</Align>
                 <CustomProperties>
-                  <OID>14</OID>
+                  <OID>24</OID>
                   <PortType>FixedAnchor</PortType>
                 </CustomProperties>
                 <LinkPortAnchor>OutPoint</LinkPortAnchor>
               </Port>
             </PortAnchors>
             <CommentOffset>
-              <X>17.4435958862305 px</X>
-              <Y>8.76455511764834 px</Y>
+              <X>70 px</X>
+              <Y>16.4815130130731 px</Y>
             </CommentOffset>
           </Model>
           <Model xsi:type="TableModel">
             <CustomProperties>
-              <OID>15</OID>
+              <OID>25</OID>
               <Parent>0</Parent>
             </CustomProperties>
             <Location>
-              <X>450 px</X>
-              <Y>1360 px</Y>
+              <X>380 px</X>
+              <Y>990 px</Y>
             </Location>
             <Size>
               <Width>170 px</Width>
@@ -313,40 +481,50 @@
           </Model>
           <Model xsi:type="RelationLinkModel">
             <CustomProperties>
-              <OID>16</OID>
-              <Comment>17</Comment>
-              <OutModel>15</OutModel>
-              <InModel>3</InModel>
-              <OutPort>18</OutPort>
-              <InPort>19</InPort>
+              <OID>26</OID>
+              <Comment>27</Comment>
+              <OutModel>25</OutModel>
+              <InModel>13</InModel>
+              <OutPort>28</OutPort>
+              <InPort>29</InPort>
               <Parent>0</Parent>
             </CustomProperties>
             <PortAnchors>
               <Port>
                 <Location>
-                  <X>5.402086618125 px</X>
-                  <Y>57.5345525907103 px</Y>
+                  <X>6.11109576843467 px</X>
+                  <Y>56.2962547202185 px</Y>
                 </Location>
                 <Anchors>None</Anchors>
                 <Align>Left</Align>
                 <CustomProperties>
-                  <OID>18</OID>
+                  <OID>28</OID>
                   <PortType>FixedAnchor</PortType>
                 </CustomProperties>
               </Port>
               <Port>
                 <Location>
-                  <X>218.996824337968 px</X>
-                  <Y>77.5345525907103 px</Y>
+                  <X>216.666660043929 px</X>
+                  <Y>65.3703288310855 px</Y>
                 </Location>
                 <Anchors>None</Anchors>
                 <Align>Right</Align>
                 <CustomProperties>
-                  <OID>19</OID>
+                  <OID>29</OID>
                   <PortType>FixedAnchor</PortType>
                 </CustomProperties>
               </Port>
             </PortAnchors>
+            <BendPoints>
+              <PointD>
+                <X>360 px</X>
+                <Y>1046.29625472022 px</Y>
+              </PointD>
+              <PointD>
+                <X>360 px</X>
+                <Y>1045.37032883109 px</Y>
+              </PointD>
+            </BendPoints>
             <IsManuallyRouted>false</IsManuallyRouted>
             <DbOid>
               <Path>glitch_novels.novel_has_genre.FK_novel_has_genre_genre</Path>
@@ -355,77 +533,67 @@
           </Model>
           <Model xsi:type="RelationCommentModel">
             <CustomProperties>
-              <OID>17</OID>
-              <HolderModel>16</HolderModel>
-              <Port>20</Port>
+              <OID>27</OID>
+              <HolderModel>26</HolderModel>
+              <Port>30</Port>
               <Parent>0</Parent>
             </CustomProperties>
             <PortAnchors>
               <Port xsi:type="LinkPort">
                 <Location>
-                  <X>100.5 px</X>
-                  <Y>6.69227279104234E-06 px</Y>
+                  <X>115.5 px</X>
+                  <Y>0.925893392093485 px</Y>
                 </Location>
                 <Anchors>None</Anchors>
                 <Align>Left</Align>
                 <CustomProperties>
-                  <OID>20</OID>
+                  <OID>30</OID>
                   <PortType>FixedAnchor</PortType>
                 </CustomProperties>
                 <LinkPortAnchor>OutPoint</LinkPortAnchor>
               </Port>
             </PortAnchors>
             <CommentOffset>
-              <X>17.7170562744141 px</X>
-              <Y>12.4654474092897 px</Y>
+              <X>27.7170562744141 px</X>
+              <Y>13.7037452797815 px</Y>
             </CommentOffset>
           </Model>
           <Model xsi:type="RelationLinkModel">
             <CustomProperties>
-              <OID>21</OID>
-              <Comment>22</Comment>
-              <OutModel>15</OutModel>
-              <InModel>4</InModel>
-              <OutPort>23</OutPort>
-              <InPort>24</InPort>
+              <OID>31</OID>
+              <Comment>32</Comment>
+              <OutModel>25</OutModel>
+              <InModel>14</InModel>
+              <OutPort>33</OutPort>
+              <InPort>34</InPort>
               <Parent>0</Parent>
             </CustomProperties>
             <PortAnchors>
               <Port>
                 <Location>
-                  <X>113.519128764874 px</X>
-                  <Y>4.02207718474369 px</Y>
+                  <X>99.5 px</X>
+                  <Y>0 px</Y>
                 </Location>
-                <Anchors>None</Anchors>
+                <Anchors>Left Right</Anchors>
                 <Align>Top</Align>
                 <CustomProperties>
-                  <OID>23</OID>
-                  <PortType>FixedAnchor</PortType>
+                  <OID>33</OID>
+                  <PortType>FloatAnchor</PortType>
                 </CustomProperties>
               </Port>
               <Port>
                 <Location>
-                  <X>25 px</X>
+                  <X>70.5 px</X>
                   <Y>0 px</Y>
                 </Location>
                 <Anchors>Left Right</Anchors>
                 <Align>Bottom</Align>
                 <CustomProperties>
-                  <OID>24</OID>
+                  <OID>34</OID>
                   <PortType>FloatAnchor</PortType>
                 </CustomProperties>
               </Port>
             </PortAnchors>
-            <BendPoints>
-              <PointD>
-                <X>563.519128764874 px</X>
-                <Y>1340 px</Y>
-              </PointD>
-              <PointD>
-                <X>565 px</X>
-                <Y>1340 px</Y>
-              </PointD>
-            </BendPoints>
             <IsManuallyRouted>false</IsManuallyRouted>
             <DbOid>
               <Path>glitch_novels.novel_has_genre.FK_novel_has_genre_movel</Path>
@@ -434,39 +602,39 @@
           </Model>
           <Model xsi:type="RelationCommentModel">
             <CustomProperties>
-              <OID>22</OID>
-              <HolderModel>21</HolderModel>
-              <Port>25</Port>
+              <OID>32</OID>
+              <HolderModel>31</HolderModel>
+              <Port>35</Port>
               <Parent>0</Parent>
             </CustomProperties>
             <PortAnchors>
               <Port xsi:type="LinkPort">
                 <Location>
-                  <X>-1.48087123512596 px</X>
-                  <Y>67.5 px</Y>
+                  <X>0 px</X>
+                  <Y>49 px</Y>
                 </Location>
                 <Anchors>None</Anchors>
                 <Align>Top</Align>
                 <CustomProperties>
-                  <OID>25</OID>
+                  <OID>35</OID>
                   <PortType>FixedAnchor</PortType>
                 </CustomProperties>
                 <LinkPortAnchor>OutPoint</LinkPortAnchor>
               </Port>
             </PortAnchors>
             <CommentOffset>
-              <X>42.2395858764648 px</X>
-              <Y>-73.519128764874 px</Y>
+              <X>32.2395858764648 px</X>
+              <Y>-99.5 px</Y>
             </CommentOffset>
           </Model>
           <Model xsi:type="TableModel">
             <CustomProperties>
-              <OID>26</OID>
+              <OID>36</OID>
               <Parent>0</Parent>
             </CustomProperties>
             <Location>
-              <X>660 px</X>
-              <Y>1360 px</Y>
+              <X>590 px</X>
+              <Y>990 px</Y>
             </Location>
             <Size>
               <Width>153 px</Width>
@@ -484,50 +652,40 @@
           </Model>
           <Model xsi:type="RelationLinkModel">
             <CustomProperties>
-              <OID>27</OID>
-              <Comment>28</Comment>
-              <OutModel>26</OutModel>
-              <InModel>4</InModel>
-              <OutPort>29</OutPort>
-              <InPort>30</InPort>
+              <OID>37</OID>
+              <Comment>38</Comment>
+              <OutModel>36</OutModel>
+              <InModel>14</InModel>
+              <OutPort>39</OutPort>
+              <InPort>40</InPort>
               <Parent>0</Parent>
             </CustomProperties>
             <PortAnchors>
               <Port>
                 <Location>
-                  <X>76.5 px</X>
-                  <Y>0 px</Y>
+                  <X>197.481457382074 px</X>
+                  <Y>184.481446454556 px</Y>
                 </Location>
-                <Anchors>Left Right</Anchors>
-                <Align>Top</Align>
+                <Anchors>None</Anchors>
+                <Align>Bottom</Align>
                 <CustomProperties>
-                  <OID>29</OID>
-                  <PortType>FloatAnchor</PortType>
+                  <OID>40</OID>
+                  <PortType>FixedAnchor</PortType>
                 </CustomProperties>
               </Port>
               <Port>
                 <Location>
-                  <X>96.5 px</X>
-                  <Y>0 px</Y>
+                  <X>16.4814573820736 px</X>
+                  <Y>Undefined</Y>
                 </Location>
                 <Anchors>Left Right</Anchors>
-                <Align>Bottom</Align>
+                <Align>Top</Align>
                 <CustomProperties>
-                  <OID>30</OID>
+                  <OID>39</OID>
                   <PortType>FloatAnchor</PortType>
                 </CustomProperties>
               </Port>
             </PortAnchors>
-            <BendPoints>
-              <PointD>
-                <X>736.5 px</X>
-                <Y>1260 px</Y>
-              </PointD>
-              <PointD>
-                <X>636.5 px</X>
-                <Y>1260 px</Y>
-              </PointD>
-            </BendPoints>
             <IsManuallyRouted>false</IsManuallyRouted>
             <DbOid>
               <Path>glitch_novels.novel_has_tag.FK_novel_has_tag_novel</Path>
@@ -536,39 +694,39 @@
           </Model>
           <Model xsi:type="RelationCommentModel">
             <CustomProperties>
-              <OID>28</OID>
-              <HolderModel>27</HolderModel>
-              <Port>31</Port>
+              <OID>38</OID>
+              <HolderModel>37</HolderModel>
+              <Port>41</Port>
               <Parent>0</Parent>
             </CustomProperties>
             <PortAnchors>
               <Port xsi:type="LinkPort">
                 <Location>
-                  <X>50 px</X>
-                  <Y>100 px</Y>
+                  <X>1.20695735859044E-05 px</X>
+                  <Y>49 px</Y>
                 </Location>
                 <Anchors>None</Anchors>
                 <Align>Top</Align>
                 <CustomProperties>
-                  <OID>31</OID>
+                  <OID>41</OID>
                   <PortType>FixedAnchor</PortType>
                 </CustomProperties>
                 <LinkPortAnchor>OutPoint</LinkPortAnchor>
               </Port>
             </PortAnchors>
             <CommentOffset>
-              <X>22 px</X>
-              <Y>2 px</Y>
+              <X>32.2395858764648 px</X>
+              <Y>-26.4814573820736 px</Y>
             </CommentOffset>
           </Model>
           <Model xsi:type="TableModel">
             <CustomProperties>
-              <OID>32</OID>
+              <OID>42</OID>
               <Parent>0</Parent>
             </CustomProperties>
             <Location>
-              <X>220 px</X>
-              <Y>580 px</Y>
+              <X>790 px</X>
+              <Y>240 px</Y>
             </Location>
             <Size>
               <Width>201 px</Width>
@@ -586,12 +744,12 @@
           </Model>
           <Model xsi:type="TableModel">
             <CustomProperties>
-              <OID>33</OID>
+              <OID>43</OID>
               <Parent>0</Parent>
             </CustomProperties>
             <Location>
-              <X>540 px</X>
-              <Y>780 px</Y>
+              <X>437 px</X>
+              <Y>443 px</Y>
             </Location>
             <Size>
               <Width>211 px</Width>
@@ -609,36 +767,36 @@
           </Model>
           <Model xsi:type="RelationLinkModel">
             <CustomProperties>
-              <OID>34</OID>
-              <Comment>35</Comment>
-              <OutModel>33</OutModel>
-              <InModel>4</InModel>
-              <OutPort>36</OutPort>
-              <InPort>37</InPort>
+              <OID>44</OID>
+              <Comment>45</Comment>
+              <OutModel>43</OutModel>
+              <InModel>14</InModel>
+              <OutPort>46</OutPort>
+              <InPort>47</InPort>
               <Parent>0</Parent>
             </CustomProperties>
             <PortAnchors>
               <Port>
                 <Location>
-                  <X>105.5 px</X>
-                  <Y>0 px</Y>
+                  <X>105.2 px</X>
+                  <Y>195.3 px</Y>
                 </Location>
                 <Anchors>Left Right</Anchors>
                 <Align>Bottom</Align>
                 <CustomProperties>
-                  <OID>36</OID>
+                  <OID>46</OID>
                   <PortType>FloatAnchor</PortType>
                 </CustomProperties>
               </Port>
               <Port>
                 <Location>
-                  <X>105.5 px</X>
-                  <Y>0 px</Y>
+                  <X>133.2 px</X>
+                  <Y>0.200000000000045 px</Y>
                 </Location>
                 <Anchors>Left Right</Anchors>
                 <Align>Top</Align>
                 <CustomProperties>
-                  <OID>37</OID>
+                  <OID>47</OID>
                   <PortType>FloatAnchor</PortType>
                 </CustomProperties>
               </Port>
@@ -651,39 +809,39 @@
           </Model>
           <Model xsi:type="RelationCommentModel">
             <CustomProperties>
-              <OID>35</OID>
-              <HolderModel>34</HolderModel>
-              <Port>38</Port>
+              <OID>45</OID>
+              <HolderModel>44</HolderModel>
+              <Port>48</Port>
               <Parent>0</Parent>
             </CustomProperties>
             <PortAnchors>
               <Port xsi:type="LinkPort">
                 <Location>
-                  <X>0 px</X>
-                  <Y>-37.5 px</Y>
+                  <X>-1.22070312045253E-05 px</X>
+                  <Y>-29.5 px</Y>
                 </Location>
                 <Anchors>None</Anchors>
                 <Align>Bottom</Align>
                 <CustomProperties>
-                  <OID>38</OID>
+                  <OID>48</OID>
                   <PortType>FixedAnchor</PortType>
                 </CustomProperties>
                 <LinkPortAnchor>OutPoint</LinkPortAnchor>
               </Port>
             </PortAnchors>
             <CommentOffset>
-              <X>35 px</X>
-              <Y>-45.5 px</Y>
+              <X>22 px</X>
+              <Y>-52.2 px</Y>
             </CommentOffset>
           </Model>
           <Model xsi:type="TableModel">
             <CustomProperties>
-              <OID>39</OID>
+              <OID>49</OID>
               <Parent>0</Parent>
             </CustomProperties>
             <Location>
-              <X>850 px</X>
-              <Y>580 px</Y>
+              <X>110 px</X>
+              <Y>240 px</Y>
             </Location>
             <Size>
               <Width>175 px</Width>
@@ -701,12 +859,12 @@
           </Model>
           <Model xsi:type="TableModel">
             <CustomProperties>
-              <OID>40</OID>
+              <OID>50</OID>
               <Parent>0</Parent>
             </CustomProperties>
             <Location>
-              <X>1010 px</X>
-              <Y>1340 px</Y>
+              <X>940 px</X>
+              <Y>980 px</Y>
             </Location>
             <Size>
               <Width>203 px</Width>
@@ -724,59 +882,51 @@
           </Model>
           <Model xsi:type="RelationLinkModel">
             <CustomProperties>
-              <OID>41</OID>
-              <Comment>42</Comment>
-              <OutModel>26</OutModel>
-              <InModel>40</InModel>
-              <OutPort>43</OutPort>
-              <InPort>44</InPort>
+              <OID>51</OID>
+              <Comment>52</Comment>
+              <OutModel>36</OutModel>
+              <InModel>50</InModel>
+              <OutPort>53</OutPort>
+              <InPort>54</InPort>
               <Parent>0</Parent>
             </CustomProperties>
             <PortAnchors>
               <Port>
                 <Location>
-                  <X>154.700135772473 px</X>
-                  <Y>59.7187352603416 px</Y>
+                  <X>152.4 px</X>
+                  <Y>62.3000000000001 px</Y>
                 </Location>
-                <Anchors>None</Anchors>
+                <Anchors>Top Bottom</Anchors>
                 <Align>Right</Align>
                 <CustomProperties>
-                  <OID>43</OID>
-                  <PortType>FixedAnchor</PortType>
+                  <OID>53</OID>
+                  <PortType>FloatAnchor</PortType>
                 </CustomProperties>
               </Port>
               <Port>
                 <Location>
-                  <X>12.197489387446 px</X>
-                  <Y>79.7187352603416 px</Y>
+                  <X>5.37033280472849 px</X>
+                  <Y>73.703661833282 px</Y>
                 </Location>
                 <Anchors>None</Anchors>
                 <Align>Left</Align>
                 <CustomProperties>
-                  <OID>44</OID>
+                  <OID>54</OID>
                   <PortType>FixedAnchor</PortType>
                 </CustomProperties>
               </Port>
             </PortAnchors>
             <BendPoints>
               <PointD>
-                <X>862.25 px</X>
-                <Y>1419.71873526034 px</Y>
+                <X>763 px</X>
+                <Y>1052.3 px</Y>
               </PointD>
               <PointD>
-                <X>862.25 px</X>
-                <Y>1420 px</Y>
-              </PointD>
-              <PointD>
-                <X>960.75 px</X>
-                <Y>1420 px</Y>
-              </PointD>
-              <PointD>
-                <X>960.75 px</X>
-                <Y>1419.71873526034 px</Y>
+                <X>763 px</X>
+                <Y>1053.70366183328 px</Y>
               </PointD>
             </BendPoints>
-            <IsManuallyRouted>true</IsManuallyRouted>
+            <IsManuallyRouted>false</IsManuallyRouted>
             <DbOid>
               <Path>glitch_novels.novel_has_tag.FK_novel_has_tag_tag</Path>
               <TypeName>ForeignKey</TypeName>
@@ -784,42 +934,42 @@
           </Model>
           <Model xsi:type="RelationCommentModel">
             <CustomProperties>
-              <OID>42</OID>
-              <HolderModel>41</HolderModel>
-              <Port>45</Port>
+              <OID>52</OID>
+              <HolderModel>51</HolderModel>
+              <Port>55</Port>
               <Parent>0</Parent>
             </CustomProperties>
             <PortAnchors>
               <Port xsi:type="LinkPort">
                 <Location>
-                  <X>-98.5 px</X>
-                  <Y>-0.281264739658354 px</Y>
+                  <X>-108.5 px</X>
+                  <Y>-1.40361328124982 px</Y>
                 </Location>
                 <Anchors>None</Anchors>
                 <Align>Right</Align>
                 <CustomProperties>
-                  <OID>45</OID>
+                  <OID>55</OID>
                   <PortType>FixedAnchor</PortType>
                 </CustomProperties>
                 <LinkPortAnchor>OutPoint</LinkPortAnchor>
               </Port>
             </PortAnchors>
             <CommentOffset>
-              <X>37 px</X>
-              <Y>10.2812647396584 px</Y>
+              <X>27 px</X>
+              <Y>17.6999999999998 px</Y>
             </CommentOffset>
           </Model>
           <Model xsi:type="TableModel">
             <CustomProperties>
-              <OID>46</OID>
+              <OID>56</OID>
               <Parent>0</Parent>
             </CustomProperties>
             <Location>
-              <X>550 px</X>
-              <Y>550 px</Y>
+              <X>440 px</X>
+              <Y>223 px</Y>
             </Location>
             <Size>
-              <Width>179 px</Width>
+              <Width>204 px</Width>
               <Height>161 px</Height>
             </Size>
             <DbOid>
@@ -834,25 +984,25 @@
           </Model>
           <Model xsi:type="RelationLinkModel">
             <CustomProperties>
-              <OID>47</OID>
-              <Comment>48</Comment>
-              <OutModel>46</OutModel>
-              <InModel>32</InModel>
-              <OutPort>49</OutPort>
-              <InPort>50</InPort>
+              <OID>57</OID>
+              <Comment>58</Comment>
+              <OutModel>56</OutModel>
+              <InModel>42</InModel>
+              <OutPort>59</OutPort>
+              <InPort>60</InPort>
               <Parent>0</Parent>
             </CustomProperties>
             <PortAnchors>
               <Port>
                 <Location>
-                  <X>0 px</X>
-                  <Y>92 px</Y>
+                  <X>201.666641169125 px</X>
+                  <Y>79.7777657464703 px</Y>
                 </Location>
-                <Anchors>Top Bottom</Anchors>
-                <Align>Left</Align>
+                <Anchors>None</Anchors>
+                <Align>Right</Align>
                 <CustomProperties>
-                  <OID>49</OID>
-                  <PortType>FloatAnchor</PortType>
+                  <OID>59</OID>
+                  <PortType>FixedAnchor</PortType>
                 </CustomProperties>
               </Port>
               <Port>
@@ -861,155 +1011,7 @@
                   <Y>62 px</Y>
                 </Location>
                 <Anchors>Top Bottom</Anchors>
-                <Align>Right</Align>
-                <CustomProperties>
-                  <OID>50</OID>
-                  <PortType>FloatAnchor</PortType>
-                </CustomProperties>
-              </Port>
-            </PortAnchors>
-            <IsManuallyRouted>false</IsManuallyRouted>
-            <DbOid>
-              <Path>glitch_novels.user.FK_user_provider</Path>
-              <TypeName>ForeignKey</TypeName>
-            </DbOid>
-          </Model>
-          <Model xsi:type="RelationCommentModel">
-            <CustomProperties>
-              <OID>48</OID>
-              <HolderModel>47</HolderModel>
-              <Port>51</Port>
-              <Parent>0</Parent>
-            </CustomProperties>
-            <PortAnchors>
-              <Port xsi:type="LinkPort">
-                <Location>
-                  <X>64.5 px</X>
-                  <Y>0 px</Y>
-                </Location>
-                <Anchors>None</Anchors>
                 <Align>Left</Align>
-                <CustomProperties>
-                  <OID>51</OID>
-                  <PortType>FixedAnchor</PortType>
-                </CustomProperties>
-                <LinkPortAnchor>OutPoint</LinkPortAnchor>
-              </Port>
-            </PortAnchors>
-            <CommentOffset>
-              <X>9.62458038330078 px</X>
-              <Y>8 px</Y>
-            </CommentOffset>
-          </Model>
-          <Model xsi:type="RelationLinkModel">
-            <CustomProperties>
-              <OID>52</OID>
-              <Comment>53</Comment>
-              <OutModel>46</OutModel>
-              <InModel>39</InModel>
-              <OutPort>54</OutPort>
-              <InPort>55</InPort>
-              <Parent>0</Parent>
-            </CustomProperties>
-            <PortAnchors>
-              <Port>
-                <Location>
-                  <X>177.332828987221 px</X>
-                  <Y>87.7813395323381 px</Y>
-                </Location>
-                <Anchors>None</Anchors>
-                <Align>Right</Align>
-                <CustomProperties>
-                  <OID>54</OID>
-                  <PortType>FixedAnchor</PortType>
-                </CustomProperties>
-              </Port>
-              <Port>
-                <Location>
-                  <X>5.10751516065193 px</X>
-                  <Y>56.6892481975225 px</Y>
-                </Location>
-                <Anchors>None</Anchors>
-                <Align>Left</Align>
-                <CustomProperties>
-                  <OID>55</OID>
-                  <PortType>FixedAnchor</PortType>
-                </CustomProperties>
-              </Port>
-            </PortAnchors>
-            <BendPoints>
-              <PointD>
-                <X>749 px</X>
-                <Y>637.781339532338 px</Y>
-              </PointD>
-              <PointD>
-                <X>749 px</X>
-                <Y>636.689248197522 px</Y>
-              </PointD>
-            </BendPoints>
-            <IsManuallyRouted>false</IsManuallyRouted>
-            <DbOid>
-              <Path>glitch_novels.user.FK_user_role</Path>
-              <TypeName>ForeignKey</TypeName>
-            </DbOid>
-          </Model>
-          <Model xsi:type="RelationCommentModel">
-            <CustomProperties>
-              <OID>53</OID>
-              <HolderModel>52</HolderModel>
-              <Port>56</Port>
-              <Parent>0</Parent>
-            </CustomProperties>
-            <PortAnchors>
-              <Port xsi:type="LinkPort">
-                <Location>
-                  <X>-70.5 px</X>
-                  <Y>1.0920695128068 px</Y>
-                </Location>
-                <Anchors>None</Anchors>
-                <Align>Right</Align>
-                <CustomProperties>
-                  <OID>56</OID>
-                  <PortType>FixedAnchor</PortType>
-                </CustomProperties>
-                <LinkPortAnchor>OutPoint</LinkPortAnchor>
-              </Port>
-            </PortAnchors>
-            <CommentOffset>
-              <X>21 px</X>
-              <Y>12.2186604676619 px</Y>
-            </CommentOffset>
-          </Model>
-          <Model xsi:type="RelationLinkModel">
-            <CustomProperties>
-              <OID>57</OID>
-              <Comment>58</Comment>
-              <OutModel>33</OutModel>
-              <InModel>46</InModel>
-              <OutPort>59</OutPort>
-              <InPort>60</InPort>
-              <Parent>0</Parent>
-            </CustomProperties>
-            <PortAnchors>
-              <Port>
-                <Location>
-                  <X>107.610161545679 px</X>
-                  <Y>5.21366973245051 px</Y>
-                </Location>
-                <Anchors>None</Anchors>
-                <Align>Top</Align>
-                <CustomProperties>
-                  <OID>59</OID>
-                  <PortType>FixedAnchor</PortType>
-                </CustomProperties>
-              </Port>
-              <Port>
-                <Location>
-                  <X>99.5 px</X>
-                  <Y>0 px</Y>
-                </Location>
-                <Anchors>Left Right</Anchors>
-                <Align>Bottom</Align>
                 <CustomProperties>
                   <OID>60</OID>
                   <PortType>FloatAnchor</PortType>
@@ -1018,17 +1020,17 @@
             </PortAnchors>
             <BendPoints>
               <PointD>
-                <X>647.610161545679 px</X>
-                <Y>723.25 px</Y>
+                <X>664 px</X>
+                <Y>302.77776574647 px</Y>
               </PointD>
               <PointD>
-                <X>649.5 px</X>
-                <Y>723.25 px</Y>
+                <X>664 px</X>
+                <Y>302 px</Y>
               </PointD>
             </BendPoints>
-            <IsManuallyRouted>true</IsManuallyRouted>
+            <IsManuallyRouted>false</IsManuallyRouted>
             <DbOid>
-              <Path>glitch_novels.review.FK_review_user</Path>
+              <Path>glitch_novels.user.FK_user_provider</Path>
               <TypeName>ForeignKey</TypeName>
             </DbOid>
           </Model>
@@ -1042,11 +1044,11 @@
             <PortAnchors>
               <Port xsi:type="LinkPort">
                 <Location>
-                  <X>-6.91135232955276E-06 px</X>
-                  <Y>28.375 px</Y>
+                  <X>-83 px</X>
+                  <Y>0.777765746470322 px</Y>
                 </Location>
                 <Anchors>None</Anchors>
-                <Align>Top</Align>
+                <Align>Right</Align>
                 <CustomProperties>
                   <OID>61</OID>
                   <PortType>FixedAnchor</PortType>
@@ -1055,17 +1057,165 @@
               </Port>
             </PortAnchors>
             <CommentOffset>
-              <X>32.2395858764648 px</X>
-              <Y>-47.6101615456789 px</Y>
+              <X>26 px</X>
+              <Y>7.22223425352968 px</Y>
+            </CommentOffset>
+          </Model>
+          <Model xsi:type="RelationLinkModel">
+            <CustomProperties>
+              <OID>62</OID>
+              <Comment>63</Comment>
+              <OutModel>56</OutModel>
+              <InModel>49</InModel>
+              <OutPort>64</OutPort>
+              <InPort>65</InPort>
+              <Parent>0</Parent>
+            </CustomProperties>
+            <PortAnchors>
+              <Port>
+                <Location>
+                  <X>2.59257500554378 px</X>
+                  <Y>77.9259139682044 px</Y>
+                </Location>
+                <Anchors>None</Anchors>
+                <Align>Left</Align>
+                <CustomProperties>
+                  <OID>64</OID>
+                  <PortType>FixedAnchor</PortType>
+                </CustomProperties>
+              </Port>
+              <Port>
+                <Location>
+                  <X>173 px</X>
+                  <Y>61.5000000000001 px</Y>
+                </Location>
+                <Anchors>Top Bottom</Anchors>
+                <Align>Right</Align>
+                <CustomProperties>
+                  <OID>65</OID>
+                  <PortType>FloatAnchor</PortType>
+                </CustomProperties>
+              </Port>
+            </PortAnchors>
+            <BendPoints>
+              <PointD>
+                <X>420 px</X>
+                <Y>300.925913968204 px</Y>
+              </PointD>
+              <PointD>
+                <X>420 px</X>
+                <Y>301.5 px</Y>
+              </PointD>
+            </BendPoints>
+            <IsManuallyRouted>false</IsManuallyRouted>
+            <DbOid>
+              <Path>glitch_novels.user.FK_user_role</Path>
+              <TypeName>ForeignKey</TypeName>
+            </DbOid>
+          </Model>
+          <Model xsi:type="RelationCommentModel">
+            <CustomProperties>
+              <OID>63</OID>
+              <HolderModel>62</HolderModel>
+              <Port>66</Port>
+              <Parent>0</Parent>
+            </CustomProperties>
+            <PortAnchors>
+              <Port xsi:type="LinkPort">
+                <Location>
+                  <X>87.5 px</X>
+                  <Y>-0.574086031795559 px</Y>
+                </Location>
+                <Anchors>None</Anchors>
+                <Align>Left</Align>
+                <CustomProperties>
+                  <OID>66</OID>
+                  <PortType>FixedAnchor</PortType>
+                </CustomProperties>
+                <LinkPortAnchor>OutPoint</LinkPortAnchor>
+              </Port>
+            </PortAnchors>
+            <CommentOffset>
+              <X>36.5972366333008 px</X>
+              <Y>6.49999999999994 px</Y>
+            </CommentOffset>
+          </Model>
+          <Model xsi:type="RelationLinkModel">
+            <CustomProperties>
+              <OID>67</OID>
+              <Comment>68</Comment>
+              <OutModel>43</OutModel>
+              <InModel>56</InModel>
+              <OutPort>69</OutPort>
+              <InPort>70</InPort>
+              <Parent>0</Parent>
+            </CustomProperties>
+            <PortAnchors>
+              <Port>
+                <Location>
+                  <X>105.2 px</X>
+                  <Y>5.6843418860808E-14 px</Y>
+                </Location>
+                <Anchors>Left Right</Anchors>
+                <Align>Top</Align>
+                <CustomProperties>
+                  <OID>69</OID>
+                  <PortType>FloatAnchor</PortType>
+                </CustomProperties>
+              </Port>
+              <Port>
+                <Location>
+                  <X>102.2 px</X>
+                  <Y>161.1 px</Y>
+                </Location>
+                <Anchors>Left Right</Anchors>
+                <Align>Bottom</Align>
+                <CustomProperties>
+                  <OID>70</OID>
+                  <PortType>FloatAnchor</PortType>
+                </CustomProperties>
+              </Port>
+            </PortAnchors>
+            <IsManuallyRouted>false</IsManuallyRouted>
+            <DbOid>
+              <Path>glitch_novels.review.FK_review_user</Path>
+              <TypeName>ForeignKey</TypeName>
+            </DbOid>
+          </Model>
+          <Model xsi:type="RelationCommentModel">
+            <CustomProperties>
+              <OID>68</OID>
+              <HolderModel>67</HolderModel>
+              <Port>71</Port>
+              <Parent>0</Parent>
+            </CustomProperties>
+            <PortAnchors>
+              <Port xsi:type="LinkPort">
+                <Location>
+                  <X>-1.22070312045253E-05 px</X>
+                  <Y>29.5 px</Y>
+                </Location>
+                <Anchors>None</Anchors>
+                <Align>Top</Align>
+                <CustomProperties>
+                  <OID>71</OID>
+                  <PortType>FixedAnchor</PortType>
+                </CustomProperties>
+                <LinkPortAnchor>OutPoint</LinkPortAnchor>
+              </Port>
+            </PortAnchors>
+            <CommentOffset>
+              <X>15.2395858764648 px</X>
+              <Y>-52.2 px</Y>
             </CommentOffset>
           </Model>
         </Children>
         <ViewPort>
           <ScaleMode>Free</ScaleMode>
-          <Scale>0.9156743</Scale>
+          <Scale>1.08</Scale>
           <Location>
-            <X>-100.47240280304 px</X>
-            <Y>826.71314004359 px</Y>
+            <X>-125.925920922079 px</X>
+            <Y>474.999981808074 px</Y>
           </Location>
         </ViewPort>
       </Model>

@@ -16,18 +16,19 @@ import java.util.Objects;
 public class Chapter {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "chapter_id")
   private Integer id;
 
   @Column(name = "chapter_number")
   private double number;
 
-  @Column(name = "chapter_name")
-  private String name;
+  @Column(name = "chapter_title")
+  private String title;
 
-  @Column(name = "content")
+  @Column(name = "chapter_content")
   private String content;
 
-  @Column(name = "created_date")
+  @Column(name = "chapter_created_date")
   private LocalDateTime createdDate;
 
   @ManyToOne

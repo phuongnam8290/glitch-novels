@@ -1,9 +1,9 @@
 <template>
-  <div class="title-card grid h-[275px] bg-gray-bg-1/80 p-3">
+  <div class="novel-card grid h-[275px] bg-gray-bg-1/80 p-3">
     <div class="cover">
-      <router-link :to="{ name: 'details', params: { id: title.id } }">
+      <router-link :to="{ name: 'details', params: { id: novel.id } }">
         <img
-          :src="title.coverUrl"
+          :src="novel.coverUrl"
           alt="Title cover"
           class="h-full w-full object-cover"
         />
@@ -11,13 +11,13 @@
     </div>
     <h1 class="title inline-block overflow-hidden">
       <router-link
-        :to="{ name: 'details', params: { id: title.id } }"
+        :to="{ name: 'details', params: { id: novel.id } }"
         class="title-text inline-block w-full truncate"
         ref="title"
         @mouseenter="startMarquee($event, 2)"
         @mouseleave="stopMarquee"
       >
-        <span>{{ title.title }}</span>
+        <span>{{ novel.title }}</span>
       </router-link>
     </h1>
     <h2 class="author overflow-hidden">
@@ -28,7 +28,7 @@
         @mouseenter="startMarquee($event, 2)"
         @mouseleave="stopMarquee"
       >
-        <span>{{ title.author.name }}</span>
+        <span>{{ novel.author.name }}</span>
       </a>
     </h2>
     <div class="ratings self-center">
@@ -41,14 +41,14 @@
       </span>
     </div>
     <scrollable-tags
-      v-if="title.genres.length > 0"
-      :tags="title.genres"
+      v-if="novel.genres.length > 0"
+      :tags="novel.genres"
       class="tags py-4"
     />
     <div
       class="synopsis cursor-pointer overflow-y-hidden pb-10 pr-4 hover:overflow-y-scroll"
       v-drag-scroll.y
-      v-html="title.description"
+      v-html="novel.synopsis"
     >
     </div>
   </div>
@@ -63,7 +63,7 @@ import { dragscroll as vDragScroll } from "vue-dragscroll";
 import ScrollableTags from "@/components/common/tag/ScrollableTags.vue";
 
 defineProps({
-  title: {
+  novel: {
     required: true,
     type: Object,
     validator(value) {
@@ -72,7 +72,7 @@ defineProps({
         id: number().required().positive(),
         title: string().required(),
         coverUrl: string().required().url(),
-        description: string().required(),
+        synopsis: string().required(),
         author: object({
           id: number().required(),
           name: string().required(),
@@ -80,7 +80,7 @@ defineProps({
         genres: array().of(
           object({
             id: number().required(),
-            name: string().required(),
+            title: string().required(),
             description: string().required(),
           })
         ),
@@ -109,7 +109,7 @@ const stopMarquee = (event) => {
 </script>
 
 <style scoped>
-.title-card {
+.novel-card {
   grid-template-columns: 180px 1fr calc(18px * 5);
   grid-template-rows: calc(1.3rem * 1.5) calc(0.8rem * 1.5) calc(0.8rem + (0.5rem * 2) + 2px + 2rem) 1fr;
   grid-template-areas:

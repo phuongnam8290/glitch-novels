@@ -21,7 +21,7 @@ public class NovelDTO {
   private Integer id;
   private String title;
   private String coverUrl;
-  private String description;
+  private String synopsis;
   private LocalDateTime createdDate;
   private LocalDateTime lastUpdatedDate;
   private AuthorDTO author;
@@ -47,7 +47,7 @@ public class NovelDTO {
     builder.id(dbNovel.getId())
         .title(dbNovel.getTitle())
         .coverUrl(dbNovel.getCoverUrl())
-        .description(dbNovel.getDescription())
+        .synopsis(dbNovel.getSynopsis())
         .createdDate(dbNovel.getCreatedDate())
         .lastUpdatedDate(dbNovel.getLastUpdatedDate())
         .author(AuthorDTO.mapEntity(dbNovel.getAuthor(), true));

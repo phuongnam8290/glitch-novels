@@ -16,10 +16,11 @@ import java.util.Objects;
 public class Tag {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "tag_id")
   private Integer id;
 
-  @Column(name = "tag_name")
-  private String name;
+  @Column(name = "tag_title")
+  private String title;
 
   @Column(name = "tag_description")
   private String description;

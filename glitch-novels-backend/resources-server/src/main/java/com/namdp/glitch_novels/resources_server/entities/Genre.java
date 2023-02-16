@@ -17,10 +17,11 @@ import java.util.Objects;
 public class Genre {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "genre_id")
   private Integer id;
 
-  @Column(name = "genre_name")
-  private String name;
+  @Column(name = "genre_title")
+  private String title;
 
   @Column(name = "genre_description")
   private String description;

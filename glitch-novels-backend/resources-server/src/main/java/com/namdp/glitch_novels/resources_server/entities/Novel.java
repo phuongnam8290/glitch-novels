@@ -17,6 +17,7 @@ import java.util.Objects;
 public class Novel {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "novel_id")
   private Integer id;
 
   @Column(name = "novel_title")
@@ -25,13 +26,13 @@ public class Novel {
   @Column(name = "novel_cover_url")
   private String coverUrl;
 
-  @Column(name = "novel_description")
-  private String description;
+  @Column(name = "novel_synopsis")
+  private String synopsis;
 
-  @Column(name = "created_date")
+  @Column(name = "novel_created_date")
   private LocalDateTime createdDate;
 
-  @Column(name = "last_updated_date")
+  @Column(name = "novel_last_updated_date")
   private LocalDateTime lastUpdatedDate;
 
   @ManyToOne

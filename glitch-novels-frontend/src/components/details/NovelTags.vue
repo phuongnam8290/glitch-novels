@@ -17,7 +17,7 @@
           v-for="tag in props.tags"
           :key="tag.id"
         >
-          <the-tag> {{ tag.name }} </the-tag>
+          <the-tag> {{ tag.title }} </the-tag>
         </li>
       </ul>
     </template>
@@ -40,7 +40,7 @@ const props = defineProps({
       const schema = array().of(
         object({
           id: number().required().positive(),
-          name: string().required(),
+          title: string().required(),
           description: string().required(),
         })
       );

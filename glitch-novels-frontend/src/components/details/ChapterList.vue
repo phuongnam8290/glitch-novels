@@ -20,7 +20,7 @@
         </div>
         <div class="chapter-name overflow-hidden">
           <p class="inline-block w-full truncate">
-            <span>{{ chapter.name }}</span>
+            <span>{{ chapter.title }}</span>
           </p>
         </div>
         <div class="chapter-release-date subtitle-text">
@@ -51,7 +51,7 @@ const props = defineProps({
       const schema = array().of(
         object({
           id: number().required(),
-          name: string().required(),
+          title: string().required(),
           number: number().required().min(0),
           createdDate: string().required(),
         })

@@ -5,7 +5,7 @@
   </h1>
 
   <section ref="titleList">
-    <title-list :titles="CURRENT_TITLES" />
+    <novel-list :novels="CURRENT_NOVELS" />
   </section>
 
   <section>
@@ -19,23 +19,23 @@
 
 <script setup>
 import { computed, onMounted } from "vue";
-import { useTitlesStore } from "@/stores/titles";
+import { useNovelsStore } from "@/stores/novels";
 
-import TitleList from "@/components/titles/TitleList.vue";
+import NovelList from "@/components/novels/NovelList.vue";
 import ThePagination from "@/components/common/pagination/ThePagination.vue";
 
-const titlesStore = useTitlesStore();
-onMounted(titlesStore.FETCH_TITLES);
+const novelsStore = useNovelsStore();
+onMounted(novelsStore.FETCH_NOVELS);
 
-const CURRENT_TITLES = computed(() => titlesStore.CURRENT_TITLES);
-const TOTAL_PAGES = computed(() => titlesStore.TOTAL_PAGES);
-const CURRENT_PAGE = computed(() => titlesStore.CURRENT_PAGE);
+const CURRENT_NOVELS = computed(() => novelsStore.CURRENT_NOVELS);
+const TOTAL_PAGES = computed(() => novelsStore.TOTAL_PAGES);
+const CURRENT_PAGE = computed(() => novelsStore.CURRENT_PAGE);
 
 // Handle change page event.
 const changePage = (page) => {
-  titlesStore.CHANGE_PAGE(page);
+  novelsStore.CHANGE_PAGE(page);
 
-  // Scroll to top after load new batch of titles.
+  // Scroll to top after load new batch of novels.
   window.scrollTo({
     top: 95,
     behavior: "smooth",

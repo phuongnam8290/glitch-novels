@@ -14,7 +14,7 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class GenreDTO {
   private Integer id;
-  private String name;
+  private String title;
   private String description;
   private List<NovelDTO> novels;
 
@@ -29,7 +29,7 @@ public class GenreDTO {
     GenreDTOBuilder builder = GenreDTO.builder();
     builder
         .id(dbGenre.getId())
-        .name(dbGenre.getName())
+        .title(dbGenre.getTitle())
         .description(dbGenre.getDescription());
 
     if (!isAbridged) {
