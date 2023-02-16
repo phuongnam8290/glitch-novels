@@ -40,7 +40,7 @@
         :tags="NOVEL_DETAILS.tags"
         v-if="NOVEL_DETAILS.tags.length !== 0"
       />
-      <section>
+      <section ref="tableOfContents">
         <h2 class="section-text table-of-contents bg-gray-bg-1/80 p-4">Table of Contents</h2>
         <chapter-list :chapters="CURRENT_CHAPTERS" />
         <div class="bg-gray-bg-1/80 pb-4 pt-8">
@@ -57,8 +57,9 @@
 
 <script setup>
 import { useDetailsStore } from "@/stores/details";
-import { computed, onMounted } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
+import { useScrollTopElement } from "@/composable/animations/scrollElement";
 
 import PublishInfo from "@/components/details/PublishInfo.vue";
 import NovelSynopsis from "@/components/details/NovelSynopsis.vue";
@@ -78,14 +79,12 @@ const TOTAL_PAGES = computed(() => detailsStore.TOTAL_PAGES);
 const CURRENT_PAGE = computed(() => detailsStore.CURRENT_PAGE);
 
 // Handle paginate action.
-const changePage = (page) => {
+const tableOfContents = ref(null);
+const changePage = async (page) => {
   detailsStore.CHANGE_PAGE(page);
 
-  // Scroll to top after load new batch of chapters.
-  window.scrollTo({
-    top: 95,
-    behavior: "smooth",
-  });
+  // Scroll to top of ToC after load new batch of chapters.
+  await useScrollTopElement(tableOfContents);
 };
 </script>
 

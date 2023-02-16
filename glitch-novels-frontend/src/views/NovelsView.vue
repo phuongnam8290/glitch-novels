@@ -4,7 +4,7 @@
     Advanced Search
   </h1>
 
-  <section ref="titleList">
+  <section ref="novelList">
     <novel-list :novels="CURRENT_NOVELS" />
   </section>
 
@@ -18,8 +18,10 @@
 </template>
 
 <script setup>
-import { computed, onMounted } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useNovelsStore } from "@/stores/novels";
+
+import { useScrollTopElement } from "@/composable/animations/scrollElement";
 
 import NovelList from "@/components/novels/NovelList.vue";
 import ThePagination from "@/components/common/pagination/ThePagination.vue";
@@ -32,13 +34,12 @@ const TOTAL_PAGES = computed(() => novelsStore.TOTAL_PAGES);
 const CURRENT_PAGE = computed(() => novelsStore.CURRENT_PAGE);
 
 // Handle change page event.
-const changePage = (page) => {
+const novelList = ref(null);
+
+const changePage = async (page) => {
   novelsStore.CHANGE_PAGE(page);
 
   // Scroll to top after load new batch of novels.
-  window.scrollTo({
-    top: 95,
-    behavior: "smooth",
-  });
+  await useScrollTopElement(novelList);
 };
 </script>
