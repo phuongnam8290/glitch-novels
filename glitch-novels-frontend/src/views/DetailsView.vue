@@ -1,44 +1,44 @@
 <template>
   <div
     class="details mt-16 flex items-start gap-x-6"
-    v-if="novel"
+    v-if="NOVEL_DETAILS"
   >
     <div class="left-col sticky top-36 flex flex-col bg-gray-bg-1/80">
       <div class="cover px-3 pt-3">
         <img
-          :src="novel.coverUrl"
+          :src="NOVEL_DETAILS.coverUrl"
           alt="Cover"
           class="h-full object-cover"
         />
       </div>
       <div class="flex justify-center py-6">
         <publish-info
-          :createdDate="novel.createdDate"
-          :lastUpdatedDate="novel.lastUpdatedDate"
-          :numberOfChapters="novel.chapters.length"
+          :createdDate="NOVEL_DETAILS.createdDate"
+          :lastUpdatedDate="NOVEL_DETAILS.lastUpdatedDate"
+          :numberOfChapters="NOVEL_DETAILS.numberOfChapters"
         />
       </div>
     </div>
 
     <div class="right-col grid w-full gap-y-6">
       <div>
-        <h1 class="title size font-bold"> {{ novel.title }} </h1>
-        <a href="#"> {{ novel.author.name }} </a>
+        <h1 class="title size font-bold"> {{ NOVEL_DETAILS.title }} </h1>
+        <a href="#"> {{ NOVEL_DETAILS.author.name }} </a>
       </div>
 
       <novel-synopsis
         class="synopsis"
-        :synopsis="novel.description"
+        :synopsis="NOVEL_DETAILS.description"
       />
       <novel-genres
         class="genres"
-        :genres="novel.genres"
-        v-if="novel.genres.length !== 0"
+        :genres="NOVEL_DETAILS.genres"
+        v-if="NOVEL_DETAILS.genres.length !== 0"
       />
       <novel-tags
         class="tags"
-        :tags="novel.tags"
-        v-if="novel.tags.length !== 0"
+        :tags="NOVEL_DETAILS.tags"
+        v-if="NOVEL_DETAILS.tags.length !== 0"
       />
       <section>
         <h2 class="section-text table-of-contents bg-gray-bg-1/80 p-4">Table of Contents</h2>
@@ -72,7 +72,7 @@ const route = useRoute();
 
 onMounted(() => detailsStore.FETCH_DETAIL(route.params.id));
 
-const novel = computed(() => detailsStore.NOVEL_DETAILS);
+const NOVEL_DETAILS = computed(() => detailsStore.NOVEL_DETAILS);
 const CURRENT_CHAPTERS = computed(() => detailsStore.CURRENT_CHAPTERS);
 const TOTAL_PAGES = computed(() => detailsStore.TOTAL_PAGES);
 const CURRENT_PAGE = computed(() => detailsStore.CURRENT_PAGE);

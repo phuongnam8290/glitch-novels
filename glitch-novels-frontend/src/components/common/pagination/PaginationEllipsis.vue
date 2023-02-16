@@ -66,7 +66,7 @@ const changeWidth = (event) => {
 // Emit change page event when input lost focus or when enter key pressed.
 const confirmInput = (event) => {
   isInputVisible.value = false;
-  emit("changePage", event.currentTarget.value);
+  emit("changePage", Number.parseInt(event.currentTarget.value));
 };
 </script>
 
