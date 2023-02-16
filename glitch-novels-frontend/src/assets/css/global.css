@@ -16,9 +16,9 @@
     transition: all 0.25s ease-in-out;
   }
 
-  p {
-    word-spacing: 2px;
-  }
+  /*p {*/
+  /*  word-spacing: 2px;*/
+  /*}*/
 
   p ~ p {
     margin-top: 0.5rem;

@@ -19,7 +19,6 @@ export const useTitlesStore = defineStore("titles", {
       const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
       const response = await axios.get(`${baseUrl}/titles`);
 
-      this.total = response.data.total;
       this.titles = response.data.titles;
     },
 

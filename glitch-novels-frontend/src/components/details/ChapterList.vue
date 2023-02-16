@@ -3,12 +3,14 @@
     <li
       v-for="(chapter, index) in props.chapters"
       :key="chapter.id"
-      class="border-y border-gray-bg-2"
+      class="border-y border-gray-bg-2 pr-4 hover:bg-gray-selected-bg"
       :class="setChapterBg(index)"
+      @mouseenter="startMarquee($event, 2)"
+      @mouseleave="stopMarquee"
     >
       <a
         href="#"
-        class="chapter grid gap-y-2 py-3 hover:bg-gray-selected-bg"
+        class="chapter grid gap-y-2 py-3"
       >
         <div
           class="chapter-number flex items-center justify-center"
@@ -16,8 +18,10 @@
         >
           <span> {{ chapter.number }}</span>
         </div>
-        <div class="chapter-name">
-          <span>{{ chapter.name }}</span>
+        <div class="chapter-name overflow-hidden">
+          <p class="inline-block w-full truncate">
+            <span>{{ chapter.name }}</span>
+          </p>
         </div>
         <div class="chapter-release-date subtitle-text">
           <span> {{ moment(chapter.createdDate).fromNow() }} </span>
@@ -37,6 +41,7 @@
 <script setup>
 import moment from "moment";
 import { array, number, object, string } from "yup";
+import { useStartMarquee, useStopMarquee } from "@/composable/animations/marquee";
 
 const props = defineProps({
   chapters: {
@@ -63,6 +68,15 @@ const props = defineProps({
     },
   },
 });
+
+// Handle the marquee effect on the chapter's title when hovering.
+const startMarquee = (event, padding) => {
+  useStartMarquee(event.currentTarget.querySelector(".chapter-name > p"), padding);
+};
+
+const stopMarquee = (event) => {
+  useStopMarquee(event.currentTarget.querySelector(".chapter-name > p"));
+};
 
 // Get the chapter's position in the rendered table (left or right column, in odd or even row)
 const getRenderedChapterPosition = (chapterIndex) => {
@@ -92,7 +106,7 @@ const setChapterBorder = (chapterIndex) => {
   const isInRightColumn = renderedChapterPosition.isInRightColumn;
 
   return {
-    "border-l-2": isInRightColumn,
+    "border-l-2 ": isInRightColumn,
     "border-gray-bg-1": isInRightColumn && isOddRow,
     "border-gray-bg-2": isInRightColumn && !isOddRow,
   };
