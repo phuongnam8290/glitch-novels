@@ -35,7 +35,8 @@
             class="link-group-header"
             :class="{ active: linkGroup.isActive }"
           >
-            <a
+            <router-link
+              :to="{ name: linkGroup.routeName }"
               href="#"
               class="py-1 px-2"
             >
@@ -46,7 +47,7 @@
                 />
               </span>
               {{ linkGroup.linkGroupHeader }}
-            </a>
+            </router-link>
           </div>
           <ul class="font-normal">
             <li
@@ -74,11 +75,13 @@ const navigationLinkGroups = ref([
   {
     linkGroupHeader: "Home",
     icon: "fa-house",
+    routeName: "home",
     linkGroupItems: [],
   },
   {
     linkGroupHeader: "Novels",
     icon: "fa-book-open-cover",
+    routeName: "novels",
     linkGroupItems: [
       { title: "Advanced Search", isActive: true },
       { title: "Recently Added" },
@@ -89,6 +92,7 @@ const navigationLinkGroups = ref([
   {
     linkGroupHeader: "Glitch Novels",
     icon: "fa-thumbtack",
+    routeName: "home",
     linkGroupItems: [
       { title: "About Us" },
       { title: "Site Rules" },

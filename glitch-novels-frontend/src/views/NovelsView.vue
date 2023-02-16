@@ -23,6 +23,7 @@ import { useNovelsStore } from "@/stores/novels";
 
 import { useScrollTopElement } from "@/composable/animations/scrollElement";
 
+// eslint-disable-next-line no-unused-vars
 import NovelList from "@/components/novels/NovelList.vue";
 import ThePagination from "@/components/common/pagination/ThePagination.vue";
 
