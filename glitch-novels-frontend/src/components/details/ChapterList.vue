@@ -1,56 +1,42 @@
 <template>
-  <section>
-    <h2 class="section-text bg-gray-bg-1/80 p-4">Table of Contents</h2>
-    <ul class="chapter-list grid grid-cols-2">
-      <li
-        v-for="(chapter, index) in props.chapters"
-        :key="chapter.id"
-        class="border-y border-gray-bg-2"
-        :class="setChapterBg(index)"
+  <ul class="chapter-list grid grid-cols-2">
+    <li
+      v-for="(chapter, index) in props.chapters"
+      :key="chapter.id"
+      class="border-y border-gray-bg-2"
+      :class="setChapterBg(index)"
+    >
+      <a
+        href="#"
+        class="chapter grid gap-y-2 py-3 hover:bg-gray-selected-bg"
       >
-        <a
-          href="#"
-          class="chapter grid gap-y-2 py-3 hover:bg-gray-selected-bg"
+        <div
+          class="chapter-number flex items-center justify-center"
+          :class="setChapterBorder(index)"
         >
-          <div
-            class="chapter-number flex items-center justify-center"
-            :class="setChapterBorder(index)"
-          >
-            <span> {{ chapter.number }}</span>
-          </div>
-          <div class="chapter-name">
-            <span>{{ chapter.name }}</span>
-          </div>
-          <div class="chapter-release-date subtitle-text">
-            <span> {{ moment(chapter.createdDate).fromNow() }} </span>
-          </div>
-        </a>
-      </li>
+          <span> {{ chapter.number }}</span>
+        </div>
+        <div class="chapter-name">
+          <span>{{ chapter.name }}</span>
+        </div>
+        <div class="chapter-release-date subtitle-text">
+          <span> {{ moment(chapter.createdDate).fromNow() }} </span>
+        </div>
+      </a>
+    </li>
 
-      <li
-        v-if="chapters.length % 2 !== 0"
-        :class="setChapterBg(chapters.length)"
-        class="border-y border-gray-bg-2"
-      >
-      </li>
-    </ul>
-    <div class="bg-gray-bg-1/80 pb-4 pt-8">
-      <the-pagination
-        :total-pages="TOTAL_PAGES"
-        :current-page="CURRENT_PAGE"
-        @changePage="changePage"
-      />
-    </div>
-  </section>
+    <li
+      v-if="chapters.length % 2 !== 0"
+      :class="setChapterBg(chapters.length)"
+      class="border-y border-gray-bg-2"
+    >
+    </li>
+  </ul>
 </template>
 
 <script setup>
-import { useDetailsStore } from "@/stores/details";
-import { array, number, object, string } from "yup";
 import moment from "moment";
-
-import ThePagination from "@/components/common/pagination/ThePagination.vue";
-import { computed } from "vue";
+import { array, number, object, string } from "yup";
 
 const props = defineProps({
   chapters: {
@@ -77,22 +63,6 @@ const props = defineProps({
     },
   },
 });
-
-const detailsStore = useDetailsStore();
-// const CURRENT_CHAPTERS = computed(() => detailsStore.CURRENT_CHAPTERS);
-const TOTAL_PAGES = computed(() => detailsStore.TOTAL_PAGES);
-const CURRENT_PAGE = computed(() => detailsStore.CURRENT_PAGE);
-
-// Handle change page event.
-const changePage = (page) => {
-  detailsStore.CHANGE_PAGE(page);
-
-  // Scroll to top after load new batch of titles.
-  window.scrollTo({
-    top: 95,
-    behavior: "smooth",
-  });
-};
 
 // Get the chapter's position in the rendered table (left or right column, in odd or even row)
 const getRenderedChapterPosition = (chapterIndex) => {

@@ -40,24 +40,32 @@
         :tags="novel.tags"
         v-if="novel.tags.length !== 0"
       />
-      <novel-chapter-list
-        class="table-of-contents"
-        :chapters="CURRENT_CHAPTERS"
-      />
+      <section>
+        <h2 class="section-text table-of-contents bg-gray-bg-1/80 p-4">Table of Contents</h2>
+        <chapter-list :chapters="CURRENT_CHAPTERS" />
+        <div class="bg-gray-bg-1/80 pb-4 pt-8">
+          <the-pagination
+            :total-pages="TOTAL_PAGES"
+            :current-page="CURRENT_PAGE"
+            @changePage="changePage"
+          />
+        </div>
+      </section>
     </div>
   </div>
 </template>
 
 <script setup>
 import { useDetailsStore } from "@/stores/details";
+import { computed, onMounted } from "vue";
 import { useRoute } from "vue-router";
 
 import PublishInfo from "@/components/details/PublishInfo.vue";
 import NovelSynopsis from "@/components/details/NovelSynopsis.vue";
 import NovelGenres from "@/components/details/NovelGenres.vue";
 import NovelTags from "@/components/details/NovelTags.vue";
-import NovelChapterList from "@/components/details/NovelChapterList.vue";
-import { computed, onMounted } from "vue";
+import ChapterList from "@/components/details/ChapterList.vue";
+import ThePagination from "@/components/common/pagination/ThePagination.vue";
 
 const detailsStore = useDetailsStore();
 const route = useRoute();
@@ -66,6 +74,19 @@ onMounted(() => detailsStore.FETCH_DETAIL(route.params.id));
 
 const novel = computed(() => detailsStore.NOVEL_DETAILS);
 const CURRENT_CHAPTERS = computed(() => detailsStore.CURRENT_CHAPTERS);
+const TOTAL_PAGES = computed(() => detailsStore.TOTAL_PAGES);
+const CURRENT_PAGE = computed(() => detailsStore.CURRENT_PAGE);
+
+// Handle paginate action.
+const changePage = (page) => {
+  detailsStore.CHANGE_PAGE(page);
+
+  // Scroll to top after load new batch of chapters.
+  window.scrollTo({
+    top: 95,
+    behavior: "smooth",
+  });
+};
 </script>
 
 <style scoped>
