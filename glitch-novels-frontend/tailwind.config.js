@@ -15,6 +15,7 @@ module.exports = {
         "gray-bg-1": "#343A40",
         "gray-bg-2": "#212529",
         "gray-selected-bg": "#1c2023",
+        "gray-divider": "#676767",
       },
     },
   },

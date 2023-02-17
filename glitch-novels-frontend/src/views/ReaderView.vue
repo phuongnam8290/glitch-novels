@@ -1,45 +1,25 @@
 <template>
-  <div
-    class="container relative mx-auto -mb-20 bg-gray-bg-1"
-    ref="test"
+  <section
+    class="wrapper relative mx-auto -mb-20 w-[70%] bg-gray-bg-1 px-20 pt-10"
+    ref="wrapper"
     @wheel="handleMouseWheel"
   >
-    <div
-      class="chapter"
+    <chapter-reader
+      :chapter="chapter"
       v-for="chapter in CHAPTERS"
       :key="chapter.id"
-    >
-      <div v-html="chapter.content"></div>
-    </div>
-    <!--    <div-->
-    <!--      class="h-[100px] bg-green-700"-->
-    <!--      v-for="n in prevChapters"-->
-    <!--      :key="n"-->
-    <!--    >-->
-    <!--      {{ n }}-->
-    <!--    </div>-->
-    <!--    <div class="h-[100px] bg-amber-400"> </div>-->
-    <!--    <div-->
-    <!--      class="h-[100px] bg-blue-700"-->
-    <!--      v-for="n in nextChapters"-->
-    <!--      :key="n"-->
-    <!--    >-->
-    <!--      {{ n }}-->
-    <!--    </div>-->
-    <div
-      class="next-indicator absolute left-0 bottom-0 h-[300px]"
-      ref="nextIndicator"
-    ></div>
-  </div>
+    />
+  </section>
 </template>
 
 <script setup>
 import { computed, onMounted, onUnmounted, ref } from "vue";
 import { useChaptersStore } from "@/stores/chapter";
 
-const test = ref(null);
-// const prevChapters = ref([]);
-// const nextChapters = ref([]);
+import ChapterReader from "@/components/reader/ChapterReader.vue";
+
+const wrapper = ref(null);
+
 const chaptersStore = useChaptersStore();
 const CHAPTERS = computed(() => chaptersStore.CHAPTERS);
 
@@ -47,7 +27,7 @@ const nextIndicator = ref(null);
 let intersectionObserver = null;
 
 const loadNextChapters = async () => {
-  while (test.value.getBoundingClientRect().bottom < window.innerHeight * 1.5 && chaptersStore.HAS_NEXT_CHAPTER) {
+  while (wrapper.value.getBoundingClientRect().bottom < window.innerHeight * 1.5 && chaptersStore.HAS_NEXT_CHAPTER) {
     await renderNextChapters();
   }
 };
@@ -81,16 +61,14 @@ const handleMouseWheel = async (event) => {
 
   if (
     event.deltaY < 0 && //
-    test.value.getBoundingClientRect().top > 0 &&
+    wrapper.value.getBoundingClientRect().top > 0 &&
     chaptersStore.HAS_PREVIOUS_CHAPTER
   ) {
     const body = document.documentElement;
     const initialHeight = body.scrollHeight;
 
     await renderPrevChapters();
-    // await nextTick(() => {
     body.scrollTop = body.scrollHeight - initialHeight;
-    // });
   }
 };
 
