@@ -19,6 +19,8 @@ public class ChapterDTO {
   private String content;
   private LocalDateTime createdDate;
   private NovelDTO novel;
+  private Integer previousChapterId;
+  private Integer nextChapterId;
 
   /**
    * Map a chapter record in the database to its corresponding api instance.
@@ -37,7 +39,9 @@ public class ChapterDTO {
         .novel(NovelDTO.builder()
             .id(dbChapter.getNovel().getId())
             .title(dbChapter.getNovel().getTitle())
-            .build());
+            .build())
+        .previousChapterId(dbChapter.getPreviousChapter() != null ? dbChapter.getPreviousChapter().getId() : null)
+        .nextChapterId(dbChapter.getNextChapter() != null ? dbChapter.getNextChapter().getId() : null);
 
     if (!isAbridged) {
       builder.content(dbChapter.getContent());

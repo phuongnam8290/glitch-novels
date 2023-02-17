@@ -35,6 +35,14 @@ public class Chapter {
   @JoinColumn(name = "novel_id")
   private Novel novel;
 
+  @OneToOne
+  @JoinColumn(name = "previous_chapter_id")
+  private Chapter previousChapter;
+
+  @OneToOne
+  @JoinColumn(name = "next_chapter_id")
+  private Chapter nextChapter;
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
