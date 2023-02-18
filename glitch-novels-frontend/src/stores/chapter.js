@@ -18,6 +18,27 @@ export const useChaptersStore = defineStore("chapters", {
       this.chapters = [];
       this.chapters[0] = await this.FETCH_CHAPTER(id);
     },
+
+    async FETCH_PREVIOUS_CHAPTER() {
+      if (!this.chapters[0] || !this.chapters[0].previousChapterId) {
+        return;
+      }
+
+      const previousChapterId = this.chapters[0].previousChapterId;
+      return await this.FETCH_CHAPTER(previousChapterId);
+    },
+    async ADD_PREVIOUS_CHAPTER() {
+      const previousChapter = await this.FETCH_PREVIOUS_CHAPTER();
+
+      if (!previousChapter) {
+        return;
+      }
+
+      if (this.chapters[0].previousChapterId === previousChapter.id) {
+        this.chapters.unshift(previousChapter);
+      }
+    },
+
     async FETCH_NEXT_CHAPTER() {
       const lastIndex = this.chapters.length - 1;
       if (!this.chapters[lastIndex] || !this.chapters[lastIndex].nextChapterId) {
@@ -25,16 +46,19 @@ export const useChaptersStore = defineStore("chapters", {
       }
 
       const nextChapterId = this.chapters[lastIndex].nextChapterId;
-      this.chapters.push(await this.FETCH_CHAPTER(nextChapterId));
+      return await this.FETCH_CHAPTER(nextChapterId);
     },
-    async FETCH_PREV_CHAPTER() {
-      if (!this.chapters[0] || !this.chapters[0].previousChapterId) {
+    async ADD_NEXT_CHAPTER() {
+      const nextChapter = await this.FETCH_NEXT_CHAPTER();
+
+      if (!nextChapter) {
         return;
       }
 
-      const previousChapterId = this.chapters[0].previousChapterId;
-      const previousChapter = await this.FETCH_CHAPTER(previousChapterId);
-      this.chapters.unshift(previousChapter);
+      const lastIndex = this.chapters.length - 1;
+      if (this.chapters[lastIndex].nextChapterId === nextChapter.id) {
+        this.chapters.push(nextChapter);
+      }
     },
   },
   getters: {

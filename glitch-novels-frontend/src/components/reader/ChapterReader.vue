@@ -2,14 +2,10 @@
   <div class="chapter">
     <h1 class="mb-10"> Chapter {{ chapter.number }} - {{ chapter.title }}</h1>
     <article v-html="chapter.content"></article>
-    <div class="divider my-10 flex w-full items-center justify-center">
+    <div class="divider mt-10 flex w-full items-center justify-center">
       <span class="mx-10"><i class="fa-sharp fa-solid fa-book-open-cover fa-xl"></i></span>
     </div>
   </div>
-  <div
-    class="next-indicator absolute left-0 bottom-0 h-[300px]"
-    ref="nextIndicator"
-  ></div>
 </template>
 
 <script setup>
@@ -46,13 +42,13 @@ defineProps({
   font-weight: bold;
 }
 
-.chapter >>> p {
+.chapter:deep(p) {
   font-size: 1.3rem;
   line-height: 2;
   letter-spacing: 1px;
 }
 
-.chapter >>> p ~ p {
+.chapter:deep(p ~ p) {
   margin-top: 1.5rem;
 }
 
