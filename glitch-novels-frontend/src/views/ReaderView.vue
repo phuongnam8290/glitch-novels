@@ -10,10 +10,6 @@
     />
 
     <div
-      class="prev-indicator absolute left-0 -top-10 h-[50px]"
-      ref="prevIndicator"
-    ></div>
-    <div
       class="next-indicator absolute left-0 bottom-0 h-[300px]"
       ref="nextIndicator"
     ></div>
@@ -30,11 +26,9 @@ const chaptersStore = useChaptersStore();
 const CHAPTERS = computed(() => chaptersStore.CHAPTERS);
 
 const wrapper = ref(null);
-const prevIndicator = ref(null);
 const nextIndicator = ref(null);
 
 let nextIntersectionObserver = null;
-let prevIntersectionObserver = null;
 
 onMounted(async () => {
   await chaptersStore.FETCH_CURRENT_CHAPTER(45);
@@ -43,62 +37,53 @@ onMounted(async () => {
     threshold: 0.1,
   };
 
-  selfDestructWheelEvent();
+  document.addEventListener("wheel", handleWheelTopEvent);
+  document.addEventListener("keydown", handleArrowUpEvent);
 
   nextIntersectionObserver = new IntersectionObserver(loadNextChapters, options);
   nextIntersectionObserver.observe(nextIndicator.value);
 });
 
 onUnmounted(() => {
-  prevIntersectionObserver.disconnect();
+  document.removeEventListener("wheel", handleWheelTopEvent);
+  document.removeEventListener("keydown", handleArrowUpEvent);
   nextIntersectionObserver.disconnect();
 });
 
-let firstTime = true;
-const loadPreviousChapters = async (entries) => {
-  if (firstTime) {
-    firstTime = false;
-    return;
-  }
-  if (!entries[0].isIntersecting) {
-    return;
-  }
-
-  const initialHeight = wrapper.value.scrollHeight;
-  while (shouldLoadMorePreviousChapter(initialHeight)) {
-    await chaptersStore.ADD_PREVIOUS_CHAPTER();
-    const currentHeight = wrapper.value.scrollHeight;
-    document.documentElement.scrollTop = currentHeight - initialHeight + 5 * 16;
-  }
-};
-
 const HAS_PREVIOUS_CHAPTER = computed(() => chaptersStore.HAS_PREVIOUS_CHAPTER);
-const shouldLoadMorePreviousChapter = (initialHeight) => {
-  const currentHeight = wrapper.value.scrollHeight;
-  return currentHeight - initialHeight < 500 && HAS_PREVIOUS_CHAPTER.value;
+
+const handleWheelTopEvent = async (event) => {
+  if (
+    event.deltaY < 0 && //
+    wrapper.value.getBoundingClientRect().top > 0 &&
+    HAS_PREVIOUS_CHAPTER.value
+  ) {
+    await handleMoveTopEwents();
+  }
 };
 
-const selfDestructWheelEvent = () => {
-  const handleWheelEvent = async (event) => {
-    if (
-      event.deltaY < 0 && //
-      wrapper.value.getBoundingClientRect().top > 0 &&
-      HAS_PREVIOUS_CHAPTER.value
-    ) {
-      const body = document.documentElement;
-      const initialHeight = body.scrollHeight;
+const handleArrowUpEvent = async (event) => {
+  if (
+    event.keyCode === 38 && //
+    wrapper.value.getBoundingClientRect().top > 0 &&
+    HAS_PREVIOUS_CHAPTER.value
+  ) {
+    await handleMoveTopEwents();
+  }
+};
 
-      await chaptersStore.ADD_PREVIOUS_CHAPTER();
-      body.scrollTop = body.scrollHeight - initialHeight;
+const handleMoveTopEwents = async () => {
+  const body = document.documentElement;
+  const initialHeight = body.scrollHeight;
 
-      document.removeEventListener("wheel", handleWheelEvent);
+  await chaptersStore.ADD_PREVIOUS_CHAPTER();
+  const previousChapterHeight = body.scrollHeight - initialHeight;
 
-      prevIntersectionObserver = new IntersectionObserver(loadPreviousChapters, { threshold: 0.1 });
-      prevIntersectionObserver.observe(prevIndicator.value);
-    }
-  };
-
-  document.addEventListener("wheel", handleWheelEvent);
+  body.scrollTop = previousChapterHeight;
+  window.scrollTo({
+    top: previousChapterHeight - 300,
+    behavior: "smooth",
+  });
 };
 
 const loadNextChapters = async () => {
