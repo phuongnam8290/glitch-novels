@@ -17,8 +17,8 @@
 import { ref } from "vue";
 import { useMoveRight } from "@/composable/animations/move-right";
 
-import TheNavigation from "@/components/common/navigation/TheNavigation.vue";
-import TheFooter from "@/components/common/navigation/TheFooter.vue";
+import TheNavigation from "@/components/navigation/TheNavigation.vue";
+import TheFooter from "@/components/navigation/TheFooter.vue";
 
 const wrapper = ref(null);
 

@@ -4,8 +4,8 @@
 </template>
 
 <script setup>
-import TheHeader from "@/components/common/navigation/TheHeader.vue";
-import TheSidebar from "@/components/common/navigation/TheSidebar.vue";
+import TheHeader from "@/components/navigation/TheHeader.vue";
+import TheSidebar from "@/components/navigation/TheSidebar.vue";
 </script>
 
 <style scoped></style>
