@@ -30,6 +30,7 @@ export const useChaptersStore = defineStore("chapters", {
     async FETCH_CURRENT_CHAPTER(id) {
       this.chapters = [];
       this.chapters[0] = await this.FETCH_CHAPTER(id);
+      this.currentChapter = this.chapters[0];
     },
 
     /**
@@ -106,10 +107,47 @@ export const useChaptersStore = defineStore("chapters", {
         this.chapters.push(nextChapter);
       }
     },
+
+    /**
+     * Set the current chapter based on the direction of the old one.
+     *
+     * @param direction The direction that the old chapter moves out of the viewport.
+     */
+    SET_CURRENT_CHAPTER(direction) {
+      if (direction !== "up" && direction !== "down") {
+        return;
+      }
+
+      let currentChapterIndex = this.chapters.indexOf(this.currentChapter);
+
+      switch (direction) {
+        // If the old chapter moves up, the new current chapter is the one that comes after it in the saved list.
+        case "up":
+          currentChapterIndex = Math.min(this.chapters.length - 1, currentChapterIndex + 1);
+          break;
+        // If the old chapter moves down, the new current chapter is the one that comes before it in the saved list.
+        case "down":
+          currentChapterIndex = Math.max(0, currentChapterIndex - 1);
+          break;
+      }
+
+      console.log(currentChapterIndex);
+      this.currentChapter = this.chapters[currentChapterIndex];
+    },
   },
   getters: {
     CHAPTERS(state) {
       return state.chapters;
+    },
+
+    /**
+     * If the first chapter in the saved list has the lastChapterId point to another id, then there is still has more
+     * chapter. If not, then we've reached the beginning of the novel.
+     * @param state This store's state
+     * @returns {boolean} {@code true} if there is still has more chapter, {@code false} otherwise.
+     */
+    HAS_PREVIOUS_CHAPTER(state) {
+      return state.chapters[0].previousChapterId != null;
     },
 
     /**
@@ -123,14 +161,8 @@ export const useChaptersStore = defineStore("chapters", {
       return state.chapters[lastIndex].nextChapterId != null;
     },
 
-    /**
-     * If the first chapter in the saved list has the lastChapterId point to another id, then there is still has more
-     * chapter. If not, then we've reached the beginning of the novel.
-     * @param state This store's state
-     * @returns {boolean} {@code true} if there is still has more chapter, {@code false} otherwise.
-     */
-    HAS_PREVIOUS_CHAPTER(state) {
-      return state.chapters[0].previousChapterId != null;
+    CURRENT_CHAPTER(state) {
+      return state.currentChapter;
     },
   },
 });

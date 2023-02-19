@@ -7,6 +7,7 @@
       :chapter="chapter"
       v-for="chapter in CHAPTERS"
       :key="chapter.id"
+      :id="`id-${chapter.id}`"
     />
 
     <div
@@ -45,6 +46,14 @@ onMounted(async () => {
   // Observe the nextIndicator element, and load the next chapters if users reach it.
   nextIntersectionObserver = new IntersectionObserver(loadNextChapters, options);
   nextIntersectionObserver.observe(nextIndicator.value);
+
+  document.addEventListener("scroll", setNewCurrentChapter);
+
+  // await nextTick();
+  // const currentChapterElement = wrapper.value.querySelector(`#id-${CURRENT_CHAPTER.value.id}`);
+  //
+  // currentChapterObserver = new IntersectionObserver(changeCurrentChapter, options);
+  // currentChapterObserver.observe(currentChapterElement);
 });
 
 onUnmounted(() => {
@@ -121,6 +130,32 @@ const shouldLoadMoreNextChapter = () => {
     wrapperHeightFromViewportToBottom < window.innerHeight + nextIndicatorHeight + paddingHeight &&
     HAS_NEXT_CHAPTER.value
   );
+};
+
+const CURRENT_CHAPTER = computed(() => chaptersStore.CURRENT_CHAPTER);
+const currentChapterElement = computed(() => {
+  const id = `id-${CURRENT_CHAPTER.value.id}`;
+  return wrapper.value.querySelector(`#${id}`);
+});
+
+// If the current chapter gets outside bound (about up or down 40% viewport), set the new current chapter based on the
+// old one's direction.
+const setNewCurrentChapter = () => {
+  const viewportHeight = window.innerHeight;
+  const padding = viewportHeight * 0.4;
+  const boundingClientRect = currentChapterElement.value.getBoundingClientRect();
+
+  // If the old chapter moves up 40% of the viewport, then the new current chapter will be the one below it.
+  if (boundingClientRect.bottom < padding) {
+    chaptersStore.SET_CURRENT_CHAPTER("up");
+    console.log("Move up");
+    return;
+  }
+
+  // If the old chapter moves down 40% of the viewport, then the new current chapter will be the one above it.
+  if (boundingClientRect.top > viewportHeight - padding) {
+    chaptersStore.SET_CURRENT_CHAPTER("down");
+  }
 };
 </script>
 
