@@ -131,7 +131,6 @@ export const useChaptersStore = defineStore("chapters", {
           break;
       }
 
-      console.log(currentChapterIndex);
       this.currentChapter = this.chapters[currentChapterIndex];
     },
   },
