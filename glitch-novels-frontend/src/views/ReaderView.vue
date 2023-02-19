@@ -32,7 +32,7 @@ const nextIndicator = ref(null);
 let nextIntersectionObserver = null;
 
 onMounted(async () => {
-  await chaptersStore.FETCH_CURRENT_CHAPTER(45);
+  await chaptersStore.FETCH_CURRENT_CHAPTER(15);
 
   // Event listeners for scrolls up past the top of the page.
   document.addEventListener("wheel", handleWheelTopEvent);
