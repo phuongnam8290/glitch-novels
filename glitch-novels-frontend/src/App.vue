@@ -5,7 +5,7 @@
   >
     <the-navigation />
 
-    <main class="m-20 space-y-8">
+    <main class="m-20">
       <router-view> </router-view>
     </main>
 

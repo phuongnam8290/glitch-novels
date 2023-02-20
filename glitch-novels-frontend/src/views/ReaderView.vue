@@ -1,19 +1,31 @@
 <template>
-  <section
-    class="wrapper relative mx-auto -mb-20 max-w-[1200px] space-y-10 bg-gray-bg-1 px-20 py-10"
-    ref="wrapper"
-  >
-    <chapter-reader
-      :chapter="chapter"
-      v-for="chapter in CHAPTERS"
-      :key="chapter.id"
-      :id="`id-${chapter.id}`"
-    />
-
+  <section class="flex">
     <div
-      class="next-indicator absolute left-0 bottom-0 h-[300px]"
-      ref="nextIndicator"
-    ></div>
+      class="wrapper relative mx-auto -mb-20 max-w-[1200px] space-y-10 bg-gray-bg-1 px-20 py-10"
+      ref="wrapper"
+    >
+      <chapter-reader
+        :chapter="chapter"
+        v-for="chapter in CHAPTERS"
+        :key="chapter.id"
+        :id="`id-${chapter.id}`"
+      />
+
+      <div
+        class="next-indicator absolute left-0 bottom-0 h-[300px]"
+        ref="nextIndicator"
+      ></div>
+    </div>
+
+    <aside>
+      <div
+        class="control-bar fixed top-[7.5rem] right-20 w-[50px] bg-blue-700"
+        @click="handleAsideClick"
+      >
+      </div>
+
+      <div class="toc fixed top-[6.25rem] right-40 bg-red-700"></div>
+    </aside>
   </section>
 </template>
 
@@ -78,6 +90,34 @@ onUnmounted(() => {
   // Remove the event listener to detect the current chapter
   document.removeEventListener("scroll", setNewCurrentChapter);
 });
+
+const handleAsideClick = (event) => {
+  event.currentTarget.parentElement.classList.toggle("open");
+};
 </script>
 
-<style scoped></style>
+<style scoped>
+aside {
+  width: 0;
+  transition: all 0.25s ease-in-out;
+}
+
+aside.open {
+  width: calc(100vw - 10rem - 1200px);
+}
+
+aside .toc {
+  width: 0;
+  height: calc(100vh - 6.25rem - 1.25rem);
+  transition: all 0.25s ease-in-out;
+}
+
+aside.open .toc {
+  width: calc(100vw - 10rem - 1200px - 8rem);
+}
+
+.control-bar {
+  height: calc(100vh - 7.5rem - 2.5rem);
+  transition: all 0.25s ease-in-out;
+}
+</style>

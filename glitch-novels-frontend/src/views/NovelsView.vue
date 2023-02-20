@@ -4,11 +4,14 @@
     Advanced Search
   </h1>
 
-  <section ref="novelList">
+  <section
+    ref="novelList"
+    class="mt-8"
+  >
     <novel-list :novels="CURRENT_NOVELS" />
   </section>
 
-  <section>
+  <section class="mt-8">
     <the-pagination
       :total-pages="TOTAL_PAGES"
       :current-page="CURRENT_PAGE"
