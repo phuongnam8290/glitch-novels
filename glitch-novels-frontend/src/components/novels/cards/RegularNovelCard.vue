@@ -14,8 +14,8 @@
         :to="{ name: 'details', params: { id: novel.id } }"
         class="title-text inline-block w-full truncate"
         ref="title"
-        @mouseenter="startMarquee($event, 2)"
-        @mouseleave="stopMarquee"
+        @mouseenter="startMarquee($event.currentTarget)"
+        @mouseleave="stopMarquee($event.currentTarget)"
       >
         <span>{{ novel.title }}</span>
       </router-link>
@@ -25,8 +25,8 @@
         href="#"
         class="subtitle-text inline-block w-full truncate"
         ref="author"
-        @mouseenter="startMarquee($event, 2)"
-        @mouseleave="stopMarquee"
+        @mouseenter="startMarquee($event.currentTarget)"
+        @mouseleave="stopMarquee($event.currentTarget)"
       >
         <span>{{ novel.author.name }}</span>
       </a>
@@ -57,7 +57,7 @@
 <script setup>
 import { array, number, object, string } from "yup";
 
-import { useStartMarquee, useStopMarquee } from "@/composable/animations/marquee";
+import { useMarquee } from "@/composable/animations/useMarquee";
 import { dragscroll as vDragScroll } from "vue-dragscroll";
 
 import ScrollableTags from "@/components/common/tag/ScrollableTags.vue";
@@ -99,13 +99,14 @@ defineProps({
   },
 });
 
-const startMarquee = (event, padding) => {
-  useStartMarquee(event.currentTarget, padding);
-};
-
-const stopMarquee = (event) => {
-  useStopMarquee(event.currentTarget);
-};
+const { startMarquee, stopMarquee } = useMarquee();
+// const startMarquee = (event, padding) => {
+//   useStartMarquee(event.currentTarget, padding);
+// };
+//
+// const stopMarquee = (event) => {
+//   useStopMarquee(event.currentTarget);
+// };
 </script>
 
 <style scoped>

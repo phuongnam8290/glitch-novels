@@ -20,10 +20,10 @@
         <a
           href="#"
           class="inline-block w-full truncate"
-          @mouseenter="useStartMarquee($event.currentTarget, 2)"
-          @mouseleave="useStopMarquee($event.currentTarget)"
+          @mouseenter="startMarquee($event.currentTarget)"
+          @mouseleave="stopMarquee($event.currentTarget)"
         >
-          <span> Chapter {{ chapter.number }} - {{ chapter.title }} </span>
+          <span>Chapter {{ chapter.number }} - {{ chapter.title }}</span>
         </a>
       </li>
     </ul>
@@ -31,9 +31,9 @@
 </template>
 
 <script setup>
-import { useChaptersStore } from "@/stores/chapter";
-import { useStartMarquee, useStopMarquee } from "@/composable/animations/marquee";
 import { computed, onMounted, ref } from "vue";
+import { useChaptersStore } from "@/stores/chapter";
+import { useMarquee } from "@/composable/animations/useMarquee";
 import axios from "axios";
 
 const chaptersStore = useChaptersStore();
@@ -48,6 +48,7 @@ onMounted(async () => {
 });
 
 const setCurrentToCChapter = (id) => ({ ["toc-current-chapter"]: CURRENT_CHAPTER.value.id === id });
+const { startMarquee, stopMarquee } = useMarquee();
 </script>
 
 <style scoped>

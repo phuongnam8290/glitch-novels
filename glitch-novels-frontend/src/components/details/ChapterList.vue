@@ -5,8 +5,8 @@
       :key="chapter.id"
       class="border-y border-gray-bg-2 pr-4 hover:bg-gray-selected-bg"
       :class="setChapterBg(index)"
-      @mouseenter="startMarquee($event, 2)"
-      @mouseleave="stopMarquee"
+      @mouseenter="startMarquee($event.currentTarget.querySelector('.chapter-name > p'))"
+      @mouseleave="stopMarquee($event.currentTarget.querySelector('.chapter-name > p'))"
     >
       <a
         href="#"
@@ -16,7 +16,7 @@
           class="chapter-number flex items-center justify-center"
           :class="setChapterBorder(index)"
         >
-          <span> {{ chapter.number }}</span>
+          <span>{{ chapter.number }}</span>
         </div>
         <div class="chapter-name overflow-hidden">
           <p class="inline-block w-full truncate">
@@ -24,7 +24,7 @@
           </p>
         </div>
         <div class="chapter-release-date subtitle-text">
-          <span> {{ moment(chapter.createdDate).fromNow() }} </span>
+          <span>{{ moment(chapter.createdDate).fromNow() }}</span>
         </div>
       </a>
     </li>
@@ -41,7 +41,7 @@
 <script setup>
 import moment from "moment";
 import { array, number, object, string } from "yup";
-import { useStartMarquee, useStopMarquee } from "@/composable/animations/marquee";
+import { useMarquee } from "@/composable/animations/useMarquee";
 
 const props = defineProps({
   chapters: {
@@ -70,13 +70,14 @@ const props = defineProps({
 });
 
 // Handle the marquee effect on the chapter's title when hovering.
-const startMarquee = (event, padding) => {
-  useStartMarquee(event.currentTarget.querySelector(".chapter-name > p"), padding);
-};
-
-const stopMarquee = (event) => {
-  useStopMarquee(event.currentTarget.querySelector(".chapter-name > p"));
-};
+const { startMarquee, stopMarquee } = useMarquee();
+// const startMarquee = (event, padding) => {
+//   useStartMarquee(event.currentTarget.querySelector(".chapter-name > p"), padding);
+// };
+//
+// const stopMarquee = (event) => {
+//   useStopMarquee(event.currentTarget.querySelector(".chapter-name > p"));
+// };
 
 // Get the chapter's position in the rendered table (left or right column, in odd or even row)
 const getRenderedChapterPosition = (chapterIndex) => {
