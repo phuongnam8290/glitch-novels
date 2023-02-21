@@ -129,6 +129,10 @@ export const useChaptersStore = defineStore("chapters", {
      * @returns {boolean} {@code true} if there is still has more chapter, {@code false} otherwise.
      */
     HAS_PREVIOUS_CHAPTER(state) {
+      if (state.chapters.length === 0) {
+        return false;
+      }
+
       return state.chapters[0].previousChapterId != null;
     },
 
@@ -139,6 +143,10 @@ export const useChaptersStore = defineStore("chapters", {
      * @returns {boolean} {@code true} if there is still has more chapter, {@code false} otherwise.
      */
     HAS_NEXT_CHAPTER(state) {
+      if (state.chapters.length === 0) {
+        return false;
+      }
+
       const lastIndex = state.chapters.length - 1;
       return state.chapters[lastIndex].nextChapterId != null;
     },

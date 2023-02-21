@@ -21,20 +21,10 @@
 </template>
 
 <script setup>
-import { computed, onMounted, onUnmounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useChaptersStore } from "@/stores/chapter";
-
-import {
-  setParentRef as setParentRefForPreviousChpater,
-  loadPreviousChapterByMouseWheel,
-  loadPreviousChapterByArrowUpKey,
-} from "@/composable/reader/getPreviousChapter";
-
-import {
-  setParentRef as setParentRefForNextChapters,
-  setNextIndicatorRef,
-  loadNextChapters,
-} from "@/composable/reader/getNextChapters";
+import { useGetPreviousChapter } from "@/composable/reader/useGetPreviousChapter";
+import { useGetNextChapter } from "@/composable/reader/useGetNextChapters";
 
 import ChapterReader from "@/components/reader/ChapterReader.vue";
 import ControlSideBar from "@/components/reader/controls/ControlSideBar.vue";
@@ -43,32 +33,15 @@ const chaptersStore = useChaptersStore();
 const CHAPTERS = computed(() => chaptersStore.CHAPTERS);
 
 const chapterList = ref(null);
-setParentRefForPreviousChpater(chapterList);
-setParentRefForNextChapters(chapterList);
 
 // Handle auto-loading when reaching the end of the page.
 const nextIndicator = ref(null);
-setNextIndicatorRef(nextIndicator);
 
-let nextIntersectionObserver = null;
+useGetPreviousChapter(chapterList);
+useGetNextChapter(chapterList, nextIndicator);
 
 onMounted(async () => {
   await chaptersStore.FETCH_CURRENT_CHAPTER(15);
-
-  // Event listeners for scrolls up past the top of the page.
-  document.addEventListener("wheel", loadPreviousChapterByMouseWheel);
-  document.addEventListener("keydown", loadPreviousChapterByArrowUpKey);
-
-  // Observe the nextIndicator element, and load the next chapters if users reach it.
-  nextIntersectionObserver = new IntersectionObserver(loadNextChapters, { threshold: 0.1 });
-  nextIntersectionObserver.observe(nextIndicator.value);
-});
-
-onUnmounted(() => {
-  // Remove event listeners & unobserved nextIndicator element.
-  document.removeEventListener("wheel", loadPreviousChapterByMouseWheel);
-  document.removeEventListener("keydown", loadPreviousChapterByArrowUpKey);
-  nextIntersectionObserver.disconnect();
 });
 </script>
 
