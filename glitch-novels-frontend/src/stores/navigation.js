@@ -10,6 +10,9 @@ export const useNavigationStore = defineStore("navigation", {
     TOGGLE_SIDEBAR() {
       this.isSidebarOpen = !this.isSidebarOpen;
     },
+    CLOSE_SIDEBAR() {
+      this.isSidebarOpen = false;
+    },
   },
   getters: {
     IS_SIDEBAR_OPEN(state) {

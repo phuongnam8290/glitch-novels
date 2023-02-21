@@ -1,8 +1,8 @@
 <template>
   <section class="flex">
     <div
-      class="wrapper relative mx-auto -mb-20 max-w-[1200px] space-y-10 bg-gray-bg-1 px-20 py-10"
-      ref="wrapper"
+      class="chapter-list relative mx-auto -mb-20 max-w-[1200px] space-y-10 bg-gray-bg-1 px-20 py-10"
+      ref="chapterList"
     >
       <chapter-reader
         :chapter="chapter"
@@ -16,16 +16,7 @@
         ref="nextIndicator"
       ></div>
     </div>
-
-    <aside>
-      <div
-        class="control-bar fixed top-[7.5rem] right-20 w-[50px] bg-blue-700"
-        @click="handleAsideClick"
-      >
-      </div>
-
-      <div class="toc fixed top-[6.25rem] right-40 bg-red-700"></div>
-    </aside>
+    <control-side-bar />
   </section>
 </template>
 
@@ -51,14 +42,15 @@ import {
 } from "@/composable/reader/detectCurrentChapter";
 
 import ChapterReader from "@/components/reader/ChapterReader.vue";
+import ControlSideBar from "@/components/reader/controls/ControlSideBar.vue";
 
 const chaptersStore = useChaptersStore();
 const CHAPTERS = computed(() => chaptersStore.CHAPTERS);
 
-const wrapper = ref(null);
-setParentRefForPreviousChpater(wrapper);
-setParentRefForNextChapters(wrapper);
-setParentRefForDetectCurrentChapter(wrapper);
+const chapterList = ref(null);
+setParentRefForPreviousChpater(chapterList);
+setParentRefForNextChapters(chapterList);
+setParentRefForDetectCurrentChapter(chapterList);
 
 // Handle auto-loading when reaching the end of the page.
 const nextIndicator = ref(null);
@@ -90,34 +82,6 @@ onUnmounted(() => {
   // Remove the event listener to detect the current chapter
   document.removeEventListener("scroll", setNewCurrentChapter);
 });
-
-const handleAsideClick = (event) => {
-  event.currentTarget.parentElement.classList.toggle("open");
-};
 </script>
 
-<style scoped>
-aside {
-  width: 0;
-  transition: all 0.25s ease-in-out;
-}
-
-aside.open {
-  width: calc(100vw - 10rem - 1200px);
-}
-
-aside .toc {
-  width: 0;
-  height: calc(100vh - 6.25rem - 1.25rem);
-  transition: all 0.25s ease-in-out;
-}
-
-aside.open .toc {
-  width: calc(100vw - 10rem - 1200px - 8rem);
-}
-
-.control-bar {
-  height: calc(100vh - 7.5rem - 2.5rem);
-  transition: all 0.25s ease-in-out;
-}
-</style>
+<style scoped></style>

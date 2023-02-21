@@ -46,6 +46,27 @@
     line-height: calc(0.8rem * 1.3);
   }
 
+  .custom-scrollbar {
+    scrollbar-gutter: stable;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 5px;
+    background: transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track-piece {
+    background-image: url("@/assets/images/scrollbar/scrollbar-track.png");
+    background-repeat: repeat-y;
+    background-size: contain;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    border: 1px solid theme("colors[white-ink-1]");
+    background-color: black;
+  }
+
   .ratings {
     @apply text-gold-brand-1;
   }

@@ -46,7 +46,7 @@
       class="tags py-4"
     />
     <div
-      class="synopsis cursor-pointer overflow-y-hidden pb-10 pr-4 hover:overflow-y-scroll"
+      class="synopsis custom-scrollbar cursor-pointer overflow-y-hidden pb-10 pr-4 hover:overflow-y-scroll"
       v-drag-scroll.y
       v-html="novel.synopsis"
     >
@@ -143,23 +143,5 @@ const stopMarquee = (event) => {
 .synopsis {
   grid-area: synopsis;
   mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 0.1) 100%);
-  scrollbar-gutter: stable;
-}
-
-.synopsis::-webkit-scrollbar {
-  width: 3px;
-  background: transparent;
-}
-
-.synopsis::-webkit-scrollbar-track-piece {
-  background-image: url("@/assets/images/scrollbar/scrollbar-track.png");
-  background-repeat: repeat-y;
-  background-size: contain;
-}
-
-.synopsis::-webkit-scrollbar-thumb {
-  border-radius: 3px;
-  border: 1px solid theme("colors[white-ink-1]");
-  background-color: black;
 }
 </style>
