@@ -27,7 +27,10 @@
     </ul>
 
     <div class="control-details fixed top-[6.25rem] right-40 whitespace-nowrap bg-gray-bg-2">
-      <control-toc />
+      <control-toc
+        @close="isOpen = false"
+        v-if="isDataLoaded"
+      />
     </div>
   </aside>
 </template>
@@ -35,12 +38,15 @@
 <script setup>
 import { computed, ref, watch } from "vue";
 import { useNavigationStore } from "@/stores/navigation";
+import { useChaptersStore } from "@/stores/chapter";
 
 import ControlToc from "@/components/reader/controls/ControlToc.vue";
 
+// Toggle sidebar open/close based on the state of the left sidebar.
 const navigationsStore = useNavigationStore();
 const isOpen = ref(false);
 
+// If this sidebar open, close the left sidebar.
 const toggleControlDetails = (event, controlName) => {
   isOpen.value = !isOpen.value;
 
@@ -49,10 +55,22 @@ const toggleControlDetails = (event, controlName) => {
   }
 };
 
+// If the left sidebar open, close this sidebar.
 const IS_SIDEBAR_OPEN = computed(() => navigationsStore.IS_SIDEBAR_OPEN);
 watch(IS_SIDEBAR_OPEN, (isSidebarOpen) => {
   if (isSidebarOpen) {
     isOpen.value = false;
+  }
+});
+
+// Wait for current chapter's data available before render the ToC.
+const chaptersStore = useChaptersStore();
+const CURRENT_CHAPTER = computed(() => chaptersStore.CURRENT_CHAPTER);
+const isDataLoaded = ref(false);
+
+watch(CURRENT_CHAPTER, (chapter) => {
+  if (chapter) {
+    isDataLoaded.value = true;
   }
 });
 </script>

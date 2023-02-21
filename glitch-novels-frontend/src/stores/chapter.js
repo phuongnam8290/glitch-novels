@@ -109,29 +109,12 @@ export const useChaptersStore = defineStore("chapters", {
     },
 
     /**
-     * Set the current chapter based on the direction of the old one.
+     * Set the current chapter based on the id.
      *
-     * @param direction The direction that the old chapter moves out of the viewport.
+     * @param id The id of the current chapter
      */
-    SET_CURRENT_CHAPTER(direction) {
-      if (direction !== "up" && direction !== "down") {
-        return;
-      }
-
-      let currentChapterIndex = this.chapters.indexOf(this.currentChapter);
-
-      switch (direction) {
-        // If the old chapter moves up, the new current chapter is the one that comes after it in the saved list.
-        case "up":
-          currentChapterIndex = Math.min(this.chapters.length - 1, currentChapterIndex + 1);
-          break;
-        // If the old chapter moves down, the new current chapter is the one that comes before it in the saved list.
-        case "down":
-          currentChapterIndex = Math.max(0, currentChapterIndex - 1);
-          break;
-      }
-
-      this.currentChapter = this.chapters[currentChapterIndex];
+    SET_CURRENT_CHAPTER(id) {
+      this.currentChapter = this.chapters.find((chapter) => chapter.id === id);
     },
   },
   getters: {

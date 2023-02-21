@@ -100,13 +100,6 @@ defineProps({
 });
 
 const { startMarquee, stopMarquee } = useMarquee();
-// const startMarquee = (event, padding) => {
-//   useStartMarquee(event.currentTarget, padding);
-// };
-//
-// const stopMarquee = (event) => {
-//   useStopMarquee(event.currentTarget);
-// };
 </script>
 
 <style scoped>

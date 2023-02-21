@@ -1,5 +1,8 @@
 <template>
-  <div class="chapter">
+  <div
+    class="chapter"
+    ref="chapterReader"
+  >
     <h1 class="mb-10"> Chapter {{ chapter.number }} - {{ chapter.title }}</h1>
     <article v-html="chapter.content"></article>
     <div class="divider mt-10 flex w-full items-center justify-center">
@@ -10,8 +13,12 @@
 
 <script setup>
 import { number, object, string } from "yup";
+import scrollmonitor from "scrollmonitor/index";
+import { ref, onMounted, onUnmounted } from "vue";
 
-defineProps({
+import { useChaptersStore } from "@/stores/chapter";
+
+const props = defineProps({
   chapter: {
     type: Object,
     required: true,
@@ -33,6 +40,22 @@ defineProps({
       return true;
     },
   },
+});
+
+// Detect current chapter
+const chaptersStore = useChaptersStore();
+const chapterReader = ref(null);
+let chapterMonitor = null;
+
+onMounted(() => {
+  chapterMonitor = scrollmonitor.create(chapterReader.value, -300);
+  chapterMonitor.enterViewport(() => {
+    chaptersStore.SET_CURRENT_CHAPTER(props.chapter.id);
+  }, false);
+});
+
+onUnmounted(() => {
+  chapterMonitor.destroy();
 });
 </script>
 

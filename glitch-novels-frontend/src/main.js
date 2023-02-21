@@ -4,7 +4,6 @@ import router from "@/router";
 
 import App from "./App.vue";
 
-import "vue-virtual-scroller/dist/vue-virtual-scroller.css";
 import "@/assets/fonts/metropolis/metropolis.css";
 import "@/assets/fonts/font-awesome/css/all.css";
 import "@/assets/fonts/font-awesome/css/sharp-solid.css";

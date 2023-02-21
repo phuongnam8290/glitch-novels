@@ -71,13 +71,6 @@ const props = defineProps({
 
 // Handle the marquee effect on the chapter's title when hovering.
 const { startMarquee, stopMarquee } = useMarquee();
-// const startMarquee = (event, padding) => {
-//   useStartMarquee(event.currentTarget.querySelector(".chapter-name > p"), padding);
-// };
-//
-// const stopMarquee = (event) => {
-//   useStopMarquee(event.currentTarget.querySelector(".chapter-name > p"));
-// };
 
 // Get the chapter's position in the rendered table (left or right column, in odd or even row)
 const getRenderedChapterPosition = (chapterIndex) => {

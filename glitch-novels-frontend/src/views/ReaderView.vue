@@ -36,11 +36,6 @@ import {
   loadNextChapters,
 } from "@/composable/reader/getNextChapters";
 
-import {
-  setParentRef as setParentRefForDetectCurrentChapter,
-  setNewCurrentChapter,
-} from "@/composable/reader/detectCurrentChapter";
-
 import ChapterReader from "@/components/reader/ChapterReader.vue";
 import ControlSideBar from "@/components/reader/controls/ControlSideBar.vue";
 
@@ -50,7 +45,6 @@ const CHAPTERS = computed(() => chaptersStore.CHAPTERS);
 const chapterList = ref(null);
 setParentRefForPreviousChpater(chapterList);
 setParentRefForNextChapters(chapterList);
-setParentRefForDetectCurrentChapter(chapterList);
 
 // Handle auto-loading when reaching the end of the page.
 const nextIndicator = ref(null);
@@ -68,9 +62,6 @@ onMounted(async () => {
   // Observe the nextIndicator element, and load the next chapters if users reach it.
   nextIntersectionObserver = new IntersectionObserver(loadNextChapters, { threshold: 0.1 });
   nextIntersectionObserver.observe(nextIndicator.value);
-
-  // Detect current chapter
-  document.addEventListener("scroll", setNewCurrentChapter);
 });
 
 onUnmounted(() => {
@@ -78,9 +69,6 @@ onUnmounted(() => {
   document.removeEventListener("wheel", loadPreviousChapterByMouseWheel);
   document.removeEventListener("keydown", loadPreviousChapterByArrowUpKey);
   nextIntersectionObserver.disconnect();
-
-  // Remove the event listener to detect the current chapter
-  document.removeEventListener("scroll", setNewCurrentChapter);
 });
 </script>
 

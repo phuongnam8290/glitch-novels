@@ -23,8 +23,7 @@
 <script setup>
 import { computed, onMounted, ref } from "vue";
 import { useNovelsStore } from "@/stores/novels";
-
-import { useScrollTopElement } from "@/composable/animations/scrollElement";
+import { useScrollElement } from "@/composable/animations/useScrollElement";
 
 // eslint-disable-next-line no-unused-vars
 import NovelList from "@/components/novels/NovelList.vue";
@@ -39,11 +38,12 @@ const CURRENT_PAGE = computed(() => novelsStore.CURRENT_PAGE);
 
 // Handle change page event.
 const novelList = ref(null);
+const { scrollElement } = useScrollElement();
 
 const changePage = async (page) => {
   novelsStore.CHANGE_PAGE(page);
 
   // Scroll to top after load new batch of novels.
-  await useScrollTopElement(novelList);
+  await scrollElement(novelList);
 };
 </script>

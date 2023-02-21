@@ -59,7 +59,7 @@
 import { useDetailsStore } from "@/stores/details";
 import { computed, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
-import { useScrollTopElement } from "@/composable/animations/scrollElement";
+import { useScrollElement } from "@/composable/animations/useScrollElement";
 
 import PublishInfo from "@/components/details/PublishInfo.vue";
 import NovelSynopsis from "@/components/details/NovelSynopsis.vue";
@@ -80,11 +80,12 @@ const CURRENT_PAGE = computed(() => detailsStore.CURRENT_PAGE);
 
 // Handle paginate action.
 const tableOfContents = ref(null);
+const { scrollElement } = useScrollElement();
 const changePage = async (page) => {
   detailsStore.CHANGE_PAGE(page);
 
   // Scroll to top of ToC after load new batch of chapters.
-  await useScrollTopElement(tableOfContents);
+  await scrollElement(tableOfContents);
 };
 </script>
 
