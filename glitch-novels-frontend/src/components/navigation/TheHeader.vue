@@ -5,7 +5,7 @@
     ref="header"
   >
     <!--  Logo  -->
-    <div class="logo-wrapper">
+    <div class="logo-wrapper flex-initial">
       <img
         class="logo ml-12 max-h-9"
         ref="logo"
@@ -14,10 +14,12 @@
       />
     </div>
 
-    <chapter-title v-if="route.name === 'reader'" />
+    <div class="ml-32 mr-16 inline-block flex-1 overflow-hidden whitespace-nowrap">
+      <chapter-title v-if="route.name === 'reader'" />
+    </div>
 
     <!--  Search bar  -->
-    <div class="search-wrapper">
+    <div class="search-wrapper flex-initial">
       <input
         class="ml-auto block h-fit w-[30rem] border border-white-ink-1 bg-gray-bg-2 px-4 py-1.5 text-white-ink-1 focus:border-gold-brand-1 focus:outline-0"
         style="font-family: 'Metropolis', FontAwesome, serif"
@@ -86,7 +88,7 @@ header.moveRight .logo {
   visibility: hidden;
 }
 
-header > * {
-  flex: 1;
-}
+/*header > * {*/
+/*  flex: 1;*/
+/*}*/
 </style>
