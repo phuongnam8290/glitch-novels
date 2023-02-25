@@ -1,7 +1,7 @@
 import { computed, onMounted, onUnmounted, watch } from "vue";
 import { useChaptersStore } from "@/stores/chapter";
 
-export const useGetNextChapter = (chapterListRef, nextIndicatorRef) => {
+export const useGetNextChapter = (chapterListRef, nextIndicatorRef, isDataLoaded) => {
   // When using pinia store outside component, we must put its creation inside a function to defer calls after pinia has
   // been installed.
   const chaptersStore = useChaptersStore();
@@ -31,18 +31,18 @@ export const useGetNextChapter = (chapterListRef, nextIndicatorRef) => {
     }
   };
 
-  watch(HAS_NEXT_CHAPTER, async (value) => {
-    if (value) {
-      await loadNextChapters();
-    }
-  });
-
   let nextIntersectionObserver = null;
 
   onMounted(() => {
-    // Observe the nextIndicator element, and load the next chapters if users reach it.
     nextIntersectionObserver = new IntersectionObserver(loadNextChapters);
-    nextIntersectionObserver.observe(nextIndicatorRef.value);
+  });
+
+  // Observe the nextIndicator element, and load the next chapters if users reach it. Only begin to observe after data
+  // is loaded to make sure that the HAS_NEXT_CHAPTER's status is correctly.
+  watch(isDataLoaded, (value) => {
+    if (value) {
+      nextIntersectionObserver.observe(nextIndicatorRef.value);
+    }
   });
 
   onUnmounted(() => {

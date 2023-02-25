@@ -36,8 +36,12 @@ const route = useRoute();
 const routers = useRouter();
 const CHAPTERS = computed(() => chaptersStore.CHAPTERS);
 
+// Signify to the composables that the data is loaded or not.
+const isDataLoaded = ref(false);
+
 onMounted(async () => {
   await chaptersStore.FETCH_CURRENT_CHAPTER(route.params.id);
+  isDataLoaded.value = true;
 });
 
 const chapterId = computed(() => route.params.id);
@@ -50,7 +54,7 @@ const chapterList = ref(null);
 const nextIndicator = ref(null);
 
 useGetPreviousChapter(chapterList);
-useGetNextChapter(chapterList, nextIndicator);
+useGetNextChapter(chapterList, nextIndicator, isDataLoaded);
 useMoveToNeighboringChapter(chapterList);
 </script>
 
