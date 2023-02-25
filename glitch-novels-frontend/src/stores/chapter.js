@@ -5,7 +5,7 @@ export const useChaptersStore = defineStore("chapters", {
   state() {
     return {
       chapters: [],
-      currentChapter: null,
+      currentChapterIndex: null,
     };
   },
   actions: {
@@ -30,7 +30,8 @@ export const useChaptersStore = defineStore("chapters", {
     async FETCH_CURRENT_CHAPTER(id) {
       this.chapters = [];
       this.chapters[0] = await this.FETCH_CHAPTER(id);
-      this.currentChapter = this.chapters[0];
+      // this.currentChapter = this.chapters[0];
+      this.currentChapterIndex = 0;
     },
 
     /**
@@ -114,7 +115,45 @@ export const useChaptersStore = defineStore("chapters", {
      * @param id The id of the current chapter
      */
     SET_CURRENT_CHAPTER(id) {
-      this.currentChapter = this.chapters.find((chapter) => chapter.id === id);
+      // this.currentChapter = this.chapters.find((chapter) => chapter.id === id);
+      this.currentChapterIndex = this.chapters.findIndex((chapter) => chapter.id === id);
+    },
+
+    /**
+     * Move the current chapter to the chapter before it, or fetch that chapter if it has not been fetched yet.
+     *
+     */
+    async MOVE_TO_PREVIOUS_CHAPTER() {
+      // Reach the beginning.
+      if (this.chapters[this.currentChapterIndex].previousChapterId == null) {
+        return;
+      }
+
+      // The current chapter is the first chapter in the saved chapter list, but there are more chapters before it.
+      if (this.currentChapterIndex === 0) {
+        await this.ADD_PREVIOUS_CHAPTER();
+        return;
+      }
+
+      this.currentChapterIndex--;
+    },
+
+    /**
+     * Move the current chapter to the chapter after it, or fetch that chapter if it has not been fetched yet.
+     *
+     */
+    async MOVE_TO_NEXT_CHAPTER() {
+      // Reach the end.
+      if (this.chapters[this.currentChapterIndex].nextChapterId == null) {
+        return;
+      }
+
+      // The current chapter is the last chapter in the saved chapter list, but there are more chapters after it.
+      if (this.currentChapterIndex === this.chapters.length - 1) {
+        await this.ADD_NEXT_CHAPTER();
+      }
+
+      return this.currentChapterIndex++;
     },
   },
   getters: {
@@ -152,7 +191,7 @@ export const useChaptersStore = defineStore("chapters", {
     },
 
     CURRENT_CHAPTER(state) {
-      return state.currentChapter;
+      return state.chapters[state.currentChapterIndex];
     },
   },
 });

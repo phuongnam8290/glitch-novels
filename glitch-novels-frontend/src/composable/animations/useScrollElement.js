@@ -1,7 +1,7 @@
 import { nextTick, unref } from "vue";
 
 export const useScrollElement = () => {
-  const scrollElement = async (elementRef, scrollPadding = 16 * 5) => {
+  const scrollElement = async (elementRef, scrollPaddingInRem = 5, behavior = "smooth") => {
     const element = unref(elementRef);
     await nextTick();
 
@@ -9,8 +9,8 @@ export const useScrollElement = () => {
       top:
         element.getBoundingClientRect().top +
         (document.documentElement.scrollTop || document.body.scrollTop) -
-        scrollPadding,
-      behavior: "smooth",
+        scrollPaddingInRem * 16,
+      behavior: behavior,
     });
   };
 

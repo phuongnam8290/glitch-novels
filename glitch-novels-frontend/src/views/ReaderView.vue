@@ -28,6 +28,7 @@ import { useGetNextChapter } from "@/composable/reader/useGetNextChapters";
 
 import ChapterReader from "@/components/reader/ChapterReader.vue";
 import ControlSideBar from "@/components/reader/controls/ControlSideBar.vue";
+import { useMoveToNeighboringChapter } from "@/composable/reader/useMoveToNeighboringChapter";
 
 const chaptersStore = useChaptersStore();
 const CHAPTERS = computed(() => chaptersStore.CHAPTERS);
@@ -39,6 +40,7 @@ const nextIndicator = ref(null);
 
 useGetPreviousChapter(chapterList);
 useGetNextChapter(chapterList, nextIndicator);
+useMoveToNeighboringChapter(chapterList);
 
 onMounted(async () => {
   await chaptersStore.FETCH_CURRENT_CHAPTER(15);
