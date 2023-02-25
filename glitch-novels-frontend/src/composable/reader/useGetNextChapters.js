@@ -1,4 +1,4 @@
-import { computed, onMounted, onUnmounted } from "vue";
+import { computed, onMounted, onUnmounted, watch } from "vue";
 import { useChaptersStore } from "@/stores/chapter";
 
 export const useGetNextChapter = (chapterListRef, nextIndicatorRef) => {
@@ -30,6 +30,12 @@ export const useGetNextChapter = (chapterListRef, nextIndicatorRef) => {
       await chaptersStore.ADD_NEXT_CHAPTER();
     }
   };
+
+  watch(HAS_NEXT_CHAPTER, async (value) => {
+    if (value) {
+      await loadNextChapters();
+    }
+  });
 
   let nextIntersectionObserver = null;
 

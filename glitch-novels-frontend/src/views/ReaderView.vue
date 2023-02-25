@@ -21,30 +21,37 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import { useChaptersStore } from "@/stores/chapter";
 import { useGetPreviousChapter } from "@/composable/reader/useGetPreviousChapter";
 import { useGetNextChapter } from "@/composable/reader/useGetNextChapters";
+import { useMoveToNeighboringChapter } from "@/composable/reader/useMoveToNeighboringChapter";
 
 import ChapterReader from "@/components/reader/ChapterReader.vue";
 import ControlSideBar from "@/components/reader/controls/ControlSideBar.vue";
-import { useMoveToNeighboringChapter } from "@/composable/reader/useMoveToNeighboringChapter";
 
 const chaptersStore = useChaptersStore();
+const route = useRoute();
+const routers = useRouter();
 const CHAPTERS = computed(() => chaptersStore.CHAPTERS);
 
-const chapterList = ref(null);
+onMounted(async () => {
+  await chaptersStore.FETCH_CURRENT_CHAPTER(route.params.id);
+});
 
-// Handle auto-loading when reaching the end of the page.
+const chapterId = computed(() => route.params.id);
+watch(chapterId, () => {
+  // Force reload when the chapter id changed.
+  routers.go();
+});
+
+const chapterList = ref(null);
 const nextIndicator = ref(null);
 
 useGetPreviousChapter(chapterList);
 useGetNextChapter(chapterList, nextIndicator);
 useMoveToNeighboringChapter(chapterList);
-
-onMounted(async () => {
-  await chaptersStore.FETCH_CURRENT_CHAPTER(15);
-});
 </script>
 
 <style scoped></style>

@@ -8,8 +8,8 @@
       @mouseenter="startMarquee($event.currentTarget.querySelector('.chapter-name > p'))"
       @mouseleave="stopMarquee($event.currentTarget.querySelector('.chapter-name > p'))"
     >
-      <a
-        href="#"
+      <router-link
+        :to="{ name: 'reader', params: { id: chapter.id } }"
         class="chapter grid gap-y-2 py-3"
       >
         <div
@@ -26,7 +26,7 @@
         <div class="chapter-release-date subtitle-text">
           <span>{{ moment(chapter.createdDate).fromNow() }}</span>
         </div>
-      </a>
+      </router-link>
     </li>
 
     <li

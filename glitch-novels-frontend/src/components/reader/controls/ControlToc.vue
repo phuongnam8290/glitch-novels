@@ -1,5 +1,8 @@
 <template v-if="CURRENT_CHAPTER !== null">
-  <div class="toc space-y-4 p-4">
+  <div
+    class="toc space-y-4 p-4"
+    @wheel.stop
+  >
     <h2 class="section-text flex justify-between">
       <span> Table of Contents </span>
       <button
@@ -21,14 +24,14 @@
         :id="`toc-chapter-${chapter.id}`"
         :class="setCurrentToCChapter(chapter.id)"
       >
-        <a
-          href="#"
+        <router-link
+          :to="{ name: 'reader', params: { id: chapter.id } }"
           class="inline-block w-full truncate"
           @mouseenter="startMarquee($event.currentTarget)"
           @mouseleave="stopMarquee($event.currentTarget)"
         >
           <span>Chapter {{ chapter.number }} - {{ chapter.title }}</span>
-        </a>
+        </router-link>
       </li>
     </ul>
   </div>
@@ -45,21 +48,19 @@ defineEmits(["close"]);
 const chaptersStore = useChaptersStore();
 const CURRENT_CHAPTER = computed(() => chaptersStore.CURRENT_CHAPTER);
 const chapters = ref([]);
+const tocBody = ref(null);
 
 onMounted(async () => {
   const novelId = CURRENT_CHAPTER.value.novel.id;
   const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
   const response = await axios.get(`${baseUrl}/novel/${novelId}`);
   chapters.value = response.data.chapters;
-});
 
-// Scroll to top the new current chapter when the chapter changed.
-const tocBody = ref(null);
-watch(CURRENT_CHAPTER, async (chapter) => {
-  if (chapter) {
+  // Scroll to top the new current chapter when the chapter changed.
+  watch(CURRENT_CHAPTER, (chapter) => {
     const currentChapterElement = tocBody.value.querySelector(`#toc-chapter-${chapter.id}`);
     currentChapterElement.scrollIntoView();
-  }
+  });
 });
 
 const setCurrentToCChapter = (id) => ({ ["toc-current-chapter"]: CURRENT_CHAPTER.value.id === id });

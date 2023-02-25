@@ -21,7 +21,7 @@ const routes = [
     component: DetailsView,
   },
   {
-    path: "/reader",
+    path: "/reader/:id",
     name: "reader",
     component: ReaderView,
   },
