@@ -38,7 +38,7 @@ export const useGetNextChapter = (chapterListRef, nextIndicatorRef, isDataLoaded
   });
 
   // Observe the nextIndicator element, and load the next chapters if users reach it. Only begin to observe after data
-  // is loaded to make sure that the HAS_NEXT_CHAPTER's status is correctly.
+  // is loaded to make sure that the HAS_NEXT_CHAPTER's status is correct.
   watch(isDataLoaded, (value) => {
     if (value) {
       nextIntersectionObserver.observe(nextIndicatorRef.value);
