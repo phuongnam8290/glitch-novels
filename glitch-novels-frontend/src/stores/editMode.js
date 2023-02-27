@@ -18,12 +18,9 @@ export const useEditModeStore = defineStore("editMode", {
       } else {
         this.selectedData.splice(index, 1);
       }
-
-      // if (this.selectedIds.has(id)) {
-      //   this.selectedIds.delete(id);
-      // } else {
-      //   this.selectedIds.add(id);
-      // }
+    },
+    CLEAR_SELECTED_DATA() {
+      this.selectedData = [];
     },
   },
   getters: {
@@ -31,10 +28,6 @@ export const useEditModeStore = defineStore("editMode", {
       return state.editMode;
     },
     HAS_VALUE(state) {
-      // return (id) => {
-      //   return state.selectedIds.has(id);
-      // };
-
       return (value) => {
         const index = state.selectedData.findIndex((data) => data.id === value.id);
         return index !== -1;

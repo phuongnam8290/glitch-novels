@@ -1,20 +1,20 @@
 <template>
   <ul class="flex justify-center space-x-2">
     <li v-if="currentPage !== 1">
-      <pagination-step @click="$emit('changePage', currentPage - 1)">
+      <pagination-step @click="changePage(currentPage - 1)">
         <i class="fa-sharp fa-solid fa-backward"></i>
       </pagination-step>
     </li>
     <li>
       <pagination-number
         :class="setActiveClass(1)"
-        @click="$emit('changePage', 1)"
+        @click="changePage(1)"
       >
         1
       </pagination-number>
     </li>
     <li v-if="pageList[0] > 2">
-      <pagination-ellipsis @change-page="(page) => $emit('changePage', page)" />
+      <pagination-ellipsis @change-page="(page) => changePage(page)" />
     </li>
 
     <li
@@ -23,25 +23,25 @@
     >
       <pagination-number
         :class="setActiveClass(page)"
-        @click="$emit('changePage', page)"
+        @click="changePage(page)"
       >
         {{ page }}
       </pagination-number>
     </li>
 
     <li v-if="pageList[pageList.length - 1] < totalPages - 1">
-      <pagination-ellipsis @change-page="(page) => $emit('changePage', page)" />
+      <pagination-ellipsis @change-page="(page) => changePage(page)" />
     </li>
     <li v-if="!(totalPages === 1)">
       <pagination-number
         :class="setActiveClass(totalPages)"
-        @click="$emit('changePage', totalPages)"
+        @click="changePage(totalPages)"
       >
         {{ totalPages }}
       </pagination-number>
     </li>
     <li v-if="currentPage !== totalPages">
-      <pagination-step @click="$emit('changePage', currentPage + 1)">
+      <pagination-step @click="changePage(currentPage + 1)">
         <i class="fa-sharp fa-solid fa-forward"></i>
       </pagination-step>
     </li>
@@ -54,6 +54,7 @@ import { computed } from "vue";
 import PaginationNumber from "@/components/common/pagination/PaginationNumber.vue";
 import PaginationEllipsis from "@/components/common/pagination/PaginationEllipsis.vue";
 import PaginationStep from "@/components/common/pagination/PaginationStep.vue";
+import { useEditModeStore } from "@/stores/editMode";
 
 const props = defineProps({
   totalPages: {
@@ -72,6 +73,19 @@ const props = defineProps({
     default: 1,
   },
 });
+
+const emit = defineEmits(["changePage"]);
+const editModeStore = useEditModeStore();
+const IS_EDIT_MODE_ON = computed(() => editModeStore.IS_EDIT_MODE_ON);
+
+// Clear the edit list before changing page.
+const changePage = (page) => {
+  if (IS_EDIT_MODE_ON.value) {
+    editModeStore.CLEAR_SELECTED_DATA();
+  }
+
+  emit("changePage", page);
+};
 
 const pageList = computed(() => {
   const pageList = [];
