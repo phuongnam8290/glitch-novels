@@ -4,7 +4,7 @@
       :is="IS_EDIT_MODE_ON ? EditableCard : 'div'"
       v-for="novel in novels"
       :key="novel.id"
-      class="selected"
+      :novel="novel"
     >
       <regular-novel-card :novel="novel" />
     </component>
