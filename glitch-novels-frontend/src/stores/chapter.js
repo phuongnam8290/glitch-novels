@@ -11,9 +11,9 @@ export const useChaptersStore = defineStore("chapters", {
   actions: {
     /**
      * Fetch chapter with the id in the database.
-     *
-     * @param id The id of the chapter needs to be fetched.
-     * @returns The chapter returned from the database.
+     * @async
+     * @param {number} id - The id of the chapter needs to be fetched.
+     * @returns {import('@/docs/typedef').Chapter} - The chapter returned from the database.
      */
     async FETCH_CHAPTER(id) {
       const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
@@ -24,8 +24,8 @@ export const useChaptersStore = defineStore("chapters", {
 
     /**
      * Empty the list of saved chapters. Add a new chapter and mark it as the current chapter.
-     *
-     * @param id Id of the chapter being marked as current.
+     * @async
+     * @param {number} id - Id of the chapter being marked as current.
      */
     async FETCH_CURRENT_CHAPTER(id) {
       this.chapters = [];
@@ -38,8 +38,9 @@ export const useChaptersStore = defineStore("chapters", {
      * Fetch the previous chapter of the first chapter in the saved list. Note that this async method can be called
      * multiple times & the result may not be what you expect. Because of that, this method must use as an internal
      * call of {@link ADD_PREVIOUS_CHAPTER} and not be called separately.
+     * @async
      *
-     * @returns The previous chapter of the first chapter in the saved list.
+     * @returns {import('@/docs/typedef').Chapter} - The previous chapter of the first chapter in the saved list.
      */
     async FETCH_PREVIOUS_CHAPTER() {
       if (!this.chapters[0] || !this.chapters[0].previousChapterId) {
@@ -54,6 +55,7 @@ export const useChaptersStore = defineStore("chapters", {
 
     /**
      * Synchronize and add the chapter to the beginning of the saved list.
+     * @async
      */
     async ADD_PREVIOUS_CHAPTER() {
       // Fetch the previous chapter from the database.
@@ -75,8 +77,9 @@ export const useChaptersStore = defineStore("chapters", {
      * Fetch the next chapter of the last chapter in the saved list. Note that this async method can be called
      * multiple times & the result may not be what you expect. Because of that, this method must use as an internal
      * call of {@link ADD_NEXT_CHAPTER} and not be called separately.
+     * @async
      *
-     * @returns The next chapter of the last chapter in the saved list.
+     * @returns {import('@/docs/typedef').Chapter} - The next chapter of the last chapter in the saved list.
      */
     async FETCH_NEXT_CHAPTER() {
       const lastIndex = this.chapters.length - 1;
@@ -92,6 +95,7 @@ export const useChaptersStore = defineStore("chapters", {
 
     /**
      * Synchronize and add the chapter to the end of the saved list.
+     * @async
      */
     async ADD_NEXT_CHAPTER() {
       const nextChapter = await this.FETCH_NEXT_CHAPTER();
@@ -112,7 +116,7 @@ export const useChaptersStore = defineStore("chapters", {
     /**
      * Set the current chapter based on the id.
      *
-     * @param id The id of the current chapter
+     * @param {number} id - The id of the current chapter
      */
     SET_CURRENT_CHAPTER(id) {
       // this.currentChapter = this.chapters.find((chapter) => chapter.id === id);
@@ -121,7 +125,7 @@ export const useChaptersStore = defineStore("chapters", {
 
     /**
      * Move the current chapter to the chapter before it, or fetch that chapter if it has not been fetched yet.
-     *
+     * @async
      */
     async MOVE_TO_PREVIOUS_CHAPTER() {
       // Reach the beginning.
@@ -140,7 +144,7 @@ export const useChaptersStore = defineStore("chapters", {
 
     /**
      * Move the current chapter to the chapter after it, or fetch that chapter if it has not been fetched yet.
-     *
+     * @async
      */
     async MOVE_TO_NEXT_CHAPTER() {
       // Reach the end.
@@ -164,7 +168,7 @@ export const useChaptersStore = defineStore("chapters", {
     /**
      * If the first chapter in the saved list has the lastChapterId point to another id, then there is still has more
      * chapter. If not, then we've reached the beginning of the novel.
-     * @param state This store's state
+     * @param state - This store's state
      * @returns {boolean} {@code true} if there is still has more chapter, {@code false} otherwise.
      */
     HAS_PREVIOUS_CHAPTER(state) {
@@ -178,8 +182,8 @@ export const useChaptersStore = defineStore("chapters", {
     /**
      * If the last chapter in the saved list has the nextChapterId point to another id, then there is still has more
      * chapter. If not, then we've reached the end of the novel.
-     * @param state This store's state
-     * @returns {boolean} {@code true} if there is still has more chapter, {@code false} otherwise.
+     * @param state - This store's state
+     * @returns {boolean} - true if there is still has more chapter, false otherwise.
      */
     HAS_NEXT_CHAPTER(state) {
       if (state.chapters.length === 0) {

@@ -63,29 +63,6 @@ import { dragscroll as vDragScroll } from "vue-dragscroll";
 import ScrollableTags from "@/components/common/tag/ScrollableTags.vue";
 import { computed } from "vue";
 
-/**
- * @typedef {Object} Author
- * @property {number} id
- * @property {string} name
- */
-
-/**
- * @typedef {Object} Genres
- * @property {number} id
- * @property {string} title
- * @property {string} description
- */
-
-/**
- * @typedef {Object} Novel
- * @property {number} id
- * @property {string} title
- * @property {string} coverUrl
- * @property {string} synopsis
- * @property {Author} author
- * @property {Genres[]} genres
- */
-
 const props = defineProps({
   novel: {
     required: true,
@@ -123,10 +100,7 @@ const props = defineProps({
   },
 });
 
-/**
- *
- * @type {ComputedRef<Novel>}
- */
+/** @type {ComputedRef<Novel>} */
 const novel = computed(() => props.novel);
 
 const { startMarquee, stopMarquee } = useMarquee();

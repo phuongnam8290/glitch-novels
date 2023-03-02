@@ -73,6 +73,7 @@ const route = useRoute();
 
 onMounted(() => detailsStore.FETCH_DETAIL(route.params.id));
 
+/** @type {ComputedRef<Novel>} */
 const NOVEL_DETAILS = computed(() => detailsStore.NOVEL_DETAILS);
 const CURRENT_CHAPTERS = computed(() => detailsStore.CURRENT_CHAPTERS);
 const TOTAL_PAGES = computed(() => detailsStore.TOTAL_PAGES);

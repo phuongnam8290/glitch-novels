@@ -3,7 +3,7 @@ import { defineStore } from "pinia";
 export const useEditModeStore = defineStore("editMode", {
   state: () => {
     return {
-      editMode: true,
+      editMode: false,
       selectedData: [],
     };
   },

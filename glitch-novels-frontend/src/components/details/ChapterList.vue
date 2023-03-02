@@ -42,6 +42,7 @@
 import moment from "moment";
 import { array, number, object, string } from "yup";
 import { useMarquee } from "@/composable/animations/useMarquee";
+import { computed } from "vue";
 
 const props = defineProps({
   chapters: {
@@ -68,6 +69,9 @@ const props = defineProps({
     },
   },
 });
+
+/** @type {ComputedRef<Chapter[]>} */
+const chapters = computed(() => props.chapters);
 
 // Handle the marquee effect on the chapter's title when hovering.
 const { startMarquee, stopMarquee } = useMarquee();
