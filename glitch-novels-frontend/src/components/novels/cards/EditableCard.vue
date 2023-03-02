@@ -3,6 +3,7 @@
     class="wrapper relative"
     :class="selectedStyle"
     @click="toggleSelectId"
+    ref="wrapper"
   >
     <div class="overlay absolute top-0 left-0 z-20 h-full w-full">
       <div
@@ -18,7 +19,7 @@
 <script setup>
 import { number, object, string } from "yup";
 
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { useEditModeStore } from "@/stores/editMode";
 
 const props = defineProps({
@@ -43,9 +44,16 @@ const props = defineProps({
 });
 
 const editModeStore = useEditModeStore();
+
+// Add/remove novel from the select list.
 const novel = computed(() => props.novel);
 const toggleSelectId = () => editModeStore.TOGGLE_SELECTED_DATA(novel.value);
 
+// Expose the template ref to the parent component.
+const wrapper = ref(null);
+defineExpose({ value: wrapper });
+
+// Set style for selected novel.
 const HAS_VALUE = computed(() => editModeStore.HAS_VALUE);
 const selectedStyle = computed(() => ({
   selected: HAS_VALUE.value(novel.value),

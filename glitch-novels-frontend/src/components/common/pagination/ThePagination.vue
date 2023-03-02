@@ -78,7 +78,7 @@ const emit = defineEmits(["changePage"]);
 const editModeStore = useEditModeStore();
 const IS_EDIT_MODE_ON = computed(() => editModeStore.IS_EDIT_MODE_ON);
 
-// Clear the edit list before changing page.
+// Clear the select list before changing page.
 const changePage = (page) => {
   if (IS_EDIT_MODE_ON.value) {
     editModeStore.CLEAR_SELECTED_DATA();
