@@ -16,7 +16,7 @@ import { computed, ref, watch } from "vue";
 import { useEditModeStore } from "@/stores/editMode";
 import { useClickOutside } from "@/composable/utils/useClickOutside";
 
-import EditableCard from "@/components/novels/cards/EditableCard.vue";
+import EditableCard from "@/components/edit-mode/EditableCard.vue";
 import RegularNovelCard from "@/components/novels/cards/RegularNovelCard.vue";
 
 defineProps({

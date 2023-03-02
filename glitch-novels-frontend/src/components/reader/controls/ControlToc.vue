@@ -47,6 +47,8 @@ defineEmits(["close"]);
 
 const chaptersStore = useChaptersStore();
 const CURRENT_CHAPTER = computed(() => chaptersStore.CURRENT_CHAPTER);
+
+/** @type {Ref<import("@/docs/typedef").Chapter[]>} */
 const chapters = ref([]);
 const tocBody = ref(null);
 

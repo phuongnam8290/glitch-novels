@@ -34,14 +34,14 @@
  * @typedef {Object} Novel
  * @property {number} id
  * @property {string} title
- * @property {string} coverUrl
- * @property {string} synopsis
- * @property {Author} author
- * @property {Genre[]} genres
- * @property {Tag[]} tag
- * @property {Chapter[]} chapters
- * @property {string} createdDate
- * @property {string} lastUpdatedDate
+ * @property {?string} coverUrl
+ * @property {?string} synopsis
+ * @property {?Author} author
+ * @property {?Genre[]} genres
+ * @property {?Tag[]} tag
+ * @property {?Chapter[]} chapters
+ * @property {?string} createdDate
+ * @property {?string} lastUpdatedDate
  */
 
 export {};

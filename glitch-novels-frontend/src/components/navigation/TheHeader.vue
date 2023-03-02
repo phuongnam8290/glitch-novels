@@ -1,32 +1,38 @@
 <template>
   <header
-    class="z-50 flex h-20 w-full items-center justify-between bg-gray-bg-2 px-20 py-5"
+    class="z-50 w-full bg-gray-bg-2"
     :class="setReaderDivider"
     ref="header"
   >
-    <!--  Logo  -->
-    <div class="logo-wrapper flex-initial">
-      <img
-        class="logo ml-12 max-h-9"
-        ref="logo"
-        src="@/assets/images/common/logo.png"
-        alt="Glitch logo"
-      />
-    </div>
+    <!--  Main Header  -->
+    <div class="main-header flex h-20 items-center justify-between py-5 px-20">
+      <!--  Logo  -->
+      <div class="logo-wrapper flex-initial">
+        <img
+          class="logo ml-12 max-h-9"
+          ref="logo"
+          src="@/assets/images/common/logo.png"
+          alt="Glitch logo"
+        />
+      </div>
 
-    <div class="ml-32 mr-16 inline-block flex-1 overflow-hidden whitespace-nowrap">
-      <chapter-title v-if="route.name === 'reader'" />
-    </div>
+      <div class="ml-32 mr-16 inline-block flex-1 overflow-hidden whitespace-nowrap">
+        <chapter-title v-if="route.name === 'reader'" />
+      </div>
 
-    <!--  Search bar  -->
-    <div class="search-wrapper flex-initial">
-      <input
-        class="ml-auto block h-fit w-[30rem] border border-white-ink-1 bg-gray-bg-2 px-4 py-1.5 text-white-ink-1 focus:border-gold-brand-1 focus:outline-0"
-        style="font-family: 'Metropolis', FontAwesome, serif"
-        type="text"
-        placeholder="&#xF002; Search for anything"
-      />
+      <!--  Search bar  -->
+      <div class="search-wrapper flex-initial">
+        <input
+          class="ml-auto block h-fit w-[30rem] border border-white-ink-1 bg-gray-bg-2 px-4 py-1.5 text-white-ink-1 focus:border-gold-brand-1 focus:outline-0"
+          style="font-family: 'Metropolis', FontAwesome, serif"
+          type="text"
+          placeholder="&#xF002; Search for anything"
+        />
+      </div>
     </div>
+    <!--  End of Main Header  -->
+
+    <edit-header />
   </header>
 </template>
 
@@ -36,6 +42,7 @@ import { useRoute } from "vue-router";
 import { useMoveRight } from "@/composable/animations/move-right";
 
 import ChapterTitle from "@/components/navigation/ChapterTitle.vue";
+import EditHeader from "@/components/edit-mode/EditHeader.vue";
 
 const route = useRoute();
 const routeName = computed(() => route.name);
