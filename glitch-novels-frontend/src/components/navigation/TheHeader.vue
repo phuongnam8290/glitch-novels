@@ -16,7 +16,7 @@
         />
       </div>
 
-      <div class="ml-32 mr-16 inline-block flex-1 overflow-hidden whitespace-nowrap">
+      <div class="ml-32 mr-10 inline-block flex-1 overflow-hidden whitespace-nowrap">
         <chapter-title v-if="route.name === 'reader'" />
       </div>
 
@@ -29,6 +29,8 @@
           placeholder="&#xF002; Search for anything"
         />
       </div>
+
+      <the-profile class="ml-10 flex-initial" />
     </div>
     <!--  End of Main Header  -->
 
@@ -41,6 +43,7 @@ import { computed, onMounted, onUnmounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import { useMoveRight } from "@/composable/animations/move-right";
 
+import TheProfile from "@/components/navigation/TheProfile.vue";
 import ChapterTitle from "@/components/navigation/ChapterTitle.vue";
 import EditHeader from "@/components/edit-mode/EditHeader.vue";
 
@@ -94,8 +97,4 @@ header.moveRight .logo {
   opacity: 0;
   visibility: hidden;
 }
-
-/*header > * {*/
-/*  flex: 1;*/
-/*}*/
 </style>

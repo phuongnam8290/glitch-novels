@@ -62,11 +62,11 @@ const selectedStyle = computed(() => ({
 
 <style scoped>
 .wrapper {
-  border: 2px solid transparent;
+  outline: 2px solid transparent;
 }
 
 .wrapper.selected {
-  border-color: theme("colors[gold-brand-1]");
+  outline-color: theme("colors[gold-brand-1]");
 }
 
 .wrapper.selected .select-inner-circle {
