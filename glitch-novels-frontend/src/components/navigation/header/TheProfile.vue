@@ -9,7 +9,7 @@
     >
       <img
         class="h-full rounded-full object-contain"
-        src="src/assets/images/profile/avatar.jpg"
+        src="../../../assets/images/profile/avatar.jpg"
         alt="avatar"
       />
     </button>
@@ -28,7 +28,7 @@
           <div class="avatar-lg">
             <img
               class="rounded-full"
-              src="src/assets/images/profile/avatar.jpg"
+              src="../../../assets/images/profile/avatar.jpg"
               alt="avatar"
             />
           </div>

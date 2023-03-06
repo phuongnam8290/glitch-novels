@@ -42,8 +42,8 @@ import { useRoute } from "vue-router";
 import { useNavigationStore } from "@/stores/navigation";
 import { useMoveRight } from "@/composable/animations/move-right";
 
-import TheProfile from "@/components/navigation/TheProfile.vue";
-import ChapterTitle from "@/components/navigation/ChapterTitle.vue";
+import TheProfile from "@/components/navigation/header/TheProfile.vue";
+import ChapterTitle from "@/components/navigation/header/ChapterTitle.vue";
 
 const route = useRoute();
 const routeName = computed(() => route.name);
