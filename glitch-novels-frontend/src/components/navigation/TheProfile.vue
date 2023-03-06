@@ -71,6 +71,7 @@
             v-for="item in menu"
             :key="item.title"
             :href="item.link"
+            @click="isOpen = false"
           >
             <span>
               <i :class="item.icon"></i>

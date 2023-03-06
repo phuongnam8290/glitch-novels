@@ -1,6 +1,9 @@
 <template>
-  <div class="edit-header flex items-center justify-between bg-gold-brand-2 py-1 pl-20">
-    <span class="title-text">0 items selected</span>
+  <div
+    class="edit-header z-40 flex w-full items-center justify-between bg-gold-brand-2 py-1 pl-20"
+    ref="editHeader"
+  >
+    <span class="title-text">{{ ARRAY_SELECTED_DATA.length }} items selected</span>
     <div class="control-buttons flex">
       <button>
         <i class="fa-sharp fa-solid fa-plus fa-lg"></i>
@@ -16,7 +19,10 @@
       </button>
 
       <div class="border-l">
-        <button class="btn-close w-[5rem]">
+        <button
+          class="btn-close w-[5rem]"
+          @click="editMode = false"
+        >
           <i class="fa-light fa-xmark fa-xl"></i>
         </button>
       </div>
@@ -24,7 +30,22 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { onMounted, onUnmounted, ref } from "vue";
+import { storeToRefs } from "pinia";
+import { useEditModeStore } from "@/stores/editMode";
+import { useNavigationStore } from "@/stores/navigation";
+
+const editModeStore = useEditModeStore();
+const { editMode, ARRAY_SELECTED_DATA } = storeToRefs(editModeStore);
+
+// Add this component to the navigation store for tracking purposes.
+const navigationStore = useNavigationStore();
+const { navigationElements } = storeToRefs(navigationStore);
+const editHeader = ref(null);
+onMounted(() => navigationElements.value.set("editHeader", editHeader.value));
+onUnmounted(() => navigationElements.delete("editHeader"));
+</script>
 
 <style scoped>
 .control-buttons {

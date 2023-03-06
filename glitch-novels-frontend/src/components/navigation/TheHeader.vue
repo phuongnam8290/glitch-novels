@@ -33,8 +33,6 @@
       <the-profile class="ml-10 flex-initial" />
     </div>
     <!--  End of Main Header  -->
-
-    <edit-header />
   </header>
 </template>
 
@@ -46,7 +44,6 @@ import { useMoveRight } from "@/composable/animations/move-right";
 
 import TheProfile from "@/components/navigation/TheProfile.vue";
 import ChapterTitle from "@/components/navigation/ChapterTitle.vue";
-import EditHeader from "@/components/edit-mode/EditHeader.vue";
 
 const route = useRoute();
 const routeName = computed(() => route.name);
