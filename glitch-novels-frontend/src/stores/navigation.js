@@ -37,7 +37,7 @@ export const useNavigationStore = defineStore("navigation", {
     IS_SIDEBAR_OPEN(state) {
       return state.isSidebarOpen;
     },
-    NAVIGATION_ELEMENT(state) {
+    NAVIGATION_ELEMENTS(state) {
       return state.navigationElements;
     },
   },

@@ -14,12 +14,11 @@
 <script setup>
 import { computed, ref, watch } from "vue";
 import { useEditModeStore } from "@/stores/editMode";
+import { useNavigationStore } from "@/stores/navigation";
 import { useClickOutside } from "@/composable/utils/useClickOutside";
 
 import EditableCard from "@/components/edit-mode/EditableCard.vue";
 import RegularNovelCard from "@/components/novels/cards/RegularNovelCard.vue";
-import { useNavigationStore } from "@/stores/navigation";
-import { storeToRefs } from "pinia";
 
 defineProps({
   novels: {
@@ -32,14 +31,14 @@ const editModeStore = useEditModeStore();
 const IS_EDIT_MODE_ON = computed(() => editModeStore.IS_EDIT_MODE_ON);
 
 const navigationStore = useNavigationStore();
-const { navigationElements } = storeToRefs(navigationStore);
+const NAVIGATION_ELEMENTS = computed(() => navigationStore.NAVIGATION_ELEMENTS);
 
 const novelList = ref([]);
 const { enableClickOutside, disableClickOutside } = useClickOutside(
   novelList,
   editModeStore.CLEAR_SELECTED_DATA,
   "componentRef",
-  computed(() => [...navigationElements.value.values()])
+  computed(() => [...NAVIGATION_ELEMENTS.value.values()])
 );
 
 watch(

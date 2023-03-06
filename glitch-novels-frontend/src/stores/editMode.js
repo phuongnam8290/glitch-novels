@@ -30,6 +30,10 @@ export const useEditModeStore = defineStore("editMode", () => {
     selectedData.value.clear();
   };
 
+  const TURN_OFF_EDIT_MODE = () => {
+    editMode.value = false;
+  };
+
   return {
     editMode,
     selectedData,
@@ -38,5 +42,6 @@ export const useEditModeStore = defineStore("editMode", () => {
     ARRAY_SELECTED_DATA,
     TOGGLE_SELECTED_DATA,
     CLEAR_SELECTED_DATA,
+    TURN_OFF_EDIT_MODE,
   };
 });

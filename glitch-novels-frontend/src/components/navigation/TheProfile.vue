@@ -135,14 +135,8 @@ const { enableClickOutside, disableClickOutside } = useClickOutside(
   },
   "templateRef"
 );
-
-onMounted(() => {
-  enableClickOutside();
-});
-
-onUnmounted(() => {
-  disableClickOutside();
-});
+onMounted(() => enableClickOutside());
+onUnmounted(() => disableClickOutside());
 </script>
 
 <style scoped>

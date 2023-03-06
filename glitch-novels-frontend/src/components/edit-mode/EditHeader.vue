@@ -21,7 +21,7 @@
       <div class="border-l">
         <button
           class="btn-close w-[5rem]"
-          @click="editMode = false"
+          @click="editModeStore.TURN_OFF_EDIT_MODE"
         >
           <i class="fa-light fa-xmark fa-xl"></i>
         </button>
@@ -31,20 +31,18 @@
 </template>
 
 <script setup>
-import { onMounted, onUnmounted, ref } from "vue";
-import { storeToRefs } from "pinia";
+import { computed, onMounted, onUnmounted, ref } from "vue";
 import { useEditModeStore } from "@/stores/editMode";
 import { useNavigationStore } from "@/stores/navigation";
 
 const editModeStore = useEditModeStore();
-const { editMode, ARRAY_SELECTED_DATA } = storeToRefs(editModeStore);
+const ARRAY_SELECTED_DATA = computed(() => editModeStore.ARRAY_SELECTED_DATA);
 
 // Add this component to the navigation store for tracking purposes.
 const navigationStore = useNavigationStore();
-const { navigationElements } = storeToRefs(navigationStore);
 const editHeader = ref(null);
-onMounted(() => navigationElements.value.set("editHeader", editHeader.value));
-onUnmounted(() => navigationElements.delete("editHeader"));
+onMounted(() => navigationStore.ADD_NAVIGATION_ELEMENT("editHeader", editHeader.value));
+onUnmounted(() => navigationStore.REMOVE_NAVIGATION_ELEMENT("editHeader"));
 </script>
 
 <style scoped>
