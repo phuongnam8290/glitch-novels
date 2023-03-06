@@ -87,14 +87,15 @@
 </template>
 
 <script setup>
-import { onMounted, onUnmounted, reactive, ref, toRef } from "vue";
+import { onMounted, onUnmounted, reactive, ref } from "vue";
+import { storeToRefs } from "pinia";
 import { useEditModeStore } from "@/stores/editMode";
 import { useClickOutside } from "@/composable/utils/useClickOutside";
 
 import ToggleSwitch from "@/components/common/ToggleSwitch.vue";
 
 const editModeStore = useEditModeStore();
-const editMode = toRef(editModeStore, "editMode");
+const { editMode } = storeToRefs(editModeStore);
 const darkMode = ref(true);
 
 // Set dark mode switch style
