@@ -1,5 +1,8 @@
 <template>
-  <footer class="w-full bg-gray-bg-2 px-20 py-3">
+  <footer
+    class="w-full bg-gray-bg-2 px-20 py-3"
+    ref="footer"
+  >
     <div class="hidden items-center sm:flex">
       <img
         class="w-9"
@@ -13,6 +16,16 @@
   </footer>
 </template>
 
-<script setup></script>
+<script setup>
+import { onMounted, onUnmounted, ref } from "vue";
+import { useNavigationStore } from "@/stores/navigation";
+
+// Add footer to the list of navigation elements for tracking purposes.
+const navigationStore = useNavigationStore();
+const footer = ref(null);
+
+onMounted(() => navigationStore.ADD_NAVIGATION_ELEMENT("footer", footer.value));
+onUnmounted(() => navigationStore.REMOVE_NAVIGATION_ELEMENT("footer"));
+</script>
 
 <style scoped></style>

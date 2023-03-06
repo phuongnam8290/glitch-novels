@@ -129,7 +129,6 @@ const profile = ref(null);
 const { enableClickOutside, disableClickOutside } = useClickOutside(
   profile,
   () => {
-    console.log("click outside");
     isOpen.value = false;
   },
   "templateRef"

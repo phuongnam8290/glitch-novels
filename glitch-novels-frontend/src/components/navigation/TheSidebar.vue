@@ -1,7 +1,7 @@
 <template>
   <nav
     class="z-50 h-full w-[20rem]"
-    ref="nav"
+    ref="sidebar"
   >
     <!--  Toggle button  -->
     <div
@@ -68,7 +68,7 @@
 </template>
 
 <script setup>
-import { computed, ref, watch } from "vue";
+import { computed, onMounted, onUnmounted, ref, watch } from "vue";
 import { useNavigationStore } from "@/stores/navigation";
 
 const navigationLinkGroups = ref([
@@ -111,18 +111,22 @@ const toggleSidebar = () => {
 
 // Open / close sidebar base on state set in navigationStore
 const IS_SIDEBAR_OPEN = computed(() => navigationStore.IS_SIDEBAR_OPEN);
-const nav = ref(null);
+const sidebar = ref(null);
 const toggleBtn = ref(null);
 
 watch(IS_SIDEBAR_OPEN, (isOpen) => {
   if (isOpen) {
     toggleBtn.value.classList.add("open");
-    nav.value.classList.add("open");
+    sidebar.value.classList.add("open");
   } else {
     toggleBtn.value.classList.remove("open");
-    nav.value.classList.remove("open");
+    sidebar.value.classList.remove("open");
   }
 });
+
+// Add sidebar to the list of navigation elements for tracking purposes.
+onMounted(() => navigationStore.ADD_NAVIGATION_ELEMENT("sidebar", sidebar.value));
+onUnmounted(() => navigationStore.REMOVE_NAVIGATION_ELEMENT("sidebar"));
 </script>
 
 <style scoped>

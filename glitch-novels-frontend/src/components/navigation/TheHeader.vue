@@ -41,6 +41,7 @@
 <script setup>
 import { computed, onMounted, onUnmounted, ref } from "vue";
 import { useRoute } from "vue-router";
+import { useNavigationStore } from "@/stores/navigation";
 import { useMoveRight } from "@/composable/animations/move-right";
 
 import TheProfile from "@/components/navigation/TheProfile.vue";
@@ -65,6 +66,8 @@ const toggleHeaderDivider = () => {
     header.value.classList.remove("border-b-2", "border-gold-brand-2");
   }
 };
+onMounted(() => document.addEventListener("scroll", toggleHeaderDivider));
+onUnmounted(() => document.removeEventListener("scroll", toggleHeaderDivider));
 
 // Set border style when in reader page.
 const setReaderDivider = computed(() => ({
@@ -72,13 +75,10 @@ const setReaderDivider = computed(() => ({
   "border-gold-brand-2": routeName.value === "reader",
 }));
 
-onMounted(() => {
-  document.addEventListener("scroll", toggleHeaderDivider);
-});
-
-onUnmounted(() => {
-  document.removeEventListener("scroll", toggleHeaderDivider);
-});
+// Add header to the list of navigation elements for tracking purposes.
+const navigationStore = useNavigationStore();
+onMounted(() => navigationStore.ADD_NAVIGATION_ELEMENT("header", header.value));
+onUnmounted(() => navigationStore.REMOVE_NAVIGATION_ELEMENT("header"));
 </script>
 
 <style scoped>

@@ -13,12 +13,27 @@ import { unref } from "vue";
  * single/group of template ref(s) that need to detect when clicks outside.
  * @param {function} callback - A callback function to be executed when the user clicks outside element(s).
  * @param {("templateRef" | "componentRef")} type - The type of elements needs to detect clicks outside.
+ * @param {Ref<Element[]>} [ignoredElements] - Click these elements will not be considered as click outside. Use Ref
+ * type so that element can be added/removed from the ignored list after the event listener has been registered.
  */
-export const useClickOutside = (targetElementsRef, callback, type) => {
+export const useClickOutside = (targetElementsRef, callback, type, ignoredElements) => {
   const detectClickOutside = (event) => {
     const targetElements = unref(targetElementsRef);
     const target = event.target;
     let isClickInside = false;
+
+    // Check if the click event occurred inside ignored elements.
+    if (ignoredElements) {
+      for (const element of ignoredElements.value) {
+        if (element.contains(target)) {
+          isClickInside = true;
+          break;
+        }
+      }
+      if (isClickInside) {
+        return false;
+      }
+    }
 
     // If targetElements is an array of template refs, check all of the array's elements.
     if (Array.isArray(targetElements)) {
