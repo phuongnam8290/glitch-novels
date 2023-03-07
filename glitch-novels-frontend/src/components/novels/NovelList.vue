@@ -12,7 +12,7 @@
   </div>
 </template>
 <script setup>
-import { computed, ref, watch } from "vue";
+import { computed, onUnmounted, ref, watch } from "vue";
 import { useEditModeStore } from "@/stores/editMode";
 import { useNavigationStore } from "@/stores/navigation";
 import { useClickOutside } from "@/composable/utils/useClickOutside";
@@ -52,4 +52,6 @@ watch(
   },
   { immediate: true }
 );
+
+onUnmounted(() => disableClickOutside());
 </script>

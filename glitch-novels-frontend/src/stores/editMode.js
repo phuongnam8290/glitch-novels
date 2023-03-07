@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { computed, ref, watch } from "vue";
+import { useRoute } from "vue-router";
 
 export const useEditModeStore = defineStore("editMode", () => {
   const editMode = ref(false);
@@ -33,6 +34,9 @@ export const useEditModeStore = defineStore("editMode", () => {
   const TURN_OFF_EDIT_MODE = () => {
     editMode.value = false;
   };
+
+  const route = useRoute();
+  watch(route, () => CLEAR_SELECTED_DATA());
 
   return {
     editMode,
