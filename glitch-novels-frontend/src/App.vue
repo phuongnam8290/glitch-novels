@@ -11,7 +11,7 @@
     >
       <edit-header
         v-if="IS_EDIT_MODE_ON"
-        class="absolute left-0 top-20"
+        class="sticky left-0 top-20"
       />
     </Transition>
 

@@ -1,5 +1,5 @@
 <template>
-  <h1 class="section-header mt-16 flex items-center">
+  <h1 class="section-header flex items-center">
     <span class="mr-4"><i class="fa-sharp fa-solid fa-magnifying-glass"></i></span>
     Advanced Search
   </h1>

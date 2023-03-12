@@ -1,6 +1,6 @@
 <template>
   <div
-    class="details mt-16 flex items-start gap-x-6"
+    class="details flex items-start gap-x-6"
     v-if="NOVEL_DETAILS"
   >
     <div class="left-col sticky top-36 flex flex-col bg-gray-bg-1/80">

@@ -1,7 +1,7 @@
 <template>
   <section class="flex">
     <div
-      class="chapter-list relative mx-auto -mb-20 max-w-[1200px] space-y-10 bg-gray-bg-1 px-20 py-10"
+      class="chapter-list relative mx-auto -my-20 w-[1200px] space-y-10 bg-gray-bg-1 px-20 py-10"
       ref="chapterList"
     >
       <chapter-reader
@@ -58,4 +58,8 @@ useGetNextChapter(chapterList, nextIndicator, isDataLoaded);
 useMoveToNeighboringChapter(chapterList);
 </script>
 
-<style scoped></style>
+<style scoped>
+.chapter-list {
+  min-height: calc(100vh - 9rem);
+}
+</style>
