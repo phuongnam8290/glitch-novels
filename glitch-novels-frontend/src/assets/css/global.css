@@ -70,9 +70,11 @@
   .ratings {
     @apply text-gold-brand-1;
   }
+}
 
-  .moveRight {
-    width: calc(100% - 20rem);
-    left: 20rem;
-  }
+/* If the sidebar opens, this class will be programmatically added to the main section. It cannot be in the utility
+layer because styles in layers only are included if those styles are statically added. */
+.moveRight {
+  width: calc(100% - 20rem);
+  left: 20rem;
 }

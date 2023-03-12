@@ -1,6 +1,7 @@
 <template>
   <header
     class="z-50 w-full border-b-2 bg-gray-bg-2"
+    v-bind="$attrs"
     :class="borderStyle"
     ref="header"
   >
@@ -42,6 +43,16 @@
     </div>
     <!--  End of Main Header  -->
   </header>
+
+  <Transition
+    enter-active-class="animate__animated animate__fadeInDown animate__faster"
+    leave-active-class="animate__animated animate__fadeOutUp animate__faster"
+  >
+    <edit-header
+      v-if="IS_EDIT_MODE_ON"
+      class="sticky left-0 top-20"
+    />
+  </Transition>
 </template>
 
 <script setup>
@@ -52,6 +63,7 @@ import { useEditModeStore } from "@/stores/editMode";
 
 import TheProfile from "@/components/navigation/header/TheProfile.vue";
 import ChapterTitle from "@/components/navigation/header/ChapterTitle.vue";
+import EditHeader from "@/components/edit-mode/EditHeader.vue";
 
 //  Detect if the user scrolls or not.
 const header = ref(null);
