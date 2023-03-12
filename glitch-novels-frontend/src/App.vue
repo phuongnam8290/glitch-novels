@@ -3,7 +3,7 @@
     class="wrapper relative left-0 min-h-screen w-full"
     ref="wrapper"
   >
-    <the-header class="sticky top-0 left-0" />
+    <the-header />
     <the-sidebar class="fixed top-0 left-[-13.75rem]" />
 
     <main class="m-20">
