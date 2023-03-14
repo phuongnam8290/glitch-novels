@@ -1,10 +1,13 @@
 <template>
   <div
-    class="chapter"
+    class="chapter flex flex-col"
     ref="chapterReader"
   >
     <h1 class="mb-10"> Chapter {{ chapter.number }} - {{ chapter.title }}</h1>
-    <article v-html="chapter.content"></article>
+    <article
+      v-html="chapter.content"
+      class="flex-grow"
+    ></article>
     <div class="divider mt-10 flex w-full items-center justify-center">
       <span class="mx-10"><i class="fa-sharp fa-solid fa-book-open-cover fa-xl"></i></span>
     </div>

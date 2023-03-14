@@ -1,22 +1,29 @@
 <template>
-  <section class="flex">
-    <div
-      class="chapter-list relative mx-auto -my-20 w-[1200px] space-y-10 bg-gray-bg-1 px-20 py-10"
-      ref="chapterList"
-    >
-      <chapter-reader
-        :chapter="chapter"
-        v-for="chapter in CHAPTERS"
-        :key="chapter.id"
-        :id="`id-${chapter.id}`"
-      />
-
+  <section class="-my-20 flex">
+    <div class="reader flex-grow">
       <div
-        class="next-indicator absolute left-0 bottom-0 h-[300px]"
-        ref="nextIndicator"
-      ></div>
+        class="chapter-list mx-auto min-h-full max-w-[1280px] space-y-10 bg-gray-bg-1 px-20 py-10"
+        ref="chapterList"
+      >
+        <chapter-reader
+          class="chapter-reader"
+          :chapter="chapter"
+          v-for="chapter in CHAPTERS"
+          :key="chapter.id"
+          :id="`id-${chapter.id}`"
+        />
+
+        <div
+          class="next-indicator absolute left-0 bottom-0 h-[300px]"
+          ref="nextIndicator"
+        ></div>
+      </div>
     </div>
-    <control-side-bar />
+
+    <control-side-bar
+      class="control-side-bar sticky top-[5rem] flex"
+      @wheel.stop
+    />
   </section>
 </template>
 
@@ -59,7 +66,19 @@ useMoveToNeighboringChapter(chapterList);
 </script>
 
 <style scoped>
-.chapter-list {
-  min-height: calc(100vh - 9rem);
+/* 5rem for header */
+section {
+  min-height: calc(100vh - 5rem);
+}
+
+/* Make sure that each chapter has the length of full screen. 5rem for header, 5rem for space-y from both sides or
+margin-top/bottom from the container */
+.chapter-reader {
+  min-height: calc(100vh - 5rem - 5rem);
+}
+
+/* 5rem for header */
+.control-side-bar {
+  height: calc(100vh - 5rem);
 }
 </style>

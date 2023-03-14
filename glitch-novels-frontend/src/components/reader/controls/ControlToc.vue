@@ -1,8 +1,5 @@
 <template v-if="CURRENT_CHAPTER !== null">
-  <div
-    class="toc space-y-4 p-4"
-    @wheel.stop
-  >
+  <div class="toc space-y-4 p-4">
     <h2 class="section-text flex justify-between">
       <span> Table of Contents </span>
       <button
@@ -13,7 +10,7 @@
       </button>
     </h2>
     <ul
-      class="custom-scrollbar toc-body pr-2"
+      class="custom-scrollbar toc-body relative pr-2"
       ref="tocBody"
       v-if="chapters.length !== 0"
     >
@@ -21,12 +18,12 @@
         class="overflow-x-hidden border-b border-gray-bg-1 py-4 last:border-b-0"
         v-for="chapter in chapters"
         :key="chapter.id"
-        :id="`toc-chapter-${chapter.id}`"
         :class="setCurrentToCChapter(chapter.id)"
       >
         <router-link
           :to="{ name: 'reader', params: { id: chapter.id } }"
           class="inline-block w-full truncate"
+          :id="`toc-chapter-${chapter.id}`"
           @mouseenter="startMarquee($event.currentTarget)"
           @mouseleave="stopMarquee($event.currentTarget)"
         >
@@ -38,7 +35,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref, watch } from "vue";
+import { computed, nextTick, onMounted, ref, watch } from "vue";
 import { useChaptersStore } from "@/stores/chapter";
 import { useMarquee } from "@/composable/animations/useMarquee";
 import axios from "axios";
@@ -58,11 +55,19 @@ onMounted(async () => {
   const response = await axios.get(`${baseUrl}/novel/${novelId}`);
   chapters.value = response.data.chapters;
 
-  // Scroll to top the new current chapter when the chapter changed.
-  watch(CURRENT_CHAPTER, (chapter) => {
-    const currentChapterElement = tocBody.value.querySelector(`#toc-chapter-${chapter.id}`);
-    currentChapterElement.scrollIntoView();
-  });
+  // Wait for ToC to populate before scrolling to the selected chapter.
+  await nextTick();
+
+  // Scroll top to the new current chapter when the chapter changed.
+  watch(
+    CURRENT_CHAPTER,
+    (chapter) => {
+      const currentChapterLink = tocBody.value.querySelector(`#toc-chapter-${chapter.id}`);
+      const scrollLength = currentChapterLink.offsetTop;
+      tocBody.value.scroll({ top: scrollLength });
+    },
+    { immediate: true }
+  );
 });
 
 const setCurrentToCChapter = (id) => ({ ["toc-current-chapter"]: CURRENT_CHAPTER.value.id === id });
@@ -75,6 +80,7 @@ const { startMarquee, stopMarquee } = useMarquee();
   padding-right: 1rem;
   overflow-x: hidden;
   overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .toc-current-chapter {

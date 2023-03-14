@@ -82,6 +82,7 @@ onUnmounted(() => navigationStore.REMOVE_NAVIGATION_ELEMENT("header"));
 </script>
 
 <style scoped>
+header,
 .chapter-title {
   transition: 0.25s;
 }

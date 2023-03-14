@@ -31,4 +31,8 @@ useMoveRight(wrapper);
 .wrapper {
   transition: all 0.25s ease-in-out;
 }
+
+main {
+  min-height: calc(100vh - 19rem);
+}
 </style>

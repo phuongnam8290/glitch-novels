@@ -1,9 +1,21 @@
 <template>
-  <aside :class="{ open: isOpen }">
-    <ul class="control-bar fixed top-[5rem] right-20 flex w-[50px] flex-col justify-center">
+  <aside>
+    <div
+      class="control-details my-auto"
+      :class="{ open: isOpen }"
+      ref="controlDetails"
+    >
+      <component
+        :is="displayedComponent.component ? displayedComponent.component : 'div'"
+        class="mx-4 bg-gray-bg-2"
+        @close="isOpen = false"
+      />
+    </div>
+
+    <ul class="control-commands my-auto w-[50px]">
       <li
         class="control-icon h-[50px] bg-gray-bg-2"
-        @click="toggleControlDetails($event, `toc`)"
+        @click="toggleControlDetails($event, ControlToc)"
       >
         <button class="h-full w-full">
           <i class="fa-sharp fa-regular fa-rectangle-list fa-lg"></i>
@@ -25,20 +37,12 @@
         </button>
       </li>
     </ul>
-
-    <div class="control-details fixed top-[6.25rem] right-40 whitespace-nowrap bg-gray-bg-2">
-      <control-toc
-        @close="isOpen = false"
-        v-if="isDataLoaded"
-      />
-    </div>
   </aside>
 </template>
 
 <script setup>
-import { computed, ref, watch } from "vue";
+import { computed, ref, shallowRef, watch } from "vue";
 import { useNavigationStore } from "@/stores/navigation";
-import { useChaptersStore } from "@/stores/chapter";
 
 import ControlToc from "@/components/reader/controls/ControlToc.vue";
 
@@ -47,12 +51,16 @@ const navigationsStore = useNavigationStore();
 const isOpen = ref(false);
 
 // If this sidebar open, close the left sidebar.
-const toggleControlDetails = (event, controlName) => {
+const displayedComponent = shallowRef({ component: null });
+const controlDetails = ref(null);
+const toggleControlDetails = (event, comp) => {
   isOpen.value = !isOpen.value;
 
   if (isOpen.value) {
     navigationsStore.CLOSE_SIDEBAR();
   }
+
+  displayedComponent.value = { component: comp };
 };
 
 // If the left sidebar open, close this sidebar.
@@ -62,43 +70,19 @@ watch(IS_SIDEBAR_OPEN, (isSidebarOpen) => {
     isOpen.value = false;
   }
 });
-
-// Wait for current chapter's data available before render the ToC.
-const chaptersStore = useChaptersStore();
-const CURRENT_CHAPTER = computed(() => chaptersStore.CURRENT_CHAPTER);
-const isDataLoaded = ref(false);
-
-watch(CURRENT_CHAPTER, (chapter) => {
-  if (chapter) {
-    isDataLoaded.value = true;
-  }
-});
 </script>
 
 <style scoped>
-aside {
-  width: 0;
-  transition: all 0.25s ease-in-out;
+.control-details {
+  overflow: hidden;
+  height: calc(100% - 2rem);
+  max-width: 0;
+  transition: 0.25s;
 }
 
-aside.open {
-  width: calc(100vw - 10rem - 1200px);
-}
-
-aside .control-bar {
-  height: calc(100vh - 5rem);
-  transition: all 0.25s ease-in-out;
-}
-
-aside .control-details {
-  width: 0;
-  opacity: 0;
-  height: calc(100vh - 6.25rem - 1.25rem);
-  transition: all 0.25s ease-in-out;
-}
-
-aside.open .control-details {
-  opacity: 1;
-  width: calc(100vw - 10rem - 1200px - 8rem);
+/* Make sure that the control-details take all remaining width. The subtracting spaces are 10rem for the section's
+margin, 1280px for the reader's width, 50px for control-commands' width, and 2rem for control-details' padding. */
+.control-details.open {
+  max-width: calc(100vw - 10rem - 1280px - 50px - 2rem);
 }
 </style>
