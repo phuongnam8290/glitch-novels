@@ -1,9 +1,7 @@
 <template>
   <button
     class="toggle-btn"
-    :class="{ open: IS_SIDEBAR_OPEN }"
     ref="toggleBtn"
-    @click="toggleSidebar"
   >
     <span class="toggle-btn-icon h-full w-full">
       <span class="toggle-btn-bar"></span>
@@ -11,18 +9,7 @@
   </button>
 </template>
 
-<script setup>
-import { useNavigationStore } from "@/stores/navigation";
-import { computed } from "vue";
-
-const navigationStore = useNavigationStore();
-const IS_SIDEBAR_OPEN = computed(() => navigationStore.IS_SIDEBAR_OPEN);
-
-// For toggle button click event
-const toggleSidebar = () => {
-  navigationStore.TOGGLE_SIDEBAR();
-};
-</script>
+<script setup></script>
 
 <style scoped>
 /* Toggle button style */

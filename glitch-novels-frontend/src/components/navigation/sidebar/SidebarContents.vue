@@ -1,7 +1,6 @@
 <template>
   <nav
     class="sidebar-contents-wrapper overflow-hidden bg-gray-bg-2"
-    :class="{ open: IS_SIDEBAR_OPEN }"
     ref="sidebarContents"
   >
     <div class="sidebar-contents py-5 px-10">
@@ -51,12 +50,11 @@
       </div>
       <!--  End of navigation links  -->
     </div>
-    <!--  Toggle button  -->
   </nav>
 </template>
 
 <script setup>
-import { computed, onMounted, onUnmounted, ref } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 import { useNavigationStore } from "@/stores/navigation";
 
 const navigationLinkGroups = ref([
@@ -92,7 +90,6 @@ const navigationLinkGroups = ref([
 
 // Open / close sidebar base on state set in navigationStore
 const navigationStore = useNavigationStore();
-const IS_SIDEBAR_OPEN = computed(() => navigationStore.IS_SIDEBAR_OPEN);
 const sidebarContents = ref(null);
 
 // Add sidebar to the list of navigation elements for tracking purposes.
@@ -101,16 +98,6 @@ onUnmounted(() => navigationStore.REMOVE_NAVIGATION_ELEMENT("sidebarContents"));
 </script>
 
 <style scoped>
-/* Sidebar position */
-nav {
-  transition: all 0.25s ease-in-out;
-  width: 0;
-}
-
-nav.open {
-  width: 20rem;
-}
-
 /* Navigation link style */
 .link-group-header a,
 .link-group-item a {

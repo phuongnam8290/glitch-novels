@@ -5,7 +5,7 @@
     ref="header"
   >
     <div class="logo-wrapper flex flex-shrink-0">
-      <sidebar-toggle-button :class="{ open: IS_SIDEBAR_OPEN }" />
+      <div id="sidebar-toggle-button"> </div>
       <Transition enter-active-class="animate__animated animate__fadeIn">
         <img
           class="logo ml-4 max-h-9"
@@ -44,8 +44,8 @@ import { computed, onMounted, onUnmounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import { useNavigationStore } from "@/stores/navigation";
 import { useEditModeStore } from "@/stores/editMode";
+import { useEventBus } from "@/composable/utils/useEventBus";
 
-import SidebarToggleButton from "@/components/navigation/sidebar/SidebarToggleButton.vue";
 import TheProfile from "@/components/navigation/header/TheProfile.vue";
 import ChapterTitle from "@/components/navigation/header/ChapterTitle.vue";
 
@@ -77,6 +77,10 @@ const navigationStore = useNavigationStore();
 const IS_SIDEBAR_OPEN = computed(() => navigationStore.IS_SIDEBAR_OPEN);
 onMounted(() => navigationStore.ADD_NAVIGATION_ELEMENT("header", header.value));
 onUnmounted(() => navigationStore.REMOVE_NAVIGATION_ELEMENT("header"));
+
+// Emit event signifies that this component has been mounted.
+const { eventBus } = useEventBus();
+onMounted(() => eventBus.emit("mainHeaderMounted"));
 </script>
 
 <style scoped>
@@ -85,7 +89,7 @@ header,
   transition: 0.25s;
 }
 
-.open {
-  margin-left: calc(-5rem - 18px);
-}
+/*.open {*/
+/*  margin-left: calc(-5rem - 18px);*/
+/*}*/
 </style>
