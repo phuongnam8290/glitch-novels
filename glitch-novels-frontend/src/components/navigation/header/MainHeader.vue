@@ -1,43 +1,40 @@
 <template>
   <header
-    class="z-50 flex h-20 w-full items-center justify-between border-b-2 bg-gray-bg-2 py-5 px-20"
+    class="z-50 flex h-20 items-center border-b-2 bg-gray-bg-2 py-5 px-20"
     :class="borderStyle"
     ref="header"
   >
-    <!--  Main Header  -->
-    <!--  Logo  -->
-    <Transition enter-active-class="animate__animated animate__fadeIn">
-      <div
-        class="logo-wrapper flex-initial"
-        v-if="!IS_SIDEBAR_OPEN"
-      >
+    <div class="logo-wrapper flex flex-shrink-0">
+      <sidebar-toggle-button :class="{ open: IS_SIDEBAR_OPEN }" />
+      <Transition enter-active-class="animate__animated animate__fadeIn">
         <img
-          class="logo ml-12 max-h-9"
+          class="logo ml-4 max-h-9"
           ref="logo"
           src="@/assets/images/common/logo.png"
           alt="Glitch logo"
+          v-if="!IS_SIDEBAR_OPEN"
         />
-      </div>
-    </Transition>
+      </Transition>
+    </div>
 
     <div
-      class="chapter-title mr-10 inline-block flex-1 overflow-hidden whitespace-nowrap"
+      class="chapter-title mr-10 inline-block flex-auto overflow-hidden whitespace-nowrap"
       :class="{ 'ml-32': !IS_SIDEBAR_OPEN }"
     >
       <chapter-title v-if="route.name === 'reader'" />
     </div>
 
     <!--  Search bar  -->
-    <div class="search-wrapper flex-initial">
+    <div class="search-wrapper flex flex-shrink-0">
       <input
         class="ml-auto block h-fit w-[30rem] border border-white-ink-1 bg-gray-bg-2 px-4 py-1.5 text-white-ink-1 focus:border-gold-brand-1 focus:outline-0"
         style="font-family: 'Metropolis', FontAwesome, serif"
         type="text"
         placeholder="&#xF002; Search for anything"
       />
+      <the-profile class="ml-10" />
     </div>
 
-    <the-profile class="ml-10 flex-initial" />
     <!--  End of Main Header  -->
   </header>
 </template>
@@ -48,6 +45,7 @@ import { useRoute } from "vue-router";
 import { useNavigationStore } from "@/stores/navigation";
 import { useEditModeStore } from "@/stores/editMode";
 
+import SidebarToggleButton from "@/components/navigation/sidebar/SidebarToggleButton.vue";
 import TheProfile from "@/components/navigation/header/TheProfile.vue";
 import ChapterTitle from "@/components/navigation/header/ChapterTitle.vue";
 
@@ -85,5 +83,9 @@ onUnmounted(() => navigationStore.REMOVE_NAVIGATION_ELEMENT("header"));
 header,
 .chapter-title {
   transition: 0.25s;
+}
+
+.open {
+  margin-left: calc(-5rem - 18px);
 }
 </style>

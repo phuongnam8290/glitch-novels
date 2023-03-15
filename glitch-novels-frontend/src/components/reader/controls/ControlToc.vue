@@ -1,6 +1,6 @@
 <template v-if="CURRENT_CHAPTER !== null">
   <div class="toc space-y-4 p-4">
-    <h2 class="section-text flex justify-between">
+    <h2 class="section-text flex justify-between whitespace-nowrap">
       <span> Table of Contents </span>
       <button
         class="font-normal"

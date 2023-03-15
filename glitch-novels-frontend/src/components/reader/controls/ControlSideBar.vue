@@ -1,9 +1,9 @@
 <template>
   <aside>
     <div
-      class="control-details my-auto"
+      class="control-contents my-auto overflow-hidden"
       :class="{ open: isOpen }"
-      ref="controlDetails"
+      ref="controlContents"
     >
       <component
         :is="displayedComponent.component ? displayedComponent.component : 'div'"
@@ -52,7 +52,7 @@ const isOpen = ref(false);
 
 // If this sidebar open, close the left sidebar.
 const displayedComponent = shallowRef({ component: null });
-const controlDetails = ref(null);
+const controlContents = ref(null);
 const toggleControlDetails = (event, comp) => {
   isOpen.value = !isOpen.value;
 
@@ -73,8 +73,7 @@ watch(IS_SIDEBAR_OPEN, (isSidebarOpen) => {
 </script>
 
 <style scoped>
-.control-details {
-  overflow: hidden;
+.control-contents {
   height: calc(100% - 2rem);
   max-width: 0;
   transition: 0.25s;
@@ -82,7 +81,7 @@ watch(IS_SIDEBAR_OPEN, (isSidebarOpen) => {
 
 /* Make sure that the control-details take all remaining width. The subtracting spaces are 10rem for the section's
 margin, 1280px for the reader's width, 50px for control-commands' width, and 2rem for control-details' padding. */
-.control-details.open {
+.control-contents.open {
   max-width: calc(100vw - 10rem - 1280px - 50px - 2rem);
 }
 </style>

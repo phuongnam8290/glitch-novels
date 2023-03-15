@@ -8,7 +8,7 @@
       @click="isOpen = !isOpen"
     >
       <img
-        class="h-full rounded-full object-contain"
+        class="max-h-9 rounded-full object-contain"
         src="../../../assets/images/profile/avatar.jpg"
         alt="avatar"
       />

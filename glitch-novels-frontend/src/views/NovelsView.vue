@@ -1,23 +1,28 @@
 <template>
-  <h1 class="section-header flex items-center">
-    <span class="mr-4"><i class="fa-sharp fa-solid fa-magnifying-glass"></i></span>
-    Advanced Search
-  </h1>
-
-  <section
-    ref="novelList"
-    class="mt-8"
+  <div
+    class="novels-view -m-20 p-20"
+    ref="novelsView"
   >
-    <novel-list :novels="CURRENT_NOVELS" />
-  </section>
+    <h1 class="section-header flex items-center">
+      <span class="mr-4"><i class="fa-sharp fa-solid fa-magnifying-glass"></i></span>
+      Advanced Search
+    </h1>
 
-  <section class="mt-8">
-    <the-pagination
-      :total-pages="TOTAL_PAGES"
-      :current-page="CURRENT_PAGE"
-      @changePage="changePage"
-    />
-  </section>
+    <section
+      ref="novelList"
+      class="mt-8"
+    >
+      <novel-list :novels="CURRENT_NOVELS" />
+    </section>
+
+    <section class="mt-8">
+      <the-pagination
+        :total-pages="TOTAL_PAGES"
+        :current-page="CURRENT_PAGE"
+        @changePage="changePage"
+      />
+    </section>
+  </div>
 </template>
 
 <script setup>
@@ -46,4 +51,11 @@ const changePage = async (page) => {
   // Scroll to top after load new batch of novels.
   await scrollElement(novelList);
 };
+
+const novelsView = ref(null);
+onMounted(() => {
+  novelsView.value.addEventListener("click", () => {
+    console.log("Click!");
+  });
+});
 </script>
