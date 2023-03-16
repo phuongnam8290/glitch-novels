@@ -31,6 +31,8 @@ const props = defineProps({
         number: number().required().min(0),
         title: string().required(),
         content: string().required(),
+        previousChapterId: number(),
+        nextChapterId: number(),
       });
 
       try {
@@ -52,9 +54,21 @@ let chapterMonitor = null;
 
 onMounted(() => {
   chapterMonitor = scrollmonitor.create(chapterReader.value, -300);
+
+  // When this chapter enters into the viewport, update the current chapter.
   chapterMonitor.enterViewport(() => {
     chaptersStore.SET_CURRENT_CHAPTER(props.chapter.id);
   }, false);
+
+  // When this chapter leaves the viewport, update the current chapter to the previous/next chapter accordingly.
+  chapterMonitor.exitViewport(() => {
+    // If this chapter is above the viewport after leaving it, update the current chapter to the next chapter.
+    if (chapterMonitor.isAboveViewport) {
+      chaptersStore.SET_CURRENT_CHAPTER(props.chapter.nextChapterId);
+    } else {
+      chaptersStore.SET_CURRENT_CHAPTER(props.chapter.previousChapterId);
+    }
+  });
 });
 
 onUnmounted(() => {

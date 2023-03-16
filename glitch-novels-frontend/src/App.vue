@@ -8,7 +8,7 @@
     >
       <the-header />
 
-      <main class="m-20">
+      <main class="p-20">
         <router-view> </router-view>
       </main>
 
@@ -29,6 +29,6 @@ import TheFooter from "@/components/navigation/TheFooter.vue";
 }
 
 main {
-  min-height: calc(100vh - 19rem);
+  min-height: calc(100vh - 9rem);
 }
 </style>

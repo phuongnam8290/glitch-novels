@@ -1,6 +1,6 @@
 <template>
   <div
-    class="novels-view -m-20 p-20"
+    class="novels-view"
     ref="novelsView"
   >
     <h1 class="section-header flex items-center">
