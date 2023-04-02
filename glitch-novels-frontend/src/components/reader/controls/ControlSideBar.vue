@@ -5,7 +5,7 @@
       :class="{ open: isOpen }"
       ref="controlContents"
     >
-      <component
+      <Component
         :is="displayedComponent.component ? displayedComponent.component : 'div'"
         class="mx-4 bg-gray-bg-2"
         @close="isOpen = false"

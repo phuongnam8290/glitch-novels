@@ -40,7 +40,7 @@
         <i class="fa-regular fa-star-sharp"></i>
       </span>
     </div>
-    <scrollable-tags
+    <ScrollableTags
       v-if="novel.genres.length > 0"
       :tags="novel.genres"
       class="tags py-4"
@@ -55,13 +55,13 @@
 </template>
 
 <script setup>
+import { computed } from "vue";
 import { array, number, object, string } from "yup";
 
 import { useMarquee } from "@/composable/animations/marquee";
 import { dragscroll as vDragScroll } from "vue-dragscroll";
 
 import ScrollableTags from "@/components/common/tag/ScrollableTags.vue";
-import { computed } from "vue";
 
 const props = defineProps({
   novel: {

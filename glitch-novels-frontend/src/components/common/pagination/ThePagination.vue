@@ -1,49 +1,49 @@
 <template>
   <ul class="flex justify-center space-x-2">
     <li v-if="currentPage !== 1">
-      <pagination-step @click="changePage(currentPage - 1)">
+      <PaginationStep @click="changePage(currentPage - 1)">
         <i class="fa-sharp fa-solid fa-backward"></i>
-      </pagination-step>
+      </PaginationStep>
     </li>
     <li>
-      <pagination-number
+      <PaginationNumber
         :class="setActiveClass(1)"
         @click="changePage(1)"
       >
         1
-      </pagination-number>
+      </PaginationNumber>
     </li>
     <li v-if="pageList[0] > 2">
-      <pagination-ellipsis @change-page="(page) => changePage(page)" />
+      <PaginationEllipsis @change-page="(page) => changePage(page)" />
     </li>
 
     <li
       v-for="page in pageList"
       :key="page"
     >
-      <pagination-number
+      <PaginationNumber
         :class="setActiveClass(page)"
         @click="changePage(page)"
       >
         {{ page }}
-      </pagination-number>
+      </PaginationNumber>
     </li>
 
     <li v-if="pageList[pageList.length - 1] < totalPages - 1">
-      <pagination-ellipsis @change-page="(page) => changePage(page)" />
+      <PaginationEllipsis @change-page="(page) => changePage(page)" />
     </li>
     <li v-if="!(totalPages === 1)">
-      <pagination-number
+      <PaginationNumber
         :class="setActiveClass(totalPages)"
         @click="changePage(totalPages)"
       >
         {{ totalPages }}
-      </pagination-number>
+      </PaginationNumber>
     </li>
     <li v-if="currentPage !== totalPages">
-      <pagination-step @click="changePage(currentPage + 1)">
+      <PaginationStep @click="changePage(currentPage + 1)">
         <i class="fa-sharp fa-solid fa-forward"></i>
-      </pagination-step>
+      </PaginationStep>
     </li>
   </ul>
 </template>

@@ -10,11 +10,11 @@
       class="mt-8"
       v-if="isViewMounted"
     >
-      <novel-list :novels="CURRENT_NOVELS" />
+      <NovelList :novels="CURRENT_NOVELS" />
     </section>
 
     <section class="mt-8">
-      <the-pagination
+      <ThePagination
         :total-pages="TOTAL_PAGES"
         :current-page="CURRENT_PAGE"
         @changePage="changePage"
@@ -28,7 +28,6 @@ import { computed, onMounted, provide, ref } from "vue";
 import { useNovelsStore } from "@/stores/novels";
 import { useScrollElement } from "@/composable/animations/scrollElement";
 
-// eslint-disable-next-line no-unused-vars
 import NovelList from "@/components/novels/NovelList.vue";
 import ThePagination from "@/components/common/pagination/ThePagination.vue";
 

@@ -1,14 +1,14 @@
 <template>
   <div class="grid grid-cols-1 gap-8 xl:grid-cols-2">
-    <component
+    <Component
       :is="IS_EDIT_MODE_ON ? EditableCard : 'div'"
       v-for="novel in novels"
       :key="novel.id"
       :novel="novel"
       ref="novelList"
     >
-      <regular-novel-card :novel="novel" />
-    </component>
+      <RegularNovelCard :novel="novel" />
+    </Component>
   </div>
 </template>
 <script setup>

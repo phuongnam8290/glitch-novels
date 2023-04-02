@@ -1,5 +1,5 @@
 <template>
-  <collapsable-section
+  <CollapsableSection
     :collapsed-height="genresCollapsedHeight"
     :expand-text="genresExpandText"
     @change-scroll-height="renderGenresExpandText"
@@ -17,11 +17,11 @@
           v-for="genre in props.genres"
           :key="genre.id"
         >
-          <the-tag> {{ genre.title }} </the-tag>
+          <TheTag> {{ genre.title }} </TheTag>
         </li>
       </ul>
     </template>
-  </collapsable-section>
+  </CollapsableSection>
 </template>
 
 <script setup>

@@ -4,7 +4,7 @@
     :class="{ open: IS_SIDEBAR_OPEN }"
     ref="sidebar"
   >
-    <teleport
+    <Teleport
       to="#sidebar-toggle-button"
       v-if="isMainHeaderMounted"
     >
@@ -14,8 +14,8 @@
         @click="navigationStore.TOGGLE_SIDEBAR"
         ref="sidebarToggleButton"
       />
-    </teleport>
-    <sidebar-contents />
+    </Teleport>
+    <SidebarContents />
   </nav>
 </template>
 

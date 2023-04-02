@@ -42,7 +42,7 @@
           </span>
           <div class="flex justify-between">
             <span>Dark mode</span>
-            <toggle-switch
+            <ToggleSwitch
               id="dark-mode-switch"
               :switch-style="darkModeSwitchStyle"
               v-model="darkMode"
@@ -54,7 +54,7 @@
           </span>
           <div class="flex justify-between">
             <span>Edit mode</span>
-            <toggle-switch
+            <ToggleSwitch
               id="edit-mode-switch"
               v-model="editMode"
             />

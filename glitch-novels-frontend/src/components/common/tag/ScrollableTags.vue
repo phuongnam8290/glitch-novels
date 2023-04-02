@@ -18,14 +18,14 @@
       @click="handleCLickLink"
       ref="tagList"
     >
-      <the-tag
+      <TheTag
         class="tag"
         v-for="(tag, index) in tags"
         :key="tag"
         :class="{ start: index === 0, end: index === tags.length - 1 }"
       >
         {{ tag.title }}
-      </the-tag>
+      </TheTag>
     </div>
 
     <button

@@ -1,5 +1,5 @@
 <template>
-  <collapsable-section
+  <CollapsableSection
     :collapsed-height="tagsCollapsedHeight"
     :expand-text="tagsExpandText"
     @change-scroll-height="renderTagsExpandText"
@@ -17,11 +17,11 @@
           v-for="tag in props.tags"
           :key="tag.id"
         >
-          <the-tag> {{ tag.title }} </the-tag>
+          <TheTag> {{ tag.title }} </TheTag>
         </li>
       </ul>
     </template>
-  </collapsable-section>
+  </CollapsableSection>
 </template>
 
 <script setup>

@@ -12,7 +12,7 @@
         />
       </div>
       <div class="flex justify-center py-6">
-        <publish-info
+        <PublishInfo
           :createdDate="NOVEL_DETAILS.createdDate"
           :lastUpdatedDate="NOVEL_DETAILS.lastUpdatedDate"
           :numberOfChapters="NOVEL_DETAILS.numberOfChapters"
@@ -26,25 +26,25 @@
         <a href="#"> {{ NOVEL_DETAILS.author.name }} </a>
       </div>
 
-      <novel-synopsis
+      <NovelSynopsis
         class="synopsis"
         :synopsis="NOVEL_DETAILS.synopsis"
       />
-      <novel-genres
+      <NovelGenres
         class="genres"
         :genres="NOVEL_DETAILS.genres"
         v-if="NOVEL_DETAILS.genres.length !== 0"
       />
-      <novel-tags
+      <NovelTags
         class="tags"
         :tags="NOVEL_DETAILS.tags"
         v-if="NOVEL_DETAILS.tags.length !== 0"
       />
       <section ref="tableOfContents">
         <h2 class="section-text table-of-contents bg-gray-bg-1/80 p-4">Table of Contents</h2>
-        <chapter-list :chapters="CURRENT_CHAPTERS" />
+        <ChapterList :chapters="CURRENT_CHAPTERS" />
         <div class="bg-gray-bg-1/80 pb-4 pt-8">
-          <the-pagination
+          <ThePagination
             :total-pages="TOTAL_PAGES"
             :current-page="CURRENT_PAGE"
             @changePage="changePage"

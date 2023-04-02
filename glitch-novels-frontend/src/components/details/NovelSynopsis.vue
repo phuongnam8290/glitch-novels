@@ -9,7 +9,7 @@
       </article>
 
       <aside class="sticky top-[123px]">
-        <details-ratings />
+        <DetailsRatings />
       </aside>
     </div>
   </section>

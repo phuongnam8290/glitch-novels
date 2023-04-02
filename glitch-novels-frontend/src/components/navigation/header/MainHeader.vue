@@ -21,7 +21,7 @@
       class="chapter-title mr-10 inline-block flex-auto overflow-hidden whitespace-nowrap"
       :class="{ 'ml-32': !IS_SIDEBAR_OPEN }"
     >
-      <chapter-title v-if="route.name === 'reader'" />
+      <ChapterTitle v-if="route.name === 'reader'" />
     </div>
 
     <!--  Search bar  -->
@@ -32,7 +32,7 @@
         type="text"
         placeholder="&#xF002; Search for anything"
       />
-      <the-profile class="ml-10" />
+      <TheProfile class="ml-10" />
     </div>
 
     <!--  End of Main Header  -->

@@ -5,7 +5,7 @@
         class="chapter-list mx-auto min-h-full max-w-[1280px] space-y-10 bg-gray-bg-1 px-20 py-10"
         ref="chapterList"
       >
-        <chapter-reader
+        <ChapterReader
           class="chapter-reader"
           :chapter="chapter"
           v-for="chapter in CHAPTERS"
@@ -20,7 +20,7 @@
       </div>
     </div>
 
-    <control-side-bar
+    <ControlSideBar
       class="control-side-bar sticky top-[5rem] flex"
       @wheel.stop
     />
