@@ -57,7 +57,7 @@
 <script setup>
 import { array, number, object, string } from "yup";
 
-import { useMarquee } from "@/composable/animations/useMarquee";
+import { useMarquee } from "@/composable/animations/marquee";
 import { dragscroll as vDragScroll } from "vue-dragscroll";
 
 import ScrollableTags from "@/components/common/tag/ScrollableTags.vue";

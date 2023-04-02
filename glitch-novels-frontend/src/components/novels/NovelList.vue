@@ -14,7 +14,7 @@
 <script setup>
 import { computed, inject, ref, watch } from "vue";
 import { useEditModeStore } from "@/stores/editMode";
-import { useClickOutside } from "@/composable/utils/useClickOutside";
+import { useClickOutside } from "@/composable/utils/clickOutside";
 
 import EditableCard from "@/components/edit-mode/EditableCard.vue";
 import RegularNovelCard from "@/components/novels/cards/RegularNovelCard.vue";

@@ -59,7 +59,7 @@
 import { useDetailsStore } from "@/stores/details";
 import { computed, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
-import { useScrollElement } from "@/composable/animations/useScrollElement";
+import { useScrollElement } from "@/composable/animations/scrollElement";
 
 import PublishInfo from "@/components/details/PublishInfo.vue";
 import NovelSynopsis from "@/components/details/NovelSynopsis.vue";

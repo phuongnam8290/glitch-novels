@@ -26,7 +26,7 @@
 <script setup>
 import { computed, onMounted, provide, ref } from "vue";
 import { useNovelsStore } from "@/stores/novels";
-import { useScrollElement } from "@/composable/animations/useScrollElement";
+import { useScrollElement } from "@/composable/animations/scrollElement";
 
 // eslint-disable-next-line no-unused-vars
 import NovelList from "@/components/novels/NovelList.vue";

@@ -26,7 +26,7 @@
 <script setup>
 import { computed } from "vue";
 import { useChaptersStore } from "@/stores/chapter";
-import { useMarquee } from "@/composable/animations/useMarquee";
+import { useMarquee } from "@/composable/animations/marquee";
 
 const chaptersStore = useChaptersStore();
 const CURRENT_CHAPTER = computed(() => chaptersStore.CURRENT_CHAPTER);

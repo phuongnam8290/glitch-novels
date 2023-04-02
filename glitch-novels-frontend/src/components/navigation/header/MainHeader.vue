@@ -44,7 +44,7 @@ import { computed, onMounted, onUnmounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import { useNavigationStore } from "@/stores/navigation";
 import { useEditModeStore } from "@/stores/editMode";
-import { useEventBus } from "@/composable/utils/useEventBus";
+import { useEventBus } from "@/composable/utils/eventBus";
 
 import TheProfile from "@/components/navigation/header/TheProfile.vue";
 import ChapterTitle from "@/components/navigation/header/ChapterTitle.vue";

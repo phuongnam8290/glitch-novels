@@ -19,7 +19,7 @@
 <script setup>
 import { computed, ref } from "vue";
 import { useNavigationStore } from "@/stores/navigation";
-import { useEventBus } from "@/composable/utils/useEventBus";
+import { useEventBus } from "@/composable/utils/eventBus";
 
 import SidebarToggleButton from "@/components/navigation/sidebar/SidebarToggleButton.vue";
 import SidebarContents from "@/components/navigation/sidebar/SidebarContents.vue";

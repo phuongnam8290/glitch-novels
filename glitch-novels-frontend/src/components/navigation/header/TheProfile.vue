@@ -91,7 +91,7 @@
 import { onMounted, onUnmounted, reactive, ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useEditModeStore } from "@/stores/editMode";
-import { useClickOutside } from "@/composable/utils/useClickOutside";
+import { useClickOutside } from "@/composable/utils/clickOutside";
 
 import ToggleSwitch from "@/components/common/ToggleSwitch.vue";
 

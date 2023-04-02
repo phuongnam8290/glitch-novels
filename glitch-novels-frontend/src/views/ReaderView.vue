@@ -31,9 +31,9 @@
 import { computed, onMounted, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useChaptersStore } from "@/stores/chapter";
-import { useGetPreviousChapter } from "@/composable/reader/useGetPreviousChapter";
-import { useGetNextChapter } from "@/composable/reader/useGetNextChapters";
-import { useMoveToNeighboringChapter } from "@/composable/reader/useMoveToNeighboringChapter";
+import { useGetPreviousChapter } from "@/composable/reader/previousChapter";
+import { useGetNextChapter } from "@/composable/reader/nextChapters";
+import { useMoveToNeighboringChapter } from "@/composable/reader/neighboringChapter";
 
 import ChapterReader from "@/components/reader/ChapterReader.vue";
 import ControlSideBar from "@/components/reader/controls/ControlSideBar.vue";

@@ -37,7 +37,7 @@
 <script setup>
 import { computed, nextTick, onMounted, ref, watch } from "vue";
 import { useChaptersStore } from "@/stores/chapter";
-import { useMarquee } from "@/composable/animations/useMarquee";
+import { useMarquee } from "@/composable/animations/marquee";
 import axios from "axios";
 
 defineEmits(["close"]);

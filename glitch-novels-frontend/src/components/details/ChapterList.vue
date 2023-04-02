@@ -41,7 +41,7 @@
 <script setup>
 import moment from "moment";
 import { array, number, object, string } from "yup";
-import { useMarquee } from "@/composable/animations/useMarquee";
+import { useMarquee } from "@/composable/animations/marquee";
 import { computed } from "vue";
 
 const props = defineProps({

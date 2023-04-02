@@ -1,7 +1,7 @@
 import { computed, nextTick, onMounted, onUnmounted } from "vue";
 
 import { useChaptersStore } from "@/stores/chapter";
-import { useScrollElement } from "@/composable/animations/useScrollElement";
+import { useScrollElement } from "@/composable/animations/scrollElement";
 
 export const useMoveToNeighboringChapter = (containerRef) => {
   const chaptersStore = useChaptersStore();
