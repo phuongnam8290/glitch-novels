@@ -35,7 +35,7 @@ const novelsView = inject("novels-view");
 const { enableClickOutside, disableClickOutside } = useClickOutside(
   computed(() => novelList.value.map((ref) => ref.domElement ?? ref)),
   editModeStore.CLEAR_SELECTED_DATA,
-  novelsView
+  { parentElementRef: novelsView }
 );
 
 watch(

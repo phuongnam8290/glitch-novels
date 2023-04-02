@@ -1,4 +1,4 @@
-import { ref, unref } from "vue";
+import { ref } from "vue";
 
 /**
  * @typedef {import('vue').Ref} Ref
@@ -8,43 +8,45 @@ import { ref, unref } from "vue";
  */
 
 /**
- * @function
- * @param {Ref<Element | Element[]>} targetElementsRef - Represent a
- * single/group of template ref(s) that need to detect when clicks outside.
- * @param {function} callback - A callback function to be executed when the user clicks outside element(s).
- * @param {Ref<Document | Element>} parentElementRef - The element that the click outside event being added to.
- * @param {Ref<Element[]>} [ignoredElementRefs] - Click these elements will not be considered as click outside. Use Ref
- * type so that element can be added/removed from the ignored list after the event listener has been registered.
+ * @typedef {Object} Options
+ * @property {Ref<Document | Element>} [parentElementRef] - The element that the click outside event being added to.
+ * @property {Ref<Element[]>} [ignoredElementRefs] - Click these elements will not be considered as click outside.
+ * Use Ref type so that element can be added/removed from the ignored list after the event listener has been registered.
  */
-export const useClickOutside = (targetElementsRef, callback, parentElementRef = ref(document), ignoredElementRefs) => {
+
+/** @type Options */
+const defaultOptions = {
+  parentElementRef: ref(document),
+  ignoredElementRefs: ref([]),
+};
+
+/**
+ * @function
+ * @param {Ref<Element | Element[]>} targetElementsRef - Represent a single/group of template ref(s) that need to
+ * detect when clicks outside.
+ * @param {function} callback - A callback function to be executed when the user clicks outside element(s).
+ * @param {Options} options - Additional options.
+ */
+export const useClickOutside = (targetElementsRef, callback, options = {}) => {
+  options = { ...defaultOptions, ...options };
+  const { parentElementRef, ignoredElementRefs } = options;
+
   const detectClickOutside = (event) => {
-    const targetElements = unref(targetElementsRef);
+    const targetElements = Array.isArray(targetElementsRef.value) ? targetElementsRef.value : [targetElementsRef.value];
     const target = event.target;
     let isClickInside = false;
 
     // Check if the click event occurred inside ignored elements.
-    if (ignoredElementRefs) {
-      for (const element of ignoredElementRefs.value) {
-        if (element.contains(target)) {
-          isClickInside = true;
-          break;
-        }
-      }
-      if (isClickInside) {
+    for (const element of ignoredElementRefs.value) {
+      if (element.contains(target)) {
         return false;
       }
     }
 
-    if (Array.isArray(targetElements)) {
-      for (const element of targetElements) {
-        if (element.contains(target)) {
-          isClickInside = true;
-          break;
-        }
-      }
-    } else {
-      if (targetElements.contains(target)) {
+    for (const element of targetElements) {
+      if (element.contains(target)) {
         isClickInside = true;
+        break;
       }
     }
 
