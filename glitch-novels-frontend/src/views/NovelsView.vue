@@ -1,16 +1,14 @@
 <template>
-  <div
-    class="novels-view"
-    ref="novelsView"
-  >
+  <div ref="novelsView">
     <h1 class="section-header flex items-center">
       <span class="mr-4"><i class="fa-sharp fa-solid fa-magnifying-glass"></i></span>
-      Advanced Search
+      <span> Advanced Search </span>
     </h1>
 
     <section
       ref="novelList"
       class="mt-8"
+      v-if="isViewMounted"
     >
       <novel-list :novels="CURRENT_NOVELS" />
     </section>
@@ -26,7 +24,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, provide, ref } from "vue";
 import { useNovelsStore } from "@/stores/novels";
 import { useScrollElement } from "@/composable/animations/useScrollElement";
 
@@ -52,10 +50,14 @@ const changePage = async (page) => {
   await scrollElement(novelList);
 };
 
+// Provide this view's template ref to child components.
 const novelsView = ref(null);
+provide("novels-view", novelsView);
+
+// To ensure that template ref is not null when provided to child components, defer child component render after this
+// view has been mounted.
+const isViewMounted = ref(false);
 onMounted(() => {
-  novelsView.value.addEventListener("click", () => {
-    console.log("Click!");
-  });
+  isViewMounted.value = true;
 });
 </script>

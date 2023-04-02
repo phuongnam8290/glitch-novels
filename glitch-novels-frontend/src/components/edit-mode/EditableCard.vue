@@ -51,7 +51,7 @@ const toggleSelectId = () => editModeStore.TOGGLE_SELECTED_DATA(novel.value);
 
 // Expose the template ref to the parent component.
 const wrapper = ref(null);
-defineExpose({ value: wrapper });
+defineExpose({ domElement: wrapper });
 
 // Set style for selected novel.
 const HAS_VALUE = computed(() => editModeStore.HAS_VALUE);

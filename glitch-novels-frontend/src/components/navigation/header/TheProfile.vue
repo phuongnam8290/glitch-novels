@@ -128,13 +128,7 @@ const isOpen = ref(false);
 
 // Close the profile dropdown when click outside.
 const profile = ref(null);
-const { enableClickOutside, disableClickOutside } = useClickOutside(
-  profile,
-  () => {
-    isOpen.value = false;
-  },
-  "templateRef"
-);
+const { enableClickOutside, disableClickOutside } = useClickOutside(profile, () => (isOpen.value = false));
 onMounted(() => enableClickOutside());
 onUnmounted(() => disableClickOutside());
 </script>

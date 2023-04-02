@@ -12,9 +12,8 @@
   </div>
 </template>
 <script setup>
-import { computed, onUnmounted, ref, watch } from "vue";
+import { computed, inject, ref, watch } from "vue";
 import { useEditModeStore } from "@/stores/editMode";
-import { useNavigationStore } from "@/stores/navigation";
 import { useClickOutside } from "@/composable/utils/useClickOutside";
 
 import EditableCard from "@/components/edit-mode/EditableCard.vue";
@@ -30,15 +29,13 @@ defineProps({
 const editModeStore = useEditModeStore();
 const IS_EDIT_MODE_ON = computed(() => editModeStore.IS_EDIT_MODE_ON);
 
-const navigationStore = useNavigationStore();
-const NAVIGATION_ELEMENTS = computed(() => navigationStore.NAVIGATION_ELEMENTS);
-
 const novelList = ref([]);
+const novelsView = inject("novels-view");
+
 const { enableClickOutside, disableClickOutside } = useClickOutside(
-  novelList,
+  computed(() => novelList.value.map((ref) => ref.domElement ?? ref)),
   editModeStore.CLEAR_SELECTED_DATA,
-  "componentRef",
-  computed(() => [...NAVIGATION_ELEMENTS.value.values()])
+  novelsView
 );
 
 watch(
@@ -50,8 +47,8 @@ watch(
       disableClickOutside();
     }
   },
-  { immediate: true }
+  {
+    immediate: true,
+  }
 );
-
-onUnmounted(() => disableClickOutside());
 </script>

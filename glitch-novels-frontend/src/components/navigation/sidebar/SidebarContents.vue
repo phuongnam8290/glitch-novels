@@ -1,8 +1,5 @@
 <template>
-  <nav
-    class="sidebar-contents-wrapper overflow-hidden bg-gray-bg-2"
-    ref="sidebarContents"
-  >
+  <nav class="sidebar-contents-wrapper overflow-hidden bg-gray-bg-2">
     <div class="sidebar-contents py-5 px-10">
       <!--  Logo  -->
       <img
@@ -54,8 +51,7 @@
 </template>
 
 <script setup>
-import { onMounted, onUnmounted, ref } from "vue";
-import { useNavigationStore } from "@/stores/navigation";
+import { ref } from "vue";
 
 const navigationLinkGroups = ref([
   {
@@ -87,14 +83,6 @@ const navigationLinkGroups = ref([
     ],
   },
 ]);
-
-// Open / close sidebar base on state set in navigationStore
-const navigationStore = useNavigationStore();
-const sidebarContents = ref(null);
-
-// Add sidebar to the list of navigation elements for tracking purposes.
-onMounted(() => navigationStore.ADD_NAVIGATION_ELEMENT("sidebarContents", sidebarContents.value));
-onUnmounted(() => navigationStore.REMOVE_NAVIGATION_ELEMENT("sidebarContents"));
 </script>
 
 <style scoped>

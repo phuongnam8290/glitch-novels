@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="edit-header z-40 flex w-full items-center justify-between bg-gold-brand-2 py-1 pl-20"
-    ref="editHeader"
-  >
+  <div class="edit-header z-40 flex w-full items-center justify-between bg-gold-brand-2 py-1 pl-20">
     <span class="title-text">{{ ARRAY_SELECTED_DATA.length }} items selected</span>
     <div class="control-buttons flex">
       <button>
@@ -31,18 +28,11 @@
 </template>
 
 <script setup>
-import { computed, onMounted, onUnmounted, ref } from "vue";
+import { computed } from "vue";
 import { useEditModeStore } from "@/stores/editMode";
-import { useNavigationStore } from "@/stores/navigation";
 
 const editModeStore = useEditModeStore();
 const ARRAY_SELECTED_DATA = computed(() => editModeStore.ARRAY_SELECTED_DATA);
-
-// Add this component to the navigation store for tracking purposes.
-const navigationStore = useNavigationStore();
-const editHeader = ref(null);
-onMounted(() => navigationStore.ADD_NAVIGATION_ELEMENT("editHeader", editHeader.value));
-onUnmounted(() => navigationStore.REMOVE_NAVIGATION_ELEMENT("editHeader"));
 </script>
 
 <style scoped>

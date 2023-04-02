@@ -1,6 +1,5 @@
 <template>
   <div class="flex">
-    <!--    <sidebar-contents class="sticky top-0 h-screen flex-shrink-0" />-->
     <the-sidebar class="sticky top-0 h-screen flex-shrink-0" />
     <div
       class="wrapper relative left-0 min-h-screen min-w-0 flex-grow"
@@ -8,8 +7,8 @@
     >
       <the-header />
 
-      <main class="p-20">
-        <router-view> </router-view>
+      <main>
+        <router-view class="p-20"> </router-view>
       </main>
 
       <the-footer />

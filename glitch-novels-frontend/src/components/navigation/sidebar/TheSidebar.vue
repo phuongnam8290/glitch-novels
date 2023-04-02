@@ -24,6 +24,7 @@ import { useEventBus } from "@/composable/utils/useEventBus";
 import SidebarToggleButton from "@/components/navigation/sidebar/SidebarToggleButton.vue";
 import SidebarContents from "@/components/navigation/sidebar/SidebarContents.vue";
 
+// Open / close sidebar base on state set in navigationStore
 const navigationStore = useNavigationStore();
 const IS_SIDEBAR_OPEN = computed(() => navigationStore.IS_SIDEBAR_OPEN);
 

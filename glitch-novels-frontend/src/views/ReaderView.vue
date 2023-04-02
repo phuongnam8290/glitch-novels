@@ -1,5 +1,5 @@
 <template>
-  <section class="-my-20 flex">
+  <section class="flex !py-0">
     <div class="reader flex-grow">
       <div
         class="chapter-list mx-auto min-h-full max-w-[1280px] space-y-10 bg-gray-bg-1 px-20 py-10"

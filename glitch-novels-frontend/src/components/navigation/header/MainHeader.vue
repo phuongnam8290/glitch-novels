@@ -72,11 +72,8 @@ const borderStyle = computed(() => ({
   "border-gold-brand-2": (isScrolled.value && !IS_EDIT_MODE_ON.value) || routeName.value === "reader",
 }));
 
-// Add header to the list of navigation elements for tracking purposes.
 const navigationStore = useNavigationStore();
 const IS_SIDEBAR_OPEN = computed(() => navigationStore.IS_SIDEBAR_OPEN);
-onMounted(() => navigationStore.ADD_NAVIGATION_ELEMENT("header", header.value));
-onUnmounted(() => navigationStore.REMOVE_NAVIGATION_ELEMENT("header"));
 
 // Emit event signifies that this component has been mounted.
 const { eventBus } = useEventBus();
@@ -88,8 +85,4 @@ header,
 .chapter-title {
   transition: 0.25s;
 }
-
-/*.open {*/
-/*  margin-left: calc(-5rem - 18px);*/
-/*}*/
 </style>
