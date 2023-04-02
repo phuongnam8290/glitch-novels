@@ -1,53 +1,51 @@
 <template>
-  <nav class="sidebar-contents-wrapper overflow-hidden bg-gray-bg-2">
-    <div class="sidebar-contents py-5 px-10">
-      <!--  Logo  -->
-      <img
-        class="logo h-9"
-        src="@/assets/images/common/logo.png"
-        alt="Glitch logo"
-      />
-      <!--  End of logo  -->
+  <div class="sidebar-contents py-5 px-10">
+    <!--  Logo  -->
+    <img
+      class="logo h-9"
+      src="@/assets/images/common/logo.png"
+      alt="Glitch logo"
+    />
+    <!--  End of logo  -->
 
-      <!--  Navigation links  -->
-      <div class="title-text mt-8 space-y-3 whitespace-nowrap text-white-ink-1">
+    <!--  Navigation links  -->
+    <div class="title-text mt-8 space-y-3 whitespace-nowrap text-white-ink-1">
+      <div
+        v-for="linkGroup in navigationLinkGroups"
+        :key="linkGroup.linkGroupHeader"
+      >
         <div
-          v-for="linkGroup in navigationLinkGroups"
-          :key="linkGroup.linkGroupHeader"
+          class="link-group-header"
+          :class="{ active: linkGroup.isActive }"
         >
-          <div
-            class="link-group-header"
-            :class="{ active: linkGroup.isActive }"
+          <router-link
+            :to="{ name: linkGroup.routeName }"
+            href="#"
+            class="py-1 px-2"
           >
-            <router-link
-              :to="{ name: linkGroup.routeName }"
-              href="#"
-              class="py-1 px-2"
-            >
-              <span class="icon mr-2">
-                <i
-                  class="fa-sharp fa-solid"
-                  :class="linkGroup.icon"
-                />
-              </span>
-              {{ linkGroup.linkGroupHeader }}
-            </router-link>
-          </div>
-          <ul class="font-normal">
-            <li
-              class="link-group-item py-1 pl-6"
-              :class="{ active: link.isActive }"
-              v-for="link in linkGroup.linkGroupItems"
-              :key="link"
-            >
-              <a href="#">{{ link.title }}</a>
-            </li>
-          </ul>
+            <span class="icon mr-2">
+              <i
+                class="fa-sharp fa-solid"
+                :class="linkGroup.icon"
+              />
+            </span>
+            {{ linkGroup.linkGroupHeader }}
+          </router-link>
         </div>
+        <ul class="font-normal">
+          <li
+            class="link-group-item py-1 pl-6"
+            :class="{ active: link.isActive }"
+            v-for="link in linkGroup.linkGroupItems"
+            :key="link"
+          >
+            <a href="#">{{ link.title }}</a>
+          </li>
+        </ul>
       </div>
-      <!--  End of navigation links  -->
     </div>
-  </nav>
+    <!--  End of navigation links  -->
+  </div>
 </template>
 
 <script setup>

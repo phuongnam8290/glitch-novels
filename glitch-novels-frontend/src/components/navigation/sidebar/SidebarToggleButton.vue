@@ -9,7 +9,12 @@
   </button>
 </template>
 
-<script setup></script>
+<script setup>
+import { ref } from "vue";
+
+const toggleBtn = ref(null);
+defineExpose({ domElement: toggleBtn });
+</script>
 
 <style scoped>
 /* Toggle button style */
