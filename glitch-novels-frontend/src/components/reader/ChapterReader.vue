@@ -6,7 +6,7 @@
     <h1 class="mb-10"> Chapter {{ chapter.number }} - {{ chapter.title }}</h1>
     <article
       v-html="chapter.content"
-      class="flex-grow"
+      class="grow"
     ></article>
     <div class="divider mt-10 flex w-full items-center justify-center">
       <span class="mx-10"><i class="fa-sharp fa-solid fa-book-open-cover fa-xl"></i></span>

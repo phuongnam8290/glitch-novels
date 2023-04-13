@@ -9,7 +9,7 @@
         src="../../assets/images/common/logo-small.png"
         alt="logo"
       />
-      <div class="mx-4 flex-grow border border-t-white-ink-1"></div>
+      <div class="mx-4 grow border border-t-white-ink-1"></div>
       <div class="whitespace-nowrap"> Copyright © 2012-2023 Glitch Network. </div>
     </div>
     <div class="flex h-full w-full items-center justify-around whitespace-nowrap sm:hidden">

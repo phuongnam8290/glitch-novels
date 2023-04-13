@@ -43,8 +43,9 @@ onUnmounted(() => disableClickOutside());
 
 // Wait for the main header to be mounted before teleporting the sidebar toggle button.
 const isMainHeaderMounted = ref(false);
-const { eventBus } = useEventBus();
+const eventBus = useEventBus();
 eventBus.on("mainHeaderMounted", () => (isMainHeaderMounted.value = true));
+onUnmounted(() => eventBus.off("mainHeaderMounted"));
 </script>
 
 <style scoped>

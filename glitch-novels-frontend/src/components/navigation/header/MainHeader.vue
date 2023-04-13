@@ -4,7 +4,7 @@
     :class="borderStyle"
     ref="header"
   >
-    <div class="logo-wrapper flex flex-shrink-0">
+    <div class="logo-wrapper flex shrink-0">
       <div id="sidebar-toggle-button"> </div>
       <Transition enter-active-class="animate__animated animate__fadeIn">
         <img
@@ -25,7 +25,7 @@
     </div>
 
     <!--  Search bar  -->
-    <div class="search-wrapper flex flex-shrink-0">
+    <div class="search-wrapper flex shrink-0">
       <input
         class="ml-auto block h-fit w-[30rem] border border-white-ink-1 bg-gray-bg-2 px-4 py-1.5 text-white-ink-1 focus:border-gold-brand-1 focus:outline-0"
         style="font-family: 'Metropolis', FontAwesome, serif"
@@ -76,7 +76,7 @@ const navigationStore = useNavigationStore();
 const IS_SIDEBAR_OPEN = computed(() => navigationStore.IS_SIDEBAR_OPEN);
 
 // Emit event signifies that this component has been mounted.
-const { eventBus } = useEventBus();
+const eventBus = useEventBus();
 onMounted(() => eventBus.emit("mainHeaderMounted"));
 </script>
 

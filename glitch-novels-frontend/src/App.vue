@@ -1,8 +1,8 @@
 <template>
   <div class="flex">
-    <the-sidebar class="sticky top-0 h-screen flex-shrink-0" />
+    <the-sidebar class="sticky top-0 h-screen shrink-0" />
     <div
-      class="wrapper relative left-0 min-h-screen min-w-0 flex-grow"
+      class="wrapper relative left-0 min-h-screen min-w-0 grow"
       ref="wrapper"
     >
       <the-header />
