@@ -8,7 +8,9 @@
 
     <div class="modal-message px-10">
       <p class="section-text"> Oh snap! </p>
-      <p>{{ props.failureMsg }}</p>
+      <p>
+        <slot name="failure-msg"> There is something wrong. </slot>
+      </p>
       <p> Keep calm and try again. </p>
     </div>
 
@@ -23,14 +25,6 @@
 
 <script setup>
 defineEmits(["retryAction"]);
-
-const props = defineProps({
-  failureMsg: {
-    type: String,
-    required: false,
-    default: "There is something wrong.",
-  },
-});
 </script>
 
 <style scoped></style>

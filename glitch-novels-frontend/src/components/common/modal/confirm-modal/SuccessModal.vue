@@ -8,7 +8,9 @@
 
     <div class="modal-message px-10">
       <p class="section-text"> Great! </p>
-      <p> {{ props.successMsg }} </p>
+      <p>
+        <slot name="success-msg"> Your operation has been performed successfully. </slot>
+      </p>
       <p> You can continue browsing now. </p>
     </div>
 
@@ -23,15 +25,6 @@
 
 <script setup>
 import { useEventBus } from "@/composable/utils/eventBus";
-
-const props = defineProps({
-  successMsg: {
-    type: String,
-    required: false,
-    default: "Your operation has been performed successfully.",
-  },
-});
-
 const eventBus = useEventBus();
 </script>
 

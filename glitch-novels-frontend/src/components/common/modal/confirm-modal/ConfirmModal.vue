@@ -4,12 +4,40 @@
       class="modal-content grid p-10"
       v-if="stage === 'initiation' || stage === 'processing'"
     >
-      <div class="modal-header section-text text-center">
-        <slot name="header"></slot>
+      <h1 class="modal-header section-text text-center">
+        <slot name="modal-header">Modal header</slot>
+      </h1>
+
+      <!--   Modal body   -->
+      <div class="modal-body custom-scrollbar grid h-full overflow-auto">
+        <p class="confirm-msg">
+          <slot name="confirm-msg">Confirm message</slot>
+        </p>
+
+        <ul
+          class="confirm-item-list custom-scrollbar overflow-auto italic"
+          v-if="$slots['confirm-item-list']"
+        >
+          <slot name="confirm-item-list"></slot>
+        </ul>
+
+        <!--    Warning message    -->
+        <div
+          class="confirm-warning-msg flex gap-x-4 border-l-4 border-orange-danger-2 bg-orange-danger-1 p-5 text-orange-danger-2"
+          v-if="$slots['confirm-warning-msg']"
+        >
+          <span>
+            <i class="fa-sharp fa-solid fa-triangle-exclamation fa-lg"></i>
+          </span>
+          <div>
+            <h2 class="text-lg font-bold">Warning</h2>
+            <slot name="confirm-warning-msg"></slot>
+          </div>
+        </div>
+        <!--    End of warning message    -->
       </div>
-      <div class="modal-body custom-scrollbar overflow-auto">
-        <slot name="body"></slot>
-      </div>
+      <!--   End of modal body   -->
+
       <div class="modal-footer flex justify-around">
         <button
           :class="confirmBtnInfo.class"
@@ -24,15 +52,19 @@
       </div>
     </div>
 
-    <SuccessModal
-      v-else-if="stage === 'success'"
-      :success-msg="props.successMsg"
-    />
+    <SuccessModal v-else-if="stage === 'success'">
+      <template #success-msg>
+        <slot name="success-msg"></slot>
+      </template>
+    </SuccessModal>
     <FailureModal
       v-else-if="stage === 'failure'"
-      :failure-msg="props.failureMsg"
       @retry-action="performAction"
-    />
+    >
+      <template #failure-msg>
+        <slot name="failure-msg"></slot>
+      </template>
+    </FailureModal>
   </BaseModal>
 </template>
 
@@ -48,21 +80,13 @@ const props = defineProps({
     type: Object,
     required: false,
   },
-  successMsg: {
-    type: String,
-    required: false,
-  },
-  failureMsg: {
-    type: String,
-    required: false,
-  },
   action: {
     type: Function,
     required: true,
     default() {
       // Return a Promise that will resolve/reject in 1 second to simulate communication with the back-end
-      return new Promise((resolve, reject) => {
-        setTimeout(() => reject(), 1000);
+      return new Promise((resolve) => {
+        setTimeout(() => resolve(), 1000);
       });
     },
   },
@@ -125,6 +149,12 @@ eventBus.on("closeBaseModal", () => {
   grid-template-columns: auto;
   grid-template-rows: auto 1fr auto;
   row-gap: 1.5rem;
+}
+
+.modal-body {
+  grid-template-columns: auto;
+  grid-template-rows: auto 1fr auto;
+  row-gap: 1rem;
 }
 
 button {
