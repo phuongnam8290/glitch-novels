@@ -11,9 +11,7 @@
       <button>
         <i class="fa-sharp fa-regular fa-eye-slash"></i>
       </button>
-      <button>
-        <i class="fa-sharp fa-solid fa-trash-can-xmark"></i>
-      </button>
+      <DeleteButton />
 
       <div class="border-l">
         <button
@@ -31,6 +29,8 @@
 import { computed } from "vue";
 import { useEditModeStore } from "@/stores/editMode";
 
+import DeleteButton from "@/components/edit-mode/button/DeleteButton.vue";
+
 const editModeStore = useEditModeStore();
 const ARRAY_SELECTED_DATA = computed(() => editModeStore.ARRAY_SELECTED_DATA);
 </script>
@@ -40,16 +40,16 @@ const ARRAY_SELECTED_DATA = computed(() => editModeStore.ARRAY_SELECTED_DATA);
   font-size: 1.5rem;
 }
 
-.control-buttons button {
+.control-buttons :deep(button) {
   height: 50px;
   width: 50px;
 }
 
-.control-buttons button ~ button {
+.control-buttons :deep(button ~ button) {
   margin-left: 1rem;
 }
 
-.control-buttons > button:last-of-type {
+.control-buttons :deep(button:last-of-type) {
   margin-right: 1rem;
 }
 
