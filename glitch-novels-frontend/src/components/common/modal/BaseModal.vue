@@ -22,7 +22,7 @@
 <script setup>
 import { useEventBus } from "@/composable/utils/eventBus";
 import { useClickOutside } from "@/composable/utils/clickOutside";
-import { onMounted, ref } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 
 // Emit the closeModal event when the user clicks the close button or outside the modal.
 const eventBus = useEventBus();
@@ -37,8 +37,10 @@ const { enableClickOutside } = useClickOutside(
   },
   { parentElementRef: overlay }
 );
-
 onMounted(() => enableClickOutside());
+
+onMounted(() => (document.getElementsByTagName("body")[0].style.overflow = "hidden"));
+onUnmounted(() => (document.getElementsByTagName("body")[0].style.overflow = ""));
 </script>
 
 <style scoped>
