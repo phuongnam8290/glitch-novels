@@ -1,6 +1,6 @@
 <template>
   <div class="edit-header z-40 flex w-full items-center justify-between bg-gold-brand-2 py-1 pl-20">
-    <span class="title-text">{{ ARRAY_SELECTED_DATA.length }} items selected</span>
+    <span class="title-text">{{ totalSelectedNovels }} novels selected</span>
     <div class="control-buttons flex">
       <button>
         <i class="fa-sharp fa-solid fa-plus fa-lg"></i>
@@ -11,7 +11,7 @@
       <button>
         <i class="fa-sharp fa-regular fa-eye-slash"></i>
       </button>
-      <DeleteButton />
+      <DeleteButton v-if="totalSelectedNovels !== 0" />
 
       <div class="border-l">
         <button
@@ -32,7 +32,7 @@ import { useEditModeStore } from "@/stores/editMode";
 import DeleteButton from "@/components/edit-mode/button/DeleteButton.vue";
 
 const editModeStore = useEditModeStore();
-const ARRAY_SELECTED_DATA = computed(() => editModeStore.ARRAY_SELECTED_DATA);
+const totalSelectedNovels = computed(() => editModeStore.ARRAY_SELECTED_DATA.length);
 </script>
 
 <style scoped>

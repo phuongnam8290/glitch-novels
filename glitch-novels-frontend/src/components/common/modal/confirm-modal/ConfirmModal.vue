@@ -69,7 +69,7 @@
 </template>
 
 <script setup>
-import { computed, reactive, ref, watch } from "vue";
+import { computed, onMounted, onUnmounted, reactive, ref, watch } from "vue";
 import { useEventBus } from "@/composable/utils/eventBus";
 import BaseModal from "@/components/common/modal/BaseModal.vue";
 import SuccessModal from "@/components/common/modal/confirm-modal/SuccessModal.vue";
@@ -85,8 +85,8 @@ const props = defineProps({
     required: true,
     default() {
       // Return a Promise that will resolve/reject in 1 second to simulate communication with the back-end
-      return new Promise((resolve) => {
-        setTimeout(() => resolve(), 1000);
+      return new Promise((resolve, reject) => {
+        setTimeout(() => reject(), 1000);
       });
     },
   },
@@ -134,11 +134,15 @@ const performAction = async () => {
 
 // Users can close the modal only when the stage is not "processing."
 const eventBus = useEventBus();
-eventBus.on("closeBaseModal", () => {
-  if (stage.value !== "processing") {
-    eventBus.emit("closeModal");
-  }
-});
+
+onMounted(() =>
+  eventBus.on("closeBaseModal", () => {
+    if (stage.value !== "processing") {
+      eventBus.emit("closeModal");
+    }
+  })
+);
+onUnmounted(() => eventBus.off("closeBaseModal"));
 </script>
 
 <style scoped>

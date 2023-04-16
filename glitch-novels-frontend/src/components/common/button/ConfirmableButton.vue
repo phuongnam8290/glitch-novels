@@ -36,11 +36,13 @@
 
 <script setup>
 import { useEventBus } from "@/composable/utils/eventBus";
-import { ref } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 
 import ConfirmModal from "@/components/common/modal/confirm-modal/ConfirmModal.vue";
 
 const eventBus = useEventBus();
 const showModal = ref(false);
-eventBus.on("closeModal", () => (showModal.value = false));
+
+onMounted(() => eventBus.on("closeModal", () => (showModal.value = false)));
+onUnmounted(() => eventBus.off("closeModal"));
 </script>
