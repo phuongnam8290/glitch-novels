@@ -39,6 +39,7 @@ const { enableClickOutside } = useClickOutside(
 );
 onMounted(() => enableClickOutside());
 
+// Prevent scroll when modals open.
 onMounted(() => (document.getElementsByTagName("body")[0].style.overflow = "hidden"));
 onUnmounted(() => (document.getElementsByTagName("body")[0].style.overflow = ""));
 </script>

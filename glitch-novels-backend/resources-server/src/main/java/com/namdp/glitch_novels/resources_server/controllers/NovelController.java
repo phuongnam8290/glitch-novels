@@ -5,11 +5,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.namdp.glitch_novels.resources_server.dto.NovelDTO;
 import com.namdp.glitch_novels.resources_server.services.NovelService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class NovelController {
@@ -22,7 +24,7 @@ public class NovelController {
   }
 
   @GetMapping("/novels")
-  public ObjectNode findAll() {
+  public ObjectNode findAllNovels() {
     ObjectNode response = mapper.createObjectNode();
 
     // Get all novels in the db, then convert them to json node for serialization.
@@ -36,8 +38,23 @@ public class NovelController {
     return response;
   }
 
+  @DeleteMapping("/novels")
+  public ResponseEntity<Map<String, Object>> deleteNovels(@RequestBody List<Integer> ids) {
+    List<NovelDTO> deletedNovels = novelService.deleteNovelsByIds(ids);
+
+    Map<String, Object> responseBody = new HashMap<>();
+    if (deletedNovels.size() == 0) {
+      responseBody.put("message", "Some or all of the provided novel ids could not be found.");
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseBody);
+    } else {
+      responseBody.put("message", "The novels have been successfully deleted.");
+      responseBody.put("deletedNovel", deletedNovels);
+      return ResponseEntity.ok(responseBody);
+    }
+  }
+
   @GetMapping("/novel/{id}")
-  public NovelDTO findById(@PathVariable("id") int id) {
+  public NovelDTO findNovelById(@PathVariable("id") int id) {
     return novelService.findById(id);
   }
 }

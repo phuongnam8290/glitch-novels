@@ -38,6 +38,11 @@ public class NovelService {
     return apiNovels;
   }
 
+  /**
+   * Find a specific novel in the database using its id, excluding its content. Use for lighter response object.
+   *
+   * @return A novel in the database, excluding its content.
+   */
   @Transactional
   public NovelDTO findById(int id) {
     Novel dbNovel = novelRepository
@@ -46,5 +51,26 @@ public class NovelService {
             "No novels founded"));
 
     return NovelDTO.mapEntity(dbNovel, true);
+  }
+
+
+  /**
+   * Delete multiple novels in the database using their ids.
+   *
+   * @param ids List of ids of novels that will be deleted.
+   * @return List of deleted novels, excluding their content.
+   */
+  @Transactional
+  public List<NovelDTO> deleteNovelsByIds(List<Integer> ids) {
+    List<Novel> dbNovels = novelRepository.deleteNovelByIdIn(ids);
+    List<NovelDTO> apiNovels = new ArrayList<>();
+
+    // Expunge novels' content.
+    for (Novel dbNovel : dbNovels) {
+      NovelDTO apiNovel = NovelDTO.mapEntity(dbNovel, true);
+      apiNovels.add(apiNovel);
+    }
+
+    return apiNovels;
   }
 }
