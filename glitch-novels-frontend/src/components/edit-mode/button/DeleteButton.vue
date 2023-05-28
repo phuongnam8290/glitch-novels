@@ -42,8 +42,10 @@
 </template>
 
 <script setup>
+import axios from "axios";
 import { useEditModeStore } from "@/stores/editMode";
 import { computed } from "vue";
+import { provide } from "vue";
 
 import ConfirmableButton from "@/components/common/button/ConfirmableButton.vue";
 
@@ -53,4 +55,14 @@ const totalSelectedINovels = computed(() => ARRAY_SELECTED_DATA.value.length);
 const numberOfChapters = computed(() =>
   ARRAY_SELECTED_DATA.value.reduce((totalChapter, novel) => totalChapter + novel.chapters.length, 0)
 );
+
+// Provide delete novel action for child modal.
+const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
+const deleteNovels = async () => {
+  await axios.delete(`${baseUrl}/novels`, {
+    data: ARRAY_SELECTED_DATA.value.map((novel) => novel.id),
+  });
+};
+
+provide("action", deleteNovels);
 </script>

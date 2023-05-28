@@ -69,7 +69,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted, onUnmounted, reactive, ref, watch } from "vue";
+import { computed, inject, onMounted, onUnmounted, reactive, ref, watch } from "vue";
 import { useEventBus } from "@/composable/utils/eventBus";
 import BaseModal from "@/components/common/modal/BaseModal.vue";
 import SuccessModal from "@/components/common/modal/confirm-modal/SuccessModal.vue";
@@ -79,16 +79,6 @@ const props = defineProps({
   confirmBtnInfo: {
     type: Object,
     required: false,
-  },
-  action: {
-    type: Function,
-    required: true,
-    default() {
-      // Return a Promise that will resolve/reject in 1 second to simulate communication with the back-end
-      return new Promise((resolve, reject) => {
-        setTimeout(() => reject(), 1000);
-      });
-    },
   },
 });
 
@@ -121,11 +111,17 @@ watch(stage, (newStage) => {
 // Because of the detect click outside function in the BaseModal, this component can only show the Success/Failure modal
 // if the action returns a promise that WILL NOT resolve immediately. Alternatively, we can use @click.stop in the
 // confirm button to stop event propagation to the BaseModal.
+const action = inject(
+  "action",
+  () =>
+    new Promise((resolve, reject) => {
+      setTimeout(() => reject(), 1000);
+    })
+);
 const performAction = async () => {
   stage.value = "processing";
-
   try {
-    await props.action();
+    await action();
     stage.value = "success";
   } catch (error) {
     stage.value = "failure";

@@ -16,7 +16,7 @@
 
     <button
       class="text-btn w-[200px] self-center border-blue-success-1 bg-blue-success-1 hover:border-blue-success-2 hover:bg-blue-success-2 hover:text-white-ink-1"
-      @click="eventBus.emit('closeModal')"
+      @click.stop="eventBus.emit('closeModal')"
     >
       Continue
     </button>
