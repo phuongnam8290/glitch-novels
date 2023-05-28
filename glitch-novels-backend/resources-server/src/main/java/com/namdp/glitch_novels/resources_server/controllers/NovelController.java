@@ -43,18 +43,18 @@ public class NovelController {
     Map<String, Object> responseBody = new HashMap<>();
 
     if (ids.isEmpty()) {
-      responseBody.put("message", "The list of ids cannot be empty.");
+      responseBody.put("message", "The list of selected novels cannot be empty.");
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseBody);
     }
 
     // Only delete if all the novels with the given ids exist in db.
     if (!novelService.checkIfAllNovelsExist(ids)) {
-      responseBody.put("message", "Some or all of the provided novel ids could not be found.");
+      responseBody.put("message", "Some or all of the selected novels could not be found.");
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseBody);
     }
 
     List<NovelDTO> deletedNovels = novelService.deleteNovelsByIds(ids);
-    responseBody.put("message", "The novels have been successfully deleted.");
+    responseBody.put("message", "The selected novels have been successfully deleted.");
     responseBody.put("deletedNovel", deletedNovels);
     return ResponseEntity.ok(responseBody);
   }
