@@ -53,17 +53,13 @@
     </div>
 
     <SuccessModal v-else-if="stage === 'success'">
-      <template #success-msg>
-        <slot name="success-msg"></slot>
-      </template>
+      <template #success-msg> {{ successMsg }} </template>
     </SuccessModal>
     <FailureModal
       v-else-if="stage === 'failure'"
       @retry-action="performAction"
     >
-      <template #failure-msg>
-        <slot name="failure-msg"></slot>
-      </template>
+      <template #failure-msg> {{ failureNsg }} </template>
     </FailureModal>
   </BaseModal>
 </template>
@@ -118,12 +114,16 @@ const action = inject(
       setTimeout(() => reject(), 1000);
     })
 );
+const successMsg = ref("");
+const failureNsg = ref("");
 const performAction = async () => {
   stage.value = "processing";
   try {
-    await action();
+    const response = await action();
+    successMsg.value = response.data.message;
     stage.value = "success";
   } catch (error) {
+    failureNsg.value = error.response.data.message;
     stage.value = "failure";
   }
 };

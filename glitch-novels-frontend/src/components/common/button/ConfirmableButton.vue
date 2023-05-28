@@ -23,13 +23,6 @@
       <template #confirm-warning-msg>
         <slot name="confirm-warning-msg"></slot>
       </template>
-
-      <template #success-msg>
-        <slot name="success-msg"></slot>
-      </template>
-      <template #failure-msg>
-        <slot name="failure-msg"></slot>
-      </template>
     </ConfirmModal>
   </Teleport>
 </template>

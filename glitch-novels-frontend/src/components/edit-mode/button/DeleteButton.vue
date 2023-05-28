@@ -31,21 +31,13 @@
       </p>
       <p class="mt-0 font-bold"> You cannot undo these action. </p>
     </template>
-
-    <template #success-msg>
-      <span class="font-bold"> {{ totalSelectedINovels }} </span>
-      novels was deleted successfully.
-    </template>
-
-    <template #failure-msg> Cannot delete selected novels. </template>
   </ConfirmableButton>
 </template>
 
 <script setup>
 import axios from "axios";
 import { useEditModeStore } from "@/stores/editMode";
-import { computed } from "vue";
-import { provide } from "vue";
+import { computed, provide } from "vue";
 
 import ConfirmableButton from "@/components/common/button/ConfirmableButton.vue";
 
@@ -58,11 +50,10 @@ const numberOfChapters = computed(() =>
 
 // Provide delete novel action for child modal.
 const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
-const deleteNovels = async () => {
+const deleteNovels = async () =>
   await axios.delete(`${baseUrl}/novels`, {
     data: ARRAY_SELECTED_DATA.value.map((novel) => novel.id),
   });
-};
 
 provide("action", deleteNovels);
 </script>
