@@ -53,6 +53,21 @@ public class NovelService {
     return NovelDTO.mapEntity(dbNovel, true);
   }
 
+  /**
+   * Check if novels with IDs in the given list exist in the database.
+   *
+   * @param ids The list of novels' id
+   * @return {@code true} if all the novels with the given ids exist in the database, {@code false} otherwise.
+   */
+
+  @Transactional
+  public boolean checkIfAllNovelsExist(List<Integer> ids) {
+    List<Novel> existedNovels = novelRepository.findAllById(ids);
+
+    // If the number of novels found in the db not equal to the number of provided ids, then the list of ids contain
+    // non-exist novels.
+    return existedNovels.size() == ids.size();
+  }
 
   /**
    * Delete multiple novels in the database using their ids.
