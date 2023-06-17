@@ -71,6 +71,9 @@ const reloadPage = async () => {
   if (oldCurrentPage > TOTAL_PAGES.value) {
     novelsStore.CHANGE_PAGE(TOTAL_PAGES.value);
   }
+
+  // Scroll to the end of the list of novels.
+  await scrollElement(novelList, {}, { behavior: "instant", block: "end" });
 };
 
 // Listen to the "reloadPage" global event to reload the current page when necessary.
