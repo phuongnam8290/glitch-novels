@@ -23,7 +23,7 @@ export const useMoveToNeighboringChapter = (containerRef) => {
     const chapterElement = containerRef.value.querySelector(`#id-${CURRENT_CHAPTER.value.id}`);
 
     // Behavior: "smooth" make the window unable to scroll.
-    scrollElement(chapterElement, 7.5, "auto");
+    scrollElement(chapterElement, { scrollMarginTopInRem: 7.5 }, { behavior: "auto" });
   };
 
   const { scrollElement } = useScrollElement();

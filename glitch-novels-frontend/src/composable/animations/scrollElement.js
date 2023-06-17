@@ -1,17 +1,26 @@
 import { nextTick, unref } from "vue";
 
 export const useScrollElement = () => {
-  const scrollElement = async (elementRef, scrollPaddingInRem = 5, behavior = "smooth") => {
+  const scrollElement = async (elementRef, scrollMarginOptions, scrollOptions) => {
+    scrollMarginOptions = {
+      scrollMarginTopInRem: 5,
+      scrollMarginBottomInRem: 0,
+      ...scrollMarginOptions,
+    };
+
+    scrollOptions = {
+      behavior: "smooth",
+      block: "start",
+      inline: "nearest",
+      ...scrollOptions,
+    };
+
     const element = unref(elementRef);
     await nextTick();
 
-    window.scrollTo({
-      top:
-        element.getBoundingClientRect().top +
-        (document.documentElement.scrollTop || document.body.scrollTop) -
-        scrollPaddingInRem * 16,
-      behavior: behavior,
-    });
+    element.style.scrollMarginTop = `${scrollMarginOptions.scrollMarginTopInRem * 16}px`;
+    element.style.scrollMarginBottom = `${scrollMarginOptions.scrollMarginBottomInRem * 16}px`;
+    element.scrollIntoView({ ...scrollOptions });
   };
 
   return { scrollElement };
