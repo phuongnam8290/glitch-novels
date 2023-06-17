@@ -24,8 +24,9 @@
 </template>
 
 <script setup>
-import { computed, onMounted, provide, ref } from "vue";
+import { computed, onMounted, onUnmounted, provide, ref } from "vue";
 import { useNovelsStore } from "@/stores/novels";
+import { useEventBus } from "@/composable/utils/eventBus";
 import { useScrollElement } from "@/composable/animations/scrollElement";
 
 import NovelList from "@/components/novels/NovelList.vue";
@@ -59,4 +60,21 @@ const isViewMounted = ref(false);
 onMounted(() => {
   isViewMounted.value = true;
 });
+
+// Reload the current page, and keep the scrolling position. Use when there are changes in the list of novels (e.g
+// delete, add...)
+const reloadPage = async () => {
+  const oldCurrentPage = CURRENT_PAGE.value;
+  await novelsStore.FETCH_NOVELS();
+
+  // In case of delete last novels, the last page may become empty. So we need to change to last page.
+  if (oldCurrentPage > TOTAL_PAGES.value) {
+    novelsStore.CHANGE_PAGE(TOTAL_PAGES.value);
+  }
+};
+
+// Listen to the "reloadPage" global event to reload the current page when necessary.
+const eventBus = useEventBus();
+onMounted(() => eventBus.on("reloadPage", async () => await reloadPage()));
+onUnmounted(() => eventBus.off("reloadPage"));
 </script>

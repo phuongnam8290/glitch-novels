@@ -11,7 +11,7 @@
       <button>
         <i class="fa-sharp fa-regular fa-eye-slash"></i>
       </button>
-      <DeleteButton v-if="totalSelectedNovels !== 0" />
+      <DeleteButton :class="{ hidden: totalSelectedNovels === 0 }" />
 
       <div class="border-l">
         <button
@@ -45,11 +45,7 @@ const totalSelectedNovels = computed(() => editModeStore.ARRAY_SELECTED_DATA.len
   width: 50px;
 }
 
-.control-buttons :deep(button ~ button) {
-  margin-left: 1rem;
-}
-
-.control-buttons :deep(button:last-of-type) {
+.control-buttons :deep(button) {
   margin-right: 1rem;
 }
 

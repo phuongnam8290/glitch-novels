@@ -139,6 +139,10 @@ onMounted(() =>
   })
 );
 onUnmounted(() => eventBus.off("closeBaseModal"));
+
+onUnmounted(() => {
+  console.log("unmounted");
+});
 </script>
 
 <style scoped>

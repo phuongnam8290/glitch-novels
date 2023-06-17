@@ -38,6 +38,7 @@
 import axios from "axios";
 import { useEditModeStore } from "@/stores/editMode";
 import { computed, provide } from "vue";
+import { useEventBus } from "@/composable/utils/eventBus";
 
 import ConfirmableButton from "@/components/common/button/ConfirmableButton.vue";
 
@@ -49,11 +50,30 @@ const numberOfChapters = computed(() =>
 );
 
 // Provide delete novel action for child modal.
+const eventBus = useEventBus();
 const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
-const deleteNovels = async () =>
-  await axios.delete(`${baseUrl}/novels`, {
-    data: ARRAY_SELECTED_DATA.value.map((novel) => novel.id),
+const deleteNovels = () => {
+  return new Promise((resolve, reject) => {
+    const deleteAction = axios.delete(`${baseUrl}/novels`, {
+      data: ARRAY_SELECTED_DATA.value.map((novel) => novel.id),
+    });
+
+    // Using tradition then/catch because it is an anti-pattern to use async/await inside of a new Promise() constructor
+    deleteAction
+      .then((response) => {
+        // Clear deleted novels from the selected list; if not doing this, the subsequence call to delete action will
+        // have already deleted novels in its selected list.
+        editModeStore.CLEAR_SELECTED_DATA();
+
+        // Emit reloads current page when delete successfully.
+        eventBus.emit("reloadPage");
+        resolve(response);
+      })
+      .catch((error) => {
+        reject(error);
+      });
   });
+};
 
 provide("action", deleteNovels);
 </script>
