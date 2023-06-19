@@ -1,5 +1,5 @@
+import { getChapter } from "@/api/chapter";
 import { defineStore } from "pinia";
-import axios from "axios";
 
 export const useChaptersStore = defineStore("chapters", {
   state() {
@@ -16,9 +16,7 @@ export const useChaptersStore = defineStore("chapters", {
      * @returns {import('@/docs/typedef').Chapter} - The chapter returned from the database.
      */
     async FETCH_CHAPTER(id) {
-      const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
-      const response = await axios.get(`${baseUrl}/chapter/${id}`);
-
+      const response = await getChapter(id);
       return response.data;
     },
 

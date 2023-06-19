@@ -35,7 +35,7 @@
 </template>
 
 <script setup>
-import axios from "axios";
+import { deleteNovels } from "@/api/novel";
 import { useEditModeStore } from "@/stores/editMode";
 import { computed, provide } from "vue";
 import { useEventBus } from "@/composable/utils/eventBus";
@@ -51,12 +51,10 @@ const numberOfChapters = computed(() =>
 
 // Provide delete novel action for child modal.
 const eventBus = useEventBus();
-const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
-const deleteNovels = () => {
+// const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
+const deleteAction = () => {
   return new Promise((resolve, reject) => {
-    const deleteAction = axios.delete(`${baseUrl}/novels`, {
-      data: ARRAY_SELECTED_DATA.value.map((novel) => novel.id),
-    });
+    const deleteAction = deleteNovels(ARRAY_SELECTED_DATA.value.map((novel) => novel.id));
 
     // Using tradition then/catch because it is an anti-pattern to use async/await inside of a new Promise() constructor
     deleteAction
@@ -75,5 +73,5 @@ const deleteNovels = () => {
   });
 };
 
-provide("action", deleteNovels);
+provide("action", deleteAction);
 </script>

@@ -12,6 +12,7 @@ export const useMoveToNeighboringChapter = (containerRef) => {
       return;
     }
 
+    //TODO: Use throttle to limit key event
     if (event.key === "ArrowLeft") {
       await chaptersStore.MOVE_TO_PREVIOUS_CHAPTER();
     } else {

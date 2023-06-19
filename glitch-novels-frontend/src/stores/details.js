@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import axios from "axios";
+import { getNovel } from "@/api/novel";
 
 import paginateUtils from "@/stores/paginateUtils";
 
@@ -17,8 +17,7 @@ export const useDetailsStore = defineStore("details", {
   },
   actions: {
     async FETCH_DETAIL(id) {
-      const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
-      const response = await axios.get(`${baseUrl}/novel/${id}`);
+      const response = await getNovel(id);
 
       const { chapters, ...novelInfo } = response.data;
       this.novelInfo = novelInfo;
