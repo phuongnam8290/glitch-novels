@@ -26,12 +26,13 @@
 
     <!--  Search bar  -->
     <div class="search-wrapper flex shrink-0">
-      <input
-        class="ml-auto block h-fit w-[30rem] border border-white-ink-1 bg-gray-bg-2 px-4 py-1.5 text-white-ink-1 focus:border-gold-brand-1 focus:outline-0"
-        style="font-family: 'Metropolis', FontAwesome, serif"
-        type="text"
-        placeholder="&#xF002; Search for anything"
-      />
+      <!--      <input-->
+      <!--        class="ml-auto block h-fit w-[30rem] border border-white-ink-1 bg-gray-bg-2 px-4 py-1.5 text-white-ink-1 focus:border-gold-brand-1 focus:outline-0"-->
+      <!--        style="font-family: 'Metropolis', FontAwesome, serif"-->
+      <!--        type="text"-->
+      <!--        placeholder="&#xF002; Search for anything"-->
+      <!--      />-->
+      <TheSeachBar class="h-fit" />
       <TheProfile class="ml-10" />
     </div>
 
@@ -46,6 +47,7 @@ import { useNavigationStore } from "@/stores/navigation";
 import { useEditModeStore } from "@/stores/editMode";
 import { useEventBus } from "@/composable/utils/eventBus";
 
+import TheSeachBar from "@/components/navigation/header/TheSeachBar.vue";
 import TheProfile from "@/components/navigation/header/TheProfile.vue";
 import ChapterTitle from "@/components/navigation/header/ChapterTitle.vue";
 
