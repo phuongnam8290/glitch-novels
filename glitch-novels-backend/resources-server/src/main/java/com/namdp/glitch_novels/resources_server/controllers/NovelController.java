@@ -63,4 +63,24 @@ public class NovelController {
   public NovelDTO findNovelById(@PathVariable("id") int id) {
     return novelService.findById(id);
   }
+
+  @GetMapping("search/novels")
+  public ResponseEntity<Map<String, Object>> searchNovels(@RequestParam String keyword) {
+    Map<String, Object> responseBody = new HashMap<>();
+
+    keyword = keyword.trim();
+    if (keyword.isEmpty()) {
+      responseBody.put("message", "Keyword cannot be empty.");
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
+    }
+
+    List<NovelDTO> searchResults = novelService.searchNovels(keyword);
+    if (searchResults.isEmpty()) {
+      responseBody.put("message", "No result found.");
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseBody);
+    }
+
+    responseBody.put("searchResults", searchResults);
+    return ResponseEntity.status(HttpStatus.OK).body(responseBody);
+  }
 }

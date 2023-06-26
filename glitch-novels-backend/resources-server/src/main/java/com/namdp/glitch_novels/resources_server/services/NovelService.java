@@ -88,4 +88,19 @@ public class NovelService {
 
     return apiNovels;
   }
+
+  @Transactional
+  public List<NovelDTO> searchNovels(String keyword) {
+    List<Novel> dbNovels = novelRepository.searchNovels(keyword);
+    System.out.println(dbNovels);
+    List<NovelDTO> apiNovels = new ArrayList<>();
+
+    // Expunge novels' content.
+    for (Novel dbNovel : dbNovels) {
+      NovelDTO apiNovel = NovelDTO.mapEntity(dbNovel, true);
+      apiNovels.add(apiNovel);
+    }
+
+    return apiNovels;
+  }
 }
