@@ -39,7 +39,7 @@ public class NovelDTO {
    * Map a novel record in the database to its corresponding api instance.
    *
    * @param dbNovel    The novel record in the database
-   * @param isAbridged Placeholder parameter
+   * @param isAbridged Should add the novel's chapters or not
    * @return Corresponding api instance
    */
   public static NovelDTO mapEntity(Novel dbNovel, boolean isAbridged) {
@@ -52,9 +52,11 @@ public class NovelDTO {
         .lastUpdatedDate(dbNovel.getLastUpdatedDate())
         .author(AuthorDTO.mapEntity(dbNovel.getAuthor(), true));
 
-    for (Chapter dbChapter : dbNovel.getChapters()) {
-      ChapterDTO apiChapter = ChapterDTO.mapEntity(dbChapter, true);
-      builder.chapter(apiChapter);
+    if (!isAbridged) {
+      for (Chapter dbChapter : dbNovel.getChapters()) {
+        ChapterDTO apiChapter = ChapterDTO.mapEntity(dbChapter, true);
+        builder.chapter(apiChapter);
+      }
     }
 
     for (Genre dbGenre : dbNovel.getGenres()) {

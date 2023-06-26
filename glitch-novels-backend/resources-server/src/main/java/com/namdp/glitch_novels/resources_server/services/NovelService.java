@@ -50,7 +50,7 @@ public class NovelService {
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
             "No novels founded"));
 
-    return NovelDTO.mapEntity(dbNovel, true);
+    return NovelDTO.mapEntity(dbNovel, false);
   }
 
   /**
