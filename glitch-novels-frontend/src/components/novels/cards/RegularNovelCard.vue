@@ -42,7 +42,7 @@
     </div>
     <ScrollableTags
       v-if="novel.genres.length > 0"
-      :tags="novel.genres"
+      :tags="tags"
       class="tags py-4"
     />
     <div
@@ -102,6 +102,7 @@ const props = defineProps({
 
 /** @type {ComputedRef<Novel>} */
 const novel = computed(() => props.novel);
+const tags = computed(() => [...novel.value.genres, ...novel.value.tags]);
 
 const { startMarquee, stopMarquee } = useMarquee();
 </script>
