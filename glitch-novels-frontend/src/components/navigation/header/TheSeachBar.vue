@@ -15,18 +15,28 @@
       class="search-results-wrapper absolute right-0 mt-3 w-full bg-gray-bg-1 p-3"
       :class="{ hide: !showSearchResults }"
     >
-      <span
+      <a
         class="pl-1"
         v-if="searchQuery.length === 0"
       >
         Please enter a search query...
-      </span>
-      <span
+      </a>
+      <div
+        v-else-if="isFetching === true"
+        class="flex justify-center"
+      >
+        <img
+          src="/src/assets/images/common/loading.svg"
+          alt="loading"
+          class="h-48 w-48"
+        />
+      </div>
+      <a
         class="pl-1"
         v-else-if="searchResults.length === 0"
       >
         No results found.
-      </span>
+      </a>
       <div
         class="search-results custom-scrollbar max-h-[75vh] overflow-auto"
         v-else
@@ -135,18 +145,22 @@ const getSearchResults = async (searchQuery) => {
 
 // Debouncing the requests to back-end
 const { debounce } = useRateLimiting();
-const debouncedGetSearchResults = debounce(getSearchResults, 1000);
+const debouncedGetSearchResults = debounce(getSearchResults, 500);
 
+const isFetching = ref(false);
 watch(searchQuery, async (value) => {
   if (value.length === 0) {
     return;
   }
 
   try {
+    isFetching.value = true;
     searchResults.value = await debouncedGetSearchResults(value);
     console.log(searchResults.value);
   } catch (error) {
     //TODO: Show error message.
+  } finally {
+    isFetching.value = false;
   }
 });
 </script>
