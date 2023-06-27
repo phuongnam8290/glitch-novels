@@ -92,7 +92,6 @@ public class NovelService {
   @Transactional
   public List<NovelDTO> searchNovels(String keyword) {
     List<Novel> dbNovels = novelRepository.searchNovels(keyword);
-    System.out.println(dbNovels);
     List<NovelDTO> apiNovels = new ArrayList<>();
 
     // Expunge novels' content.

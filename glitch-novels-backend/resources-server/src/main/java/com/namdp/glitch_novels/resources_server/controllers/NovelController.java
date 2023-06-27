@@ -75,11 +75,7 @@ public class NovelController {
     }
 
     List<NovelDTO> searchResults = novelService.searchNovels(keyword);
-    if (searchResults.isEmpty()) {
-      responseBody.put("message", "No result found.");
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseBody);
-    }
-
+    
     responseBody.put("searchResults", searchResults);
     return ResponseEntity.status(HttpStatus.OK).body(responseBody);
   }
