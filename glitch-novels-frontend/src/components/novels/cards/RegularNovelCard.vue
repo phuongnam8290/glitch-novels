@@ -41,7 +41,7 @@
       </span>
     </div>
     <ScrollableTags
-      v-if="novel.genres.length > 0"
+      v-if="tags.length > 0"
       :tags="tags"
       class="tags py-4"
     />

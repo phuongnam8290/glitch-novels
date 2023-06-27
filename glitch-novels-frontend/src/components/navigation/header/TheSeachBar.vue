@@ -8,24 +8,44 @@
       style="font-family: 'Metropolis', FontAwesome, serif"
       type="text"
       placeholder="&#xF002; Search for anything"
+      v-model.trim="searchQuery"
       @click="handleSearchInputClick"
     />
     <div
-      class="search-results-wrapper absolute right-0 mt-3 bg-gray-bg-1 p-3"
+      class="search-results-wrapper absolute right-0 mt-3 w-full bg-gray-bg-1 p-3"
       :class="{ hide: !showSearchResults }"
     >
-      <div class="search-results custom-scrollbar max-h-[75vh] overflow-auto">
-        <div class="section-text m-2 flex items-center justify-between">
+      <span
+        class="pl-1"
+        v-if="searchQuery.length === 0"
+      >
+        Please enter a search query...
+      </span>
+      <span
+        class="pl-1"
+        v-else-if="searchResults.length === 0"
+      >
+        No results found.
+      </span>
+      <div
+        class="search-results custom-scrollbar max-h-[75vh] overflow-auto"
+        v-else
+      >
+        <div class="section-text m-2 mr-4 flex items-center justify-between">
           <span>Novels</span>
           <a href="#">
             <i class="fa-regular fa-light fa-arrow-right"></i>
           </a>
         </div>
         <ul class="search-results-novel">
-          <li class="search-result grid">
+          <li
+            class="search-result grid p-4"
+            v-for="searchResult in searchResults"
+            :key="searchResult.id"
+          >
             <div class="novel-cover">
               <img
-                src="https://res.cloudinary.com/dy9vrfexa/image/upload/v1675824420/glitch-novels/covers/05_ijbu2i.png"
+                :src="searchResult.coverUrl"
                 alt="novel-cover"
                 class="h-full object-cover"
               />
@@ -37,7 +57,7 @@
                 @mouseenter="startMarquee($event.currentTarget)"
                 @mouseleave="stopMarquee($event.currentTarget)"
               >
-                <span>Solo Leveling</span>
+                <span>{{ searchResult.title }}</span>
               </a>
             </h1>
             <h2 class="novel-author overflow-hidden">
@@ -47,419 +67,14 @@
                 @mouseenter="startMarquee($event.currentTarget)"
                 @mouseleave="stopMarquee($event.currentTarget)"
               >
-                <span>Chugong</span>
+                <span>{{ searchResult.author.name }}</span>
               </a>
             </h2>
 
             <ScrollableTags
               class="novel-tags mt-2 overflow-hidden"
-              :tags="[
-                { title: 'Action' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-              ]"
-            />
-          </li>
-          <li class="search-result grid">
-            <div class="novel-cover">
-              <img
-                src="https://res.cloudinary.com/dy9vrfexa/image/upload/v1675824420/glitch-novels/covers/05_ijbu2i.png"
-                alt="novel-cover"
-                class="h-full object-cover"
-              />
-            </div>
-            <h1 class="novel-title overflow-hidden">
-              <a
-                href="#"
-                class="title-text inline-block w-full truncate"
-                @mouseenter="startMarquee($event.currentTarget)"
-                @mouseleave="stopMarquee($event.currentTarget)"
-              >
-                <span>Solo Leveling</span>
-              </a>
-            </h1>
-            <h2 class="novel-author overflow-hidden">
-              <a
-                href="#"
-                class="subtitle-text inline-block w-full truncate"
-                @mouseenter="startMarquee($event.currentTarget)"
-                @mouseleave="stopMarquee($event.currentTarget)"
-              >
-                <span>Chugong</span>
-              </a>
-            </h2>
-
-            <ScrollableTags
-              class="novel-tags mt-2 overflow-hidden"
-              :tags="[
-                { title: 'Action' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-              ]"
-            />
-          </li>
-          <li class="search-result grid">
-            <div class="novel-cover">
-              <img
-                src="https://res.cloudinary.com/dy9vrfexa/image/upload/v1675824420/glitch-novels/covers/05_ijbu2i.png"
-                alt="novel-cover"
-                class="h-full object-cover"
-              />
-            </div>
-            <h1 class="novel-title overflow-hidden">
-              <a
-                href="#"
-                class="title-text inline-block w-full truncate"
-                @mouseenter="startMarquee($event.currentTarget)"
-                @mouseleave="stopMarquee($event.currentTarget)"
-              >
-                <span>Solo Leveling</span>
-              </a>
-            </h1>
-            <h2 class="novel-author overflow-hidden">
-              <a
-                href="#"
-                class="subtitle-text inline-block w-full truncate"
-                @mouseenter="startMarquee($event.currentTarget)"
-                @mouseleave="stopMarquee($event.currentTarget)"
-              >
-                <span>Chugong</span>
-              </a>
-            </h2>
-
-            <ScrollableTags
-              class="novel-tags mt-2 overflow-hidden"
-              :tags="[
-                { title: 'Action' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-              ]"
-            />
-          </li>
-          <li class="search-result grid">
-            <div class="novel-cover">
-              <img
-                src="https://res.cloudinary.com/dy9vrfexa/image/upload/v1675824420/glitch-novels/covers/05_ijbu2i.png"
-                alt="novel-cover"
-                class="h-full object-cover"
-              />
-            </div>
-            <h1 class="novel-title overflow-hidden">
-              <a
-                href="#"
-                class="title-text inline-block w-full truncate"
-                @mouseenter="startMarquee($event.currentTarget)"
-                @mouseleave="stopMarquee($event.currentTarget)"
-              >
-                <span>Solo Leveling</span>
-              </a>
-            </h1>
-            <h2 class="novel-author overflow-hidden">
-              <a
-                href="#"
-                class="subtitle-text inline-block w-full truncate"
-                @mouseenter="startMarquee($event.currentTarget)"
-                @mouseleave="stopMarquee($event.currentTarget)"
-              >
-                <span>Chugong</span>
-              </a>
-            </h2>
-
-            <ScrollableTags
-              class="novel-tags mt-2 overflow-hidden"
-              :tags="[
-                { title: 'Action' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-              ]"
-            />
-          </li>
-          <li class="search-result grid">
-            <div class="novel-cover">
-              <img
-                src="https://res.cloudinary.com/dy9vrfexa/image/upload/v1675824420/glitch-novels/covers/05_ijbu2i.png"
-                alt="novel-cover"
-                class="h-full object-cover"
-              />
-            </div>
-            <h1 class="novel-title overflow-hidden">
-              <a
-                href="#"
-                class="title-text inline-block w-full truncate"
-                @mouseenter="startMarquee($event.currentTarget)"
-                @mouseleave="stopMarquee($event.currentTarget)"
-              >
-                <span>Solo Leveling</span>
-              </a>
-            </h1>
-            <h2 class="novel-author overflow-hidden">
-              <a
-                href="#"
-                class="subtitle-text inline-block w-full truncate"
-                @mouseenter="startMarquee($event.currentTarget)"
-                @mouseleave="stopMarquee($event.currentTarget)"
-              >
-                <span>Chugong</span>
-              </a>
-            </h2>
-
-            <ScrollableTags
-              class="novel-tags mt-2 overflow-hidden"
-              :tags="[
-                { title: 'Action' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-              ]"
-            />
-          </li>
-          <li class="search-result grid">
-            <div class="novel-cover">
-              <img
-                src="https://res.cloudinary.com/dy9vrfexa/image/upload/v1675824420/glitch-novels/covers/05_ijbu2i.png"
-                alt="novel-cover"
-                class="h-full object-cover"
-              />
-            </div>
-            <h1 class="novel-title overflow-hidden">
-              <a
-                href="#"
-                class="title-text inline-block w-full truncate"
-                @mouseenter="startMarquee($event.currentTarget)"
-                @mouseleave="stopMarquee($event.currentTarget)"
-              >
-                <span>Solo Leveling</span>
-              </a>
-            </h1>
-            <h2 class="novel-author overflow-hidden">
-              <a
-                href="#"
-                class="subtitle-text inline-block w-full truncate"
-                @mouseenter="startMarquee($event.currentTarget)"
-                @mouseleave="stopMarquee($event.currentTarget)"
-              >
-                <span>Chugong</span>
-              </a>
-            </h2>
-
-            <ScrollableTags
-              class="novel-tags mt-2 overflow-hidden"
-              :tags="[
-                { title: 'Action' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-              ]"
-            />
-          </li>
-          <li class="search-result grid">
-            <div class="novel-cover">
-              <img
-                src="https://res.cloudinary.com/dy9vrfexa/image/upload/v1675824420/glitch-novels/covers/05_ijbu2i.png"
-                alt="novel-cover"
-                class="h-full object-cover"
-              />
-            </div>
-            <h1 class="novel-title overflow-hidden">
-              <a
-                href="#"
-                class="title-text inline-block w-full truncate"
-                @mouseenter="startMarquee($event.currentTarget)"
-                @mouseleave="stopMarquee($event.currentTarget)"
-              >
-                <span>Solo Leveling</span>
-              </a>
-            </h1>
-            <h2 class="novel-author overflow-hidden">
-              <a
-                href="#"
-                class="subtitle-text inline-block w-full truncate"
-                @mouseenter="startMarquee($event.currentTarget)"
-                @mouseleave="stopMarquee($event.currentTarget)"
-              >
-                <span>Chugong</span>
-              </a>
-            </h2>
-
-            <ScrollableTags
-              class="novel-tags mt-2 overflow-hidden"
-              :tags="[
-                { title: 'Action' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-              ]"
-            />
-          </li>
-          <li class="search-result grid">
-            <div class="novel-cover">
-              <img
-                src="https://res.cloudinary.com/dy9vrfexa/image/upload/v1675824420/glitch-novels/covers/05_ijbu2i.png"
-                alt="novel-cover"
-                class="h-full object-cover"
-              />
-            </div>
-            <h1 class="novel-title overflow-hidden">
-              <a
-                href="#"
-                class="title-text inline-block w-full truncate"
-                @mouseenter="startMarquee($event.currentTarget)"
-                @mouseleave="stopMarquee($event.currentTarget)"
-              >
-                <span>Solo Leveling</span>
-              </a>
-            </h1>
-            <h2 class="novel-author overflow-hidden">
-              <a
-                href="#"
-                class="subtitle-text inline-block w-full truncate"
-                @mouseenter="startMarquee($event.currentTarget)"
-                @mouseleave="stopMarquee($event.currentTarget)"
-              >
-                <span>Chugong</span>
-              </a>
-            </h2>
-
-            <ScrollableTags
-              class="novel-tags mt-2 overflow-hidden"
-              :tags="[
-                { title: 'Action' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-              ]"
-            />
-          </li>
-          <li class="search-result grid">
-            <div class="novel-cover">
-              <img
-                src="https://res.cloudinary.com/dy9vrfexa/image/upload/v1675824420/glitch-novels/covers/05_ijbu2i.png"
-                alt="novel-cover"
-                class="h-full object-cover"
-              />
-            </div>
-            <h1 class="novel-title overflow-hidden">
-              <a
-                href="#"
-                class="title-text inline-block w-full truncate"
-                @mouseenter="startMarquee($event.currentTarget)"
-                @mouseleave="stopMarquee($event.currentTarget)"
-              >
-                <span>Solo Leveling</span>
-              </a>
-            </h1>
-            <h2 class="novel-author overflow-hidden">
-              <a
-                href="#"
-                class="subtitle-text inline-block w-full truncate"
-                @mouseenter="startMarquee($event.currentTarget)"
-                @mouseleave="stopMarquee($event.currentTarget)"
-              >
-                <span>Chugong</span>
-              </a>
-            </h2>
-
-            <ScrollableTags
-              class="novel-tags mt-2 overflow-hidden"
-              :tags="[
-                { title: 'Action' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-              ]"
-            />
-          </li>
-          <li class="search-result grid">
-            <div class="novel-cover">
-              <img
-                src="https://res.cloudinary.com/dy9vrfexa/image/upload/v1675824420/glitch-novels/covers/05_ijbu2i.png"
-                alt="novel-cover"
-                class="h-full object-cover"
-              />
-            </div>
-            <h1 class="novel-title overflow-hidden">
-              <a
-                href="#"
-                class="title-text inline-block w-full truncate"
-                @mouseenter="startMarquee($event.currentTarget)"
-                @mouseleave="stopMarquee($event.currentTarget)"
-              >
-                <span>Solo Leveling</span>
-              </a>
-            </h1>
-            <h2 class="novel-author overflow-hidden">
-              <a
-                href="#"
-                class="subtitle-text inline-block w-full truncate"
-                @mouseenter="startMarquee($event.currentTarget)"
-                @mouseleave="stopMarquee($event.currentTarget)"
-              >
-                <span>Chugong</span>
-              </a>
-            </h2>
-
-            <ScrollableTags
-              class="novel-tags mt-2 overflow-hidden"
-              :tags="[
-                { title: 'Action' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-                { title: 'Romance' },
-              ]"
+              v-if="[...searchResult.genres, ...searchResult.tags].length > 0"
+              :tags="[...searchResult.genres, ...searchResult.tags]"
             />
           </li>
         </ul>
@@ -469,10 +84,11 @@
 </template>
 
 <script setup>
-import { onMounted, onUnmounted, ref } from "vue";
+import { onMounted, onUnmounted, ref, watch } from "vue";
 
 import { useClickOutside } from "@/composable/utils/clickOutside";
 import { useMarquee } from "@/composable/animations/marquee";
+import { searchNovel } from "@/api/novel";
 
 import ScrollableTags from "@/components/common/tag/ScrollableTags.vue";
 
@@ -506,6 +122,24 @@ onUnmounted(() => disableClickOutside());
 
 // Start/stop marquee effect for title & author texts.
 const { startMarquee, stopMarquee } = useMarquee();
+
+// Get search query from input & make request to back-end
+const searchQuery = ref("");
+const searchResults = ref([]);
+
+watch(searchQuery, async (value) => {
+  if (value.length === 0) {
+    return;
+  }
+
+  try {
+    const response = await searchNovel(value);
+    searchResults.value = response.data.searchResults;
+    console.log(searchResults.value);
+  } catch (error) {
+    //TODO: Show error message.
+  }
+});
 </script>
 
 <style scoped>
@@ -528,8 +162,6 @@ const { startMarquee, stopMarquee } = useMarquee();
 }
 
 .search-result {
-  @apply p-4;
-
   grid-template-columns: 70px 1fr;
   grid-template-rows: calc(1.3rem * 1.5) calc(0.8rem * 1.5) calc(0.8rem + (0.5rem * 2) + 2px + 0.5rem);
   grid-column-gap: 10px;
