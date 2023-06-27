@@ -11,11 +11,11 @@
       @click="handleSearchInputClick"
     />
     <div
-      class="search-results-wrapper absolute right-0 mt-3 bg-gray-bg-1 p-2 pt-4"
+      class="search-results-wrapper absolute right-0 mt-3 bg-gray-bg-1 p-3"
       :class="{ hide: !showSearchResults }"
     >
       <div class="search-results custom-scrollbar max-h-[75vh] overflow-auto">
-        <div class="section-text m-3 flex items-center justify-between">
+        <div class="section-text m-2 flex items-center justify-between">
           <span>Novels</span>
           <a href="#">
             <i class="fa-regular fa-light fa-arrow-right"></i>
@@ -528,7 +528,7 @@ const { startMarquee, stopMarquee } = useMarquee();
 }
 
 .search-result {
-  @apply px-4 py-2;
+  @apply p-4;
 
   grid-template-columns: 70px 1fr;
   grid-template-rows: calc(1.3rem * 1.5) calc(0.8rem * 1.5) calc(0.8rem + (0.5rem * 2) + 2px + 0.5rem);
