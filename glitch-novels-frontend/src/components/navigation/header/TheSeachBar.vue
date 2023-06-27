@@ -88,6 +88,7 @@ import { onMounted, onUnmounted, ref, watch } from "vue";
 
 import { useClickOutside } from "@/composable/utils/clickOutside";
 import { useMarquee } from "@/composable/animations/marquee";
+import { useRateLimiting } from "@/composable/utils/rateLimiter";
 import { searchNovel } from "@/api/novel";
 
 import ScrollableTags from "@/components/common/tag/ScrollableTags.vue";
@@ -127,14 +128,22 @@ const { startMarquee, stopMarquee } = useMarquee();
 const searchQuery = ref("");
 const searchResults = ref([]);
 
+const getSearchResults = async (searchQuery) => {
+  const response = await searchNovel(searchQuery);
+  return response.data.searchResults;
+};
+
+// Debouncing the requests to back-end
+const { debounce } = useRateLimiting();
+const debouncedGetSearchResults = debounce(getSearchResults, 1000);
+
 watch(searchQuery, async (value) => {
   if (value.length === 0) {
     return;
   }
 
   try {
-    const response = await searchNovel(value);
-    searchResults.value = response.data.searchResults;
+    searchResults.value = await debouncedGetSearchResults(value);
     console.log(searchResults.value);
   } catch (error) {
     //TODO: Show error message.
