@@ -5,16 +5,14 @@ import com.namdp.glitch_novels.resources_server.entities.Chapter;
 import com.namdp.glitch_novels.resources_server.entities.Genre;
 import com.namdp.glitch_novels.resources_server.entities.Novel;
 import com.namdp.glitch_novels.resources_server.entities.Tag;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.Singular;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Builder
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class NovelDTO {

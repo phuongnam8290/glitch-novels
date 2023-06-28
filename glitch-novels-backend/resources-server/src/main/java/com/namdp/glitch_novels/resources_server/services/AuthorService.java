@@ -23,7 +23,7 @@ public class AuthorService {
     List<AuthorDTO> apiAuthors = new ArrayList<>();
 
     for (Author dbAuthor : dbAuthors) {
-      AuthorDTO apiAuthor = AuthorDTO.mapEntity(dbAuthor, true);
+      AuthorDTO apiAuthor = AuthorDTO.mapEntity(dbAuthor, false);
       apiAuthors.add(apiAuthor);
     }
 

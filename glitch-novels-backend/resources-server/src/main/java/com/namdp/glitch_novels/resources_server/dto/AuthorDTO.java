@@ -2,9 +2,11 @@ package com.namdp.glitch_novels.resources_server.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.namdp.glitch_novels.resources_server.entities.Author;
+import com.namdp.glitch_novels.resources_server.entities.Novel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Singular;
 
 import java.util.List;
 
@@ -15,6 +17,8 @@ import java.util.List;
 public class AuthorDTO {
   private Integer id;
   private String name;
+
+  @Singular
   private List<NovelDTO> novels;
 
   /**
@@ -31,7 +35,13 @@ public class AuthorDTO {
         .name(dbAuthor.getName());
 
     if (!isAbridged) {
-      // TODO: add list of novels
+      for (Novel dbNovel : dbAuthor.getNovels()) {
+        NovelDTO apiNovel = new NovelDTO();
+        apiNovel.setId(dbNovel.getId());
+        apiNovel.setTitle(dbNovel.getTitle());
+
+        builder.novel(apiNovel);
+      }
     }
 
     return builder.build();
