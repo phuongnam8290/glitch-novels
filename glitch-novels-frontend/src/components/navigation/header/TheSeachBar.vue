@@ -33,7 +33,7 @@
       </div>
       <a
         class="pl-1"
-        v-else-if="searchResults.length === 0"
+        v-else-if="[...searchResults.searchNovelResults, ...searchResults.searchAuthorResults].length === 0"
       >
         No results found.
       </a>
@@ -50,12 +50,12 @@
         <ul class="search-results-novel">
           <li
             class="search-result grid p-4"
-            v-for="searchResult in searchResults"
-            :key="searchResult.id"
+            v-for="searchNovelResult in searchResults.searchNovelResults"
+            :key="searchNovelResult.id"
           >
             <div class="novel-cover">
               <img
-                :src="searchResult.coverUrl"
+                :src="searchNovelResult.coverUrl"
                 alt="novel-cover"
                 class="h-full object-cover"
               />
@@ -67,7 +67,7 @@
                 @mouseenter="startMarquee($event.currentTarget)"
                 @mouseleave="stopMarquee($event.currentTarget)"
               >
-                <span>{{ searchResult.title }}</span>
+                <span>{{ searchNovelResult.title }}</span>
               </a>
             </h1>
             <h2 class="novel-author overflow-hidden">
@@ -77,14 +77,14 @@
                 @mouseenter="startMarquee($event.currentTarget)"
                 @mouseleave="stopMarquee($event.currentTarget)"
               >
-                <span>{{ searchResult.author.name }}</span>
+                <span>{{ searchNovelResult.author.name }}</span>
               </a>
             </h2>
 
             <ScrollableTags
               class="novel-tags mt-2 overflow-hidden"
-              v-if="[...searchResult.genres, ...searchResult.tags].length > 0"
-              :tags="[...searchResult.genres, ...searchResult.tags]"
+              v-if="searchNovelResult.genres.length > 0"
+              :tags="searchNovelResult.genres"
             />
           </li>
         </ul>
@@ -99,7 +99,7 @@ import { onMounted, onUnmounted, ref, watch } from "vue";
 import { useClickOutside } from "@/composable/utils/clickOutside";
 import { useMarquee } from "@/composable/animations/marquee";
 import { useRateLimiting } from "@/composable/utils/rateLimiter";
-import { searchNovel } from "@/api/novel";
+import { search } from "@/api/search";
 
 import ScrollableTags from "@/components/common/tag/ScrollableTags.vue";
 
@@ -139,8 +139,8 @@ const searchQuery = ref("");
 const searchResults = ref([]);
 
 const getSearchResults = async (searchQuery) => {
-  const response = await searchNovel(searchQuery);
-  return response.data.searchResults;
+  const response = await search(searchQuery);
+  return response.data;
 };
 
 // Debouncing the requests to back-end

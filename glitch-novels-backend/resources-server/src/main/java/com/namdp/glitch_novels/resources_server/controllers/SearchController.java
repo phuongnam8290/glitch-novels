@@ -24,7 +24,7 @@ public class SearchController {
     this.authorService = authorService;
   }
 
-  @GetMapping("search/")
+  @GetMapping("/search")
   public ResponseEntity<Map<String, Object>> searchNovels(@RequestParam String keyword) {
     Map<String, Object> responseBody = new HashMap<>();
 
@@ -35,7 +35,7 @@ public class SearchController {
     }
 
     List<NovelDTO> searchNovelResults = novelService.searchNovels(keyword);
-    responseBody.put("searchNovelsResults", searchNovelResults);
+    responseBody.put("searchNovelResults", searchNovelResults);
 
     List<AuthorDTO> searchAuthorResults = authorService.searchAuthor(keyword);
     responseBody.put("searchAuthorResults", searchAuthorResults);
