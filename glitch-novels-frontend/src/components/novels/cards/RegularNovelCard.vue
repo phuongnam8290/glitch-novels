@@ -68,7 +68,7 @@ const props = defineProps({
     required: true,
     type: Object,
     validator(value) {
-      // Define title's schema.
+      // Define novel's schema.
       const schema = object({
         id: number().required().positive(),
         title: string().required(),
@@ -87,7 +87,7 @@ const props = defineProps({
         ),
       });
 
-      // Validate the title's structure against the schema. Print validate errors, if any.
+      // Validate the novel's structure against the schema. Print validate errors, if any.
       try {
         schema.validateSync(value);
       } catch (error) {
