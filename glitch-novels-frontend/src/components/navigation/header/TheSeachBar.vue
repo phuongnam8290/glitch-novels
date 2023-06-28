@@ -41,53 +41,99 @@
         class="search-results custom-scrollbar max-h-[75vh] overflow-auto"
         v-else
       >
-        <div class="section-text m-2 mr-4 flex items-center justify-between">
-          <span>Novels</span>
-          <a href="#">
-            <i class="fa-regular fa-light fa-arrow-right"></i>
-          </a>
-        </div>
-        <ul class="search-results-novel">
-          <li
-            class="search-result grid p-4"
-            v-for="novel in searchResults.novels"
-            :key="novel.id"
-          >
-            <div class="novel-cover">
-              <img
-                :src="novel.coverUrl"
-                alt="novel-cover"
-                class="h-full object-cover"
-              />
-            </div>
-            <h1 class="novel-title overflow-hidden">
-              <a
-                href="#"
-                class="title-text inline-block w-full truncate"
-                @mouseenter="startMarquee($event.currentTarget)"
-                @mouseleave="stopMarquee($event.currentTarget)"
-              >
-                <span>{{ novel.title }}</span>
-              </a>
-            </h1>
-            <h2 class="novel-author overflow-hidden">
-              <a
-                href="#"
-                class="subtitle-text inline-block w-full truncate"
-                @mouseenter="startMarquee($event.currentTarget)"
-                @mouseleave="stopMarquee($event.currentTarget)"
-              >
-                <span>{{ novel.author.name }}</span>
-              </a>
-            </h2>
+        <section v-if="searchResults.novels.length > 0">
+          <header class="section-text m-2 mr-4 flex items-center justify-between">
+            <span>Novels</span>
+            <a href="#">
+              <i class="fa-regular fa-light fa-arrow-right"></i>
+            </a>
+          </header>
+          <ul class="search-results-novel">
+            <li
+              class="search-result-novel grid p-4 hover:bg-gray-selected-bg"
+              v-for="novel in searchResults.novels"
+              :key="novel.id"
+            >
+              <div class="novel-cover">
+                <img
+                  :src="novel.coverUrl"
+                  alt="novel-cover"
+                  class="h-full object-cover"
+                />
+              </div>
+              <h1 class="novel-title overflow-hidden">
+                <a
+                  href="#"
+                  class="title-text inline-block w-full truncate"
+                  @mouseenter="startMarquee($event.currentTarget)"
+                  @mouseleave="stopMarquee($event.currentTarget)"
+                >
+                  <span>{{ novel.title }}</span>
+                </a>
+              </h1>
+              <h2 class="novel-author overflow-hidden">
+                <a
+                  href="#"
+                  class="subtitle-text inline-block w-full truncate"
+                  @mouseenter="startMarquee($event.currentTarget)"
+                  @mouseleave="stopMarquee($event.currentTarget)"
+                >
+                  <span>{{ novel.author.name }}</span>
+                </a>
+              </h2>
 
-            <ScrollableTags
-              class="novel-tags mt-2 overflow-hidden"
-              v-if="novel.genres.length > 0"
-              :tags="novel.genres"
-            />
-          </li>
-        </ul>
+              <ScrollableTags
+                class="novel-tags mt-2 overflow-hidden"
+                v-if="novel.genres.length > 0"
+                :tags="novel.genres"
+              />
+            </li>
+          </ul>
+        </section>
+
+        <section v-if="searchResults.authors.length > 0">
+          <header class="section-text m-2 mr-4 flex items-center justify-between">
+            <span>Authors</span>
+            <a href="#">
+              <i class="fa-regular fa-light fa-arrow-right"></i>
+            </a>
+          </header>
+          <ul class="search-results-author">
+            <li
+              class="search-result-author grid p-4 hover:bg-gray-selected-bg"
+              v-for="author in searchResults.authors"
+              :key="author.id"
+            >
+              <div class="author-avatar">
+                <img
+                  src="/src/assets/images/profile/default-author-avatar.png"
+                  alt="author-avatar"
+                  class="h-full object-cover"
+                />
+              </div>
+              <h1 class="author-name overflow-hidden">
+                <a
+                  href="#"
+                  class="title-text inline-block w-full truncate"
+                  @mouseenter="startMarquee($event.currentTarget)"
+                  @mouseleave="stopMarquee($event.currentTarget)"
+                >
+                  <span>{{ author.name }}</span>
+                </a>
+              </h1>
+              <h2 class="author-titles overflow-hidden">
+                <a
+                  href="#"
+                  class="subtitle-text inline-block w-full truncate"
+                  @mouseenter="startMarquee($event.currentTarget)"
+                  @mouseleave="stopMarquee($event.currentTarget)"
+                >
+                  <span> {{ author.novels.length }} titles</span>
+                </a>
+              </h2>
+            </li>
+          </ul>
+        </section>
       </div>
     </div>
   </div>
@@ -184,7 +230,7 @@ watch(searchQuery, async (value) => {
   transform: scale(0);
 }
 
-.search-result {
+.search-result-novel {
   grid-template-columns: 70px 1fr;
   grid-template-rows: calc(1.3rem * 1.5) calc(0.8rem * 1.5) calc(0.8rem + (0.5rem * 2) + 2px + 0.5rem);
   grid-column-gap: 10px;
@@ -192,10 +238,6 @@ watch(searchQuery, async (value) => {
     "novel-cover novel-title"
     "novel-cover novel-author"
     "novel-cover novel-tags";
-}
-
-.search-result:hover {
-  @apply bg-gray-selected-bg;
 }
 
 .novel-cover {
@@ -212,5 +254,26 @@ watch(searchQuery, async (value) => {
 
 .novel-tags {
   grid-area: novel-tags;
+}
+
+.search-result-author {
+  grid-template-columns: 70px 1fr;
+  grid-template-rows: calc(1.3rem * 1.5) calc(0.8rem * 1.5);
+  grid-column-gap: 10px;
+  grid-template-areas:
+    "author-avatar author-name"
+    "author-avatar author-titles";
+}
+
+.author-avatar {
+  grid-area: author-avatar;
+}
+
+.author-name {
+  grid-area: author-name;
+}
+
+.author-titles {
+  grid-area: author-titles;
 }
 </style>
