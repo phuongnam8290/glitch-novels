@@ -33,7 +33,7 @@
       </div>
       <a
         class="pl-1"
-        v-else-if="[...searchResults.searchNovelResults, ...searchResults.searchAuthorResults].length === 0"
+        v-else-if="[...searchResults.novels, ...searchResults.authors].length === 0"
       >
         No results found.
       </a>
@@ -50,12 +50,12 @@
         <ul class="search-results-novel">
           <li
             class="search-result grid p-4"
-            v-for="searchNovelResult in searchResults.searchNovelResults"
-            :key="searchNovelResult.id"
+            v-for="novel in searchResults.novels"
+            :key="novel.id"
           >
             <div class="novel-cover">
               <img
-                :src="searchNovelResult.coverUrl"
+                :src="novel.coverUrl"
                 alt="novel-cover"
                 class="h-full object-cover"
               />
@@ -67,7 +67,7 @@
                 @mouseenter="startMarquee($event.currentTarget)"
                 @mouseleave="stopMarquee($event.currentTarget)"
               >
-                <span>{{ searchNovelResult.title }}</span>
+                <span>{{ novel.title }}</span>
               </a>
             </h1>
             <h2 class="novel-author overflow-hidden">
@@ -77,14 +77,14 @@
                 @mouseenter="startMarquee($event.currentTarget)"
                 @mouseleave="stopMarquee($event.currentTarget)"
               >
-                <span>{{ searchNovelResult.author.name }}</span>
+                <span>{{ novel.author.name }}</span>
               </a>
             </h2>
 
             <ScrollableTags
               class="novel-tags mt-2 overflow-hidden"
-              v-if="searchNovelResult.genres.length > 0"
-              :tags="searchNovelResult.genres"
+              v-if="novel.genres.length > 0"
+              :tags="novel.genres"
             />
           </li>
         </ul>

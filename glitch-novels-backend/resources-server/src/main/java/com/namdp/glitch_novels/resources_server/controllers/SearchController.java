@@ -35,10 +35,10 @@ public class SearchController {
     }
 
     List<NovelDTO> searchNovelResults = novelService.searchNovels(keyword);
-    responseBody.put("searchNovelResults", searchNovelResults);
+    responseBody.put("novels", searchNovelResults);
 
     List<AuthorDTO> searchAuthorResults = authorService.searchAuthor(keyword);
-    responseBody.put("searchAuthorResults", searchAuthorResults);
+    responseBody.put("authors", searchAuthorResults);
 
     return ResponseEntity.status(HttpStatus.OK).body(responseBody);
   }
