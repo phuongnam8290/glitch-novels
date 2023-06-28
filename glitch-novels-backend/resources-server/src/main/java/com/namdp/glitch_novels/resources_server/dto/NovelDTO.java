@@ -53,6 +53,11 @@ public class NovelDTO {
         .author(AuthorDTO.mapEntity(dbNovel.getAuthor(), true));
 
     if (!isAbridged) {
+      for (Tag dbTag : dbNovel.getTags()) {
+        TagDTO apiTag = TagDTO.mapEntity(dbTag, true);
+        builder.tag(apiTag);
+      }
+
       for (Chapter dbChapter : dbNovel.getChapters()) {
         ChapterDTO apiChapter = ChapterDTO.mapEntity(dbChapter, true);
         builder.chapter(apiChapter);
@@ -62,11 +67,6 @@ public class NovelDTO {
     for (Genre dbGenre : dbNovel.getGenres()) {
       GenreDTO apiGenre = GenreDTO.mapEntity(dbGenre, true);
       builder.genre(apiGenre);
-    }
-
-    for (Tag dbTag : dbNovel.getTags()) {
-      TagDTO apiTag = TagDTO.mapEntity(dbTag, true);
-      builder.tag(apiTag);
     }
 
     return builder.build();
