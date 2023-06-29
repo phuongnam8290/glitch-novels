@@ -27,6 +27,10 @@
     @apply text-white-ink-1 hover:text-gold-brand-1;
     transition: all 0.25s ease-in-out;
   }
+
+  input[type=text] {
+    @apply border border-white-ink-1 bg-gray-bg-2 px-4 py-1.5 text-white-ink-1 focus:border-gold-brand-1 focus:outline-0
+  }
 }
 
 @layer components {

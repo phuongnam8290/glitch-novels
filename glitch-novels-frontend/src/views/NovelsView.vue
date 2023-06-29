@@ -1,8 +1,8 @@
 <template>
   <div ref="novelsView">
     <h1 class="section-header flex items-center">
-      <span class="mr-4"><i class="fa-sharp fa-solid fa-magnifying-glass"></i></span>
-      <span> Advanced Search </span>
+      <span class="mr-4"><i class="fa-sharp fa-solid fa-books"></i></span>
+      <span> Novels </span>
     </h1>
 
     <section

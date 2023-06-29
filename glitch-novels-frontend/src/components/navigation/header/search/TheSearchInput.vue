@@ -1,6 +1,6 @@
 <template>
   <input
-    class="search-input w-full border border-white-ink-1 bg-gray-bg-2 px-4 py-1.5 text-white-ink-1 focus:border-gold-brand-1 focus:outline-0"
+    class="search-input w-full"
     style="font-family: 'Metropolis', FontAwesome, serif"
     type="text"
     placeholder="&#xF002; Search for anything"

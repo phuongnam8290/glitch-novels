@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import HomeView from "@/views/HomeView.vue";
+import AdvancedSearchView from "@/views/AdvancedSearchView.vue";
 import NovelsView from "@/views/NovelsView.vue";
 import DetailsView from "@/views/DetailsView.vue";
 import ReaderView from "@/views/ReaderView.vue";
@@ -9,6 +10,11 @@ const routes = [
     path: "/",
     name: "home",
     component: HomeView,
+  },
+  {
+    path: "/advanced-search",
+    name: "advancedSearch",
+    component: AdvancedSearchView,
   },
   {
     path: "/novels",

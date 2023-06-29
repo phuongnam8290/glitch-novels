@@ -39,7 +39,7 @@
             v-for="link in linkGroup.linkGroupItems"
             :key="link"
           >
-            <a href="#">{{ link.title }}</a>
+            <router-link :to="{ name: link.routeName }">{{ link.title }}</router-link>
           </li>
         </ul>
       </div>
@@ -63,7 +63,7 @@ const navigationLinkGroups = ref([
     icon: "fa-book-open-cover",
     routeName: "novels",
     linkGroupItems: [
-      { title: "Advanced Search", isActive: true },
+      { title: "Advanced Search", isActive: true, routeName: "advancedSearch" },
       { title: "Recently Added" },
       { title: "Latest Updates" },
       { title: "Random" },
