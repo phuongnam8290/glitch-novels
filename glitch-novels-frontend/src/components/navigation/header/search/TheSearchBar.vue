@@ -4,13 +4,13 @@
     ref="searchBar"
     @click="handleSearchBarClick"
   >
-    <SearchInput />
+    <TheSearchInput />
 
     <div
       class="search-results-wrapper absolute right-0 mt-3 w-full bg-gray-bg-1 p-3"
       :class="{ hide: !showSearchResults }"
     >
-      <SearchResults />
+      <TheSearchResults />
     </div>
   </div>
 </template>
@@ -20,8 +20,8 @@ import { onMounted, onUnmounted, ref } from "vue";
 
 import { useClickOutside } from "@/composable/utils/clickOutside";
 
-import SearchInput from "@/components/navigation/header/search/SearchInput.vue";
-import SearchResults from "@/components/navigation/header/search/SearchResults.vue";
+import TheSearchInput from "@/components/navigation/header/search/TheSearchInput.vue";
+import TheSearchResults from "@/components/navigation/header/search/TheSearchResults.vue";
 
 const searchBar = ref(null);
 
