@@ -4,42 +4,13 @@
     ref="searchBar"
     @click="handleSearchBarClick"
   >
-    <SearchInput
-      @empty-search-query="isQueryEmpty = true"
-      @has-value-search-query="isQueryEmpty = false"
-      @fetching-results="isFetching = true"
-      @received-results="receivedSearchResults"
-    />
+    <SearchInput />
+
     <div
       class="search-results-wrapper absolute right-0 mt-3 w-full bg-gray-bg-1 p-3"
       :class="{ hide: !showSearchResults }"
     >
-      <a
-        class="pl-1"
-        v-if="isQueryEmpty"
-      >
-        Please enter a search query...
-      </a>
-      <div
-        v-else-if="isFetching === true"
-        class="flex justify-center"
-      >
-        <img
-          src="/src/assets/images/common/loading.svg"
-          alt="loading"
-          class="h-48 w-48"
-        />
-      </div>
-      <a
-        class="pl-1"
-        v-else-if="[...searchResults.novels, ...searchResults.authors].length === 0"
-      >
-        No results found.
-      </a>
-      <SearchResults
-        v-else
-        :search-results="searchResults"
-      />
+      <SearchResults />
     </div>
   </div>
 </template>
@@ -79,18 +50,6 @@ const { enableClickOutside, disableClickOutside } = useClickOutside(searchBar, (
 });
 onMounted(() => enableClickOutside());
 onUnmounted(() => disableClickOutside());
-
-// Variables used to synchronize results get from SearchInput
-const isQueryEmpty = ref(true);
-const isFetching = ref(false);
-let searchResults = {
-  novels: [],
-  authors: [],
-};
-const receivedSearchResults = (results) => {
-  isFetching.value = false;
-  searchResults = results;
-};
 </script>
 
 <style scoped>
