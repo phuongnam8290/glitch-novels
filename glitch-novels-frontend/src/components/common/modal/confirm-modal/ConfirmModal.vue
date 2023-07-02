@@ -134,7 +134,9 @@ const performAction = async () => {
     successMsg.value = response.data.message;
     stage.value = "success";
   } catch (error) {
-    failureNsg.value = error.response.data.message;
+    // Because the error from Axios and the backend have a different format, we must use the optional chaining & nullish
+    // coalescing operator to prevent reading property of undefined value.
+    failureNsg.value = error?.response?.data?.message ?? "Something went wrong while processing the data.";
     stage.value = "failure";
   }
 };
