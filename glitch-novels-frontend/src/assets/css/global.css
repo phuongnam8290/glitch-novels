@@ -55,8 +55,10 @@
     background-color: black;
   }
 
+  /* Using disabled:pointer-events-none to remove hover styles when button is disabled */
   .text-btn {
-    @apply border border-2 border-white-ink-1 hover:border-gold-brand-1 py-2 title-text;
+    @apply border border-2 border-white-ink-1 hover:border-gold-brand-1 py-2 title-text disabled:cursor-not-allowed
+    disabled:opacity-50 disabled:pointer-events-none
   }
 }
 

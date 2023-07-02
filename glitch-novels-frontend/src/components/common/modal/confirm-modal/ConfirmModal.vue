@@ -9,7 +9,7 @@
       </h1>
 
       <!--   Modal body   -->
-      <div class="modal-body custom-scrollbar grid h-full overflow-auto">
+      <div class="modal-body grid h-full overflow-auto">
         <p class="confirm-msg">
           <slot name="confirm-msg">Confirm message</slot>
         </p>
@@ -38,7 +38,7 @@
       </div>
       <!--   End of modal body   -->
 
-      <div class="modal-footer flex justify-around">
+      <div class="modal-footer flex justify-end gap-x-10">
         <button
           :class="confirmBtnInfo.class"
           class="text-btn hover:text-white-ink-1"
@@ -48,6 +48,17 @@
             <i :class="confirmBtnInfo.icon"></i>
           </span>
           <span class="ml-2">{{ confirmBtnInfo.text }}</span>
+        </button>
+
+        <button
+          class="text-btn"
+          :disabled="stage === 'processing'"
+          @click.stop="handleCloseModal"
+        >
+          <span>
+            <i class="fa-sharp fa-light fa-xmark"></i>
+          </span>
+          <span class="ml-2">Cancel</span>
         </button>
       </div>
     </div>
@@ -129,15 +140,14 @@ const performAction = async () => {
 };
 
 // Users can close the modal only when the stage is not "processing."
-const eventBus = useEventBus();
+const handleCloseModal = () => {
+  if (stage.value !== "processing") {
+    eventBus.emit("closeModal");
+  }
+};
 
-onMounted(() =>
-  eventBus.on("closeBaseModal", () => {
-    if (stage.value !== "processing") {
-      eventBus.emit("closeModal");
-    }
-  })
-);
+const eventBus = useEventBus();
+onMounted(() => eventBus.on("closeBaseModal", handleCloseModal));
 onUnmounted(() => eventBus.off("closeBaseModal"));
 </script>
 
@@ -157,8 +167,12 @@ onUnmounted(() => eventBus.off("closeBaseModal"));
   row-gap: 1rem;
 }
 
+.confirm-item-list {
+  scrollbar-gutter: auto;
+}
+
 button {
   /* use width instead of flex-basis on flex-items to fix container mot expanding width to fit flexbox content. */
-  width: 200px;
+  min-width: 180px;
 }
 </style>

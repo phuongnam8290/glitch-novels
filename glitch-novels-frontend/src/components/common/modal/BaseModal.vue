@@ -8,12 +8,6 @@
       class="modal-wrapper relative bg-gray-bg-1/80"
       ref="modalWrapper"
     >
-      <button
-        class="absolute right-4 top-4 text-2xl"
-        @click="emitCloseBaseModal"
-      >
-        <i class="fa-light fa-xmark fa-xl"></i>
-      </button>
       <slot></slot>
     </div>
   </div>
