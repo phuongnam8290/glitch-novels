@@ -37,9 +37,9 @@
                       class="selectable-tag"
                     >
                       <input
-                        class="hidden"
                         type="checkbox"
-                        :name="`${filtersGroupTitle}-${filter}`"
+                        v-model="selectedFilters[filtersGroupTitle]"
+                        :name="`${filtersGroupTitle}`"
                         :id="`${filtersGroupTitle}-${filter}`"
                         :value="filter"
                       />
@@ -155,6 +155,17 @@ const formatFiltersGroupTitle = (title) =>
     .split(/(?=[A-Z])/)
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .reduce((title, word) => `${title} ${word}`);
+
+const selectedFilters = reactive(
+  (() => {
+    const result = {};
+    for (const key in filters) {
+      result[key] = [];
+    }
+
+    return result;
+  })()
+);
 </script>
 
 <style scoped>
@@ -180,9 +191,21 @@ input[type="text"]::placeholder {
   scrollbar-gutter: auto;
 }
 
-.selectable-tag {
+.selectable-tag input[type="checkbox"] {
+  display: none;
+}
+
+.selectable-tag label {
   transition: 0.25s all;
-  @apply border border-white-ink-1 px-5 py-2 hover:border-gold-brand-1 hover:text-gold-brand-1;
+  @apply inline-block border border-white-ink-1 px-4 py-1 hover:border-gold-brand-1 hover:text-gold-brand-1;
+}
+
+.selectable-tag > input[type="checkbox"]:checked ~ label {
+  @apply border-gold-brand-2 bg-gold-brand-2;
+}
+
+.selectable-tag > input[type="checkbox"]:checked ~ label:hover {
+  @apply text-white-ink-1;
 }
 
 button {
