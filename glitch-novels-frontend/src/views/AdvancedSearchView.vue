@@ -31,6 +31,14 @@
                 >
                   <h2 class="title-text">{{ formatFiltersGroupTitle(filtersGroupTitle) }}</h2>
                   <div class="filters-group mt-4 flex flex-wrap gap-x-5 gap-y-3">
+                    <button
+                      class="select-all-btn"
+                      :class="{ selected: selectedFilters[filtersGroupTitle].length === 0 }"
+                      @click="selectedFilters[filtersGroupTitle] = []"
+                    >
+                      All
+                    </button>
+
                     <div
                       v-for="filter in filtersGroup"
                       :key="filter"
@@ -79,7 +87,7 @@
 
 <script setup>
 import BaseModal from "@/components/common/modal/BaseModal.vue";
-import { reactive } from "vue";
+import { reactive, watch } from "vue";
 
 const filters = reactive({
   demographic: ["Male", "Female"],
@@ -160,12 +168,22 @@ const selectedFilters = reactive(
   (() => {
     const result = {};
     for (const key in filters) {
+      // A filter group is empty in selectedFilters signify that all filters in that group are selected.
       result[key] = [];
     }
 
     return result;
   })()
 );
+
+watch(selectedFilters, (newValue) => {
+  for (const key in newValue) {
+    // If all filters in a filter group are selected, then empty that group in selectedFilters.
+    if (newValue[key].length === filters[key].length) {
+      newValue[key] = [];
+    }
+  }
+});
 </script>
 
 <style scoped>
@@ -195,20 +213,23 @@ input[type="text"]::placeholder {
   display: none;
 }
 
-.selectable-tag label {
+.selectable-tag label,
+.select-all-btn {
   transition: 0.25s all;
   @apply inline-block border border-white-ink-1 px-4 py-1 hover:border-gold-brand-1 hover:text-gold-brand-1;
 }
 
-.selectable-tag > input[type="checkbox"]:checked ~ label {
+.selectable-tag > input[type="checkbox"]:checked ~ label,
+.select-all-btn.selected {
   @apply border-gold-brand-2 bg-gold-brand-2;
 }
 
-.selectable-tag > input[type="checkbox"]:checked ~ label:hover {
+.selectable-tag > input[type="checkbox"]:checked ~ label:hover,
+.select-all-btn.selected:hover {
   @apply text-white-ink-1;
 }
 
-button {
+.modal-footer button {
   /* use width instead of flex-basis on flex-items to fix container mot expanding width to fit flexbox content. */
   min-width: 180px;
 }
