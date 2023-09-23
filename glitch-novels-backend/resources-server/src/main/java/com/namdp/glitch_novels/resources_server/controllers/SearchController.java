@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 public class SearchController {
@@ -40,8 +38,8 @@ public class SearchController {
 	}
 
 	@GetMapping("/search")
-	public ResponseEntity<Map<String, Object>> searchNovels(@RequestParam String keyword) {
-		Map<String, Object> responseBody = new HashMap<>();
+	public ResponseEntity<ObjectNode> searchNovels(@RequestParam String keyword) {
+		ObjectNode responseBody = mapper.createObjectNode();
 
 		keyword = keyword.trim();
 		if (keyword.isEmpty()) {
@@ -50,10 +48,10 @@ public class SearchController {
 		}
 
 		List<NovelDTO> searchNovelResults = novelService.searchNovels(keyword);
-		responseBody.put("novels", searchNovelResults);
+		responseBody.set("novels", mapper.convertValue(searchNovelResults, JsonNode.class));
 
 		List<AuthorDTO> searchAuthorResults = authorService.searchAuthor(keyword);
-		responseBody.put("authors", searchAuthorResults);
+		responseBody.set("authors", mapper.convertValue(searchAuthorResults, JsonNode.class));
 
 		return ResponseEntity.status(HttpStatus.OK).body(responseBody);
 	}

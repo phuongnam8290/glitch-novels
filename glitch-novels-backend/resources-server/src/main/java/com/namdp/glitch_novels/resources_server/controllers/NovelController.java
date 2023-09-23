@@ -9,58 +9,65 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 public class NovelController {
-  private final ObjectMapper mapper;
-  private final NovelService novelService;
+	private final ObjectMapper mapper;
+	private final NovelService novelService;
 
-  public NovelController(ObjectMapper mapper, NovelService novelService) {
-    this.mapper = mapper;
-    this.novelService = novelService;
-  }
+	public NovelController(ObjectMapper mapper, NovelService novelService) {
+		this.mapper = mapper;
+		this.novelService = novelService;
+	}
 
-  @GetMapping("/novels")
-  public ObjectNode findAllNovels() {
-    ObjectNode response = mapper.createObjectNode();
+	@GetMapping("/novels")
+	public ResponseEntity<ObjectNode> findAllNovels() {
+		ObjectNode responseBody = mapper.createObjectNode();
 
-    // Get all novels in the db, then convert them to json node for serialization.
-    List<NovelDTO> novels = novelService.findAll();
-    JsonNode novelsNode = mapper.valueToTree(novels);
+		// Get all novels in the db, then add them to object node for serialization.
+		List<NovelDTO> novels = novelService.findAll();
+		responseBody.set("novels", mapper.convertValue(novels, JsonNode.class));
+		responseBody.put("total", novels.size());
 
-    // Build response json.
-    response.put("total", novels.size());
-    response.set("novels", novelsNode);
+		return ResponseEntity.status(HttpStatus.OK).body(responseBody);
+	}
 
-    return response;
-  }
+	@DeleteMapping("/novels")
+	public ResponseEntity<ObjectNode> deleteNovels(@RequestBody List<Integer> ids) {
+		ObjectNode responseBody = mapper.createObjectNode();
 
-  @DeleteMapping("/novels")
-  public ResponseEntity<Map<String, Object>> deleteNovels(@RequestBody List<Integer> ids) {
-    Map<String, Object> responseBody = new HashMap<>();
+		if (ids.isEmpty()) {
+			responseBody.put("message", "The list of selected novels cannot be empty.");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseBody);
+		}
 
-    if (ids.isEmpty()) {
-      responseBody.put("message", "The list of selected novels cannot be empty.");
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseBody);
-    }
+		// Only delete if all the novels with the given ids exist in db.
+		if (!novelService.checkIfAllNovelsExist(ids)) {
+			responseBody.put("message", "Some or all of the selected novels could not be found.");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseBody);
+		}
 
-    // Only delete if all the novels with the given ids exist in db.
-    if (!novelService.checkIfAllNovelsExist(ids)) {
-      responseBody.put("message", "Some or all of the selected novels could not be found.");
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseBody);
-    }
+		List<NovelDTO> deletedNovels = novelService.deleteNovelsByIds(ids);
+		responseBody.put("message", "The selected novels have been successfully deleted.");
+		responseBody.set("deletedNovel", mapper.valueToTree(deletedNovels));
+		return ResponseEntity.ok(responseBody);
+	}
 
-    List<NovelDTO> deletedNovels = novelService.deleteNovelsByIds(ids);
-    responseBody.put("message", "The selected novels have been successfully deleted.");
-    responseBody.put("deletedNovel", deletedNovels);
-    return ResponseEntity.ok(responseBody);
-  }
+	@GetMapping("/novel/{id}")
+	public ResponseEntity<ObjectNode> findNovelById(@PathVariable("id") int id) {
+		ObjectNode responseBody = mapper.createObjectNode();
+		NovelDTO novel;
 
-  @GetMapping("/novel/{id}")
-  public NovelDTO findNovelById(@PathVariable("id") int id) {
-    return novelService.findById(id);
-  }
+		// Catch the NullPointerException being thrown from service and return an appropriate response.
+		try {
+			novel = novelService.findById(id);
+		} catch (NullPointerException ex) {
+			responseBody.put("message", "Cannot find the novel with the given id");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseBody);
+		}
+
+		responseBody = mapper.valueToTree(novel);
+		return ResponseEntity.status(HttpStatus.OK).body(responseBody);
+	}
 }

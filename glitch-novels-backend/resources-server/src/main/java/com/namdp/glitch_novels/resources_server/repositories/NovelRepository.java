@@ -10,11 +10,11 @@ import java.util.List;
 
 @Repository
 public interface NovelRepository extends JpaRepository<Novel, Integer> {
-  List<Novel> deleteNovelByIdIn(Collection<Integer> ids);
+	List<Novel> deleteNovelByIdIn(Collection<Integer> ids);
 
-  @Query("SELECT DISTINCT N " +
-      "FROM Novel N LEFT JOIN N.genres G " +
-      "WHERE N.title LIKE %:keyword% " +
-      "OR G.title LIKE %:keyword% ")
-  List<Novel> searchNovels(String keyword);
+	@Query("SELECT DISTINCT N " +
+			"FROM Novel N LEFT JOIN N.genres G " +
+			"WHERE N.title LIKE %:keyword% " +
+			"OR G.title LIKE %:keyword% ")
+	List<Novel> searchNovels(String keyword);
 }
