@@ -3,14 +3,8 @@ package com.namdp.glitch_novels.resources_server.controllers;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.namdp.glitch_novels.resources_server.dto.AuthorDTO;
-import com.namdp.glitch_novels.resources_server.dto.GenreDTO;
-import com.namdp.glitch_novels.resources_server.dto.NovelDTO;
-import com.namdp.glitch_novels.resources_server.dto.TagDTO;
-import com.namdp.glitch_novels.resources_server.services.AuthorService;
-import com.namdp.glitch_novels.resources_server.services.GenreService;
-import com.namdp.glitch_novels.resources_server.services.NovelService;
-import com.namdp.glitch_novels.resources_server.services.TagService;
+import com.namdp.glitch_novels.resources_server.dto.*;
+import com.namdp.glitch_novels.resources_server.services.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,15 +20,17 @@ public class SearchController {
 	private final AuthorService authorService;
 	private final GenreService genreService;
 	private final TagService tagService;
+	private final PublicationStatusService publicationStatusService;
 
 	public SearchController(ObjectMapper mapper, NovelService novelService, AuthorService authorService,
-													GenreService genreService, TagService tagService) {
+													GenreService genreService, TagService tagService, PublicationStatusService publicationStatusService) {
 		this.mapper = mapper;
 
 		this.novelService = novelService;
 		this.authorService = authorService;
 		this.genreService = genreService;
 		this.tagService = tagService;
+		this.publicationStatusService = publicationStatusService;
 	}
 
 	@GetMapping("/search")
@@ -60,10 +56,12 @@ public class SearchController {
 	public ResponseEntity<JsonNode> getSearchFilters() {
 		List<GenreDTO> genres = genreService.findAll();
 		List<TagDTO> tags = tagService.findAll();
+		List<PublicationStatusDTO> publicationStatuses = publicationStatusService.findAll();
 
 		ObjectNode responseBody = mapper.createObjectNode();
 		responseBody.set("genres", mapper.convertValue(genres, JsonNode.class));
 		responseBody.set("tag", mapper.convertValue(tags, JsonNode.class));
+		responseBody.set("publicationStatus", mapper.valueToTree(publicationStatuses));
 
 		return ResponseEntity.status(HttpStatus.OK).body(responseBody);
 	}
