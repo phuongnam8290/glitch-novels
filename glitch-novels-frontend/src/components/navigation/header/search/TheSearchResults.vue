@@ -82,7 +82,7 @@ const getSearchResults = async (searchQuery) => {
 
 // Debouncing the requests to back-end
 const { debounce } = useRateLimiting();
-const debouncedGetSearchResults = debounce(getSearchResults, 500);
+const debouncedGetSearchResults = debounce(getSearchResults, 500, { isAsyncOperation: true });
 
 const isFetching = ref(false);
 const searchResults = ref(null);

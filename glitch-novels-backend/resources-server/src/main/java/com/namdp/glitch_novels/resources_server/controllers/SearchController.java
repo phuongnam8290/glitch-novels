@@ -54,14 +54,14 @@ public class SearchController {
 
 	@GetMapping("/advanced_search/filters")
 	public ResponseEntity<JsonNode> getSearchFilters() {
+		List<PublicationStatusDTO> publicationStatuses = publicationStatusService.findAll();
 		List<GenreDTO> genres = genreService.findAll();
 		List<TagDTO> tags = tagService.findAll();
-		List<PublicationStatusDTO> publicationStatuses = publicationStatusService.findAll();
 
 		ObjectNode responseBody = mapper.createObjectNode();
+		responseBody.set("publicationStatus", mapper.valueToTree(publicationStatuses));
 		responseBody.set("genres", mapper.convertValue(genres, JsonNode.class));
 		responseBody.set("tag", mapper.convertValue(tags, JsonNode.class));
-		responseBody.set("publicationStatus", mapper.valueToTree(publicationStatuses));
 
 		return ResponseEntity.status(HttpStatus.OK).body(responseBody);
 	}

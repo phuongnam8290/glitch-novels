@@ -7,13 +7,7 @@
 
     <section class="mt-8">
       <div class="advanced-search-controls flex items-center gap-5">
-        <input
-          class="search-input flex-grow"
-          style="font-family: 'Metropolis', FontAwesome, serif"
-          type="text"
-          placeholder="&#xF002; Start typing to search..."
-        />
-
+        <SearchTitleInput />
         <FilterButton />
       </div>
     </section>
@@ -23,15 +17,8 @@
 </template>
 
 <script setup>
+import SearchTitleInput from "@/components/advanced-search/SearchTitleInput.vue";
 import FilterButton from "@/components/advanced-search/FilterButton.vue";
 </script>
 
-<style scoped>
-input[type="text"] {
-  @apply bg-gray-bg-1/80;
-}
-
-input[type="text"]::placeholder {
-  @apply text-white-ink-1;
-}
-</style>
+<style scoped></style>
