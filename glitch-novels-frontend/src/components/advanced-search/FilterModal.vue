@@ -80,8 +80,10 @@
 <script setup>
 import BaseModal from "@/components/common/modal/BaseModal.vue";
 
-import { onMounted, reactive, watch } from "vue";
+import { onBeforeUnmount, onMounted, reactive, watch } from "vue";
+import { useAdvancedSearchStore } from "@/stores/advancedSearch";
 import { getSearchFilters } from "@/api/search";
+import { storeToRefs } from "pinia";
 
 defineEmits(["closeSearchModal"]);
 
@@ -103,6 +105,9 @@ watch(selectedFilters, (newValue) => {
   }
 });
 
+const advancedSearchStore = useAdvancedSearchStore();
+const { searchCriteria } = storeToRefs(advancedSearchStore);
+
 onMounted(async () => {
   const response = await getSearchFilters();
 
@@ -113,6 +118,20 @@ onMounted(async () => {
   // when grouping selected filters in the same group using v-model.
   for (const key in filters) {
     selectedFilters[key] = [];
+  }
+
+  // Get previously selected filters from the store.
+  for (const key in searchCriteria.value) {
+    if (searchCriteria.value[key] instanceof Array) {
+      selectedFilters[key] = searchCriteria.value[key];
+    }
+  }
+});
+
+// Populate searchCriteria when closing the filter modal.
+onBeforeUnmount(() => {
+  for (const key in selectedFilters) {
+    searchCriteria.value[key] = selectedFilters[key];
   }
 });
 </script>
