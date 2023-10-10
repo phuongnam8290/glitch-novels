@@ -86,9 +86,41 @@ public class NovelService {
 		return apiNovels;
 	}
 
+	/**
+	 * Search novels in the database using the keyword.
+	 *
+	 * @param keyword The keyword used to search. This keyword must exist in the novel's title or tag.
+	 * @return List of novels that matched the keyword, excluding their content.
+	 */
 	@Transactional
 	public List<NovelDTO> searchNovels(String keyword) {
 		List<Novel> dbNovels = novelRepository.searchNovels(keyword);
+		List<NovelDTO> apiNovels = new ArrayList<>();
+
+		// Expunge novels' content.
+		for (Novel dbNovel : dbNovels) {
+			NovelDTO apiNovel = NovelDTO.mapEntity(dbNovel, true);
+			apiNovels.add(apiNovel);
+		}
+
+		return apiNovels;
+	}
+
+	/**
+	 * Search novels in the db using multiple criteria.
+	 *
+	 * @param title                   Part of the novel's title.
+	 * @param authorName              Part of the author's name.
+	 * @param publicationStatusTitles List of publication statuses. The novels must have at least one of these statuses.
+	 * @param genreTitles             List of genres. The novels must have at least one of these genres.
+	 * @param tagTitles               List of tags. The novels must have at least one of these tags.
+	 * @return List of novels that match the search's criteria, excluding their content.
+	 */
+	@Transactional
+	public List<NovelDTO> searchNovelsWithCriteria(String title, String authorName,
+																								 List<String> publicationStatusTitles, List<String> genreTitles, List<String> tagTitles) {
+		List<Novel> dbNovels = novelRepository.searchNovelsWithCriteria(title, authorName,
+				publicationStatusTitles, genreTitles, tagTitles);
 		List<NovelDTO> apiNovels = new ArrayList<>();
 
 		// Expunge novels' content.

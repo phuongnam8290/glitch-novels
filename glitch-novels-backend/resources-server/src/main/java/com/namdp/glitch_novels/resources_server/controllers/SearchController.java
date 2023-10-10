@@ -62,7 +62,7 @@ public class SearchController {
 		responseBody.set("publicationStatus", mapper.valueToTree(publicationStatuses));
 		responseBody.set("genres", mapper.convertValue(genres, JsonNode.class));
 		responseBody.set("tag", mapper.convertValue(tags, JsonNode.class));
-
+		
 		return ResponseEntity.status(HttpStatus.OK).body(responseBody);
 	}
 }

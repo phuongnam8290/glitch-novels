@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Repository
-public interface NovelRepository extends JpaRepository<Novel, Integer> {
+public interface NovelRepository extends JpaRepository<Novel, Integer>, NovelRepositorySearch {
 	List<Novel> deleteNovelByIdIn(Collection<Integer> ids);
 
 	@Query("SELECT DISTINCT N " +
