@@ -16,57 +16,60 @@ import java.util.List;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class NovelDTO {
-  private Integer id;
-  private String title;
-  private String coverUrl;
-  private String synopsis;
-  private LocalDateTime createdDate;
-  private LocalDateTime lastUpdatedDate;
-  private AuthorDTO author;
+	private Integer id;
+	private String title;
+	private String coverUrl;
+	private String synopsis;
+	private LocalDateTime createdDate;
+	private LocalDateTime lastUpdatedDate;
+	private AuthorDTO author;
 
-  @Singular
-  private List<ChapterDTO> chapters;
+	@Singular
+	private List<ChapterDTO> chapters;
 
-  @Singular
-  private List<GenreDTO> genres;
+	private PublicationStatusDTO publicationStatus;
 
-  @Singular
-  private List<TagDTO> tags;
+	@Singular
+	private List<GenreDTO> genres;
 
-  /**
-   * Map a novel record in the database to its corresponding api instance.
-   *
-   * @param dbNovel    The novel record in the database
-   * @param isAbridged Should add the novel's chapters or not
-   * @return Corresponding api instance
-   */
-  public static NovelDTO mapEntity(Novel dbNovel, boolean isAbridged) {
-    NovelDTOBuilder builder = NovelDTO.builder();
-    builder.id(dbNovel.getId())
-        .title(dbNovel.getTitle())
-        .coverUrl(dbNovel.getCoverUrl())
-        .synopsis(dbNovel.getSynopsis())
-        .createdDate(dbNovel.getCreatedDate())
-        .lastUpdatedDate(dbNovel.getLastUpdatedDate())
-        .author(AuthorDTO.mapEntity(dbNovel.getAuthor(), true));
+	@Singular
+	private List<TagDTO> tags;
 
-    if (!isAbridged) {
-      for (Tag dbTag : dbNovel.getTags()) {
-        TagDTO apiTag = TagDTO.mapEntity(dbTag, true);
-        builder.tag(apiTag);
-      }
+	/**
+	 * Map a novel record in the database to its corresponding api instance.
+	 *
+	 * @param dbNovel    The novel record in the database
+	 * @param isAbridged Should add the novel's chapters or not
+	 * @return Corresponding api instance
+	 */
+	public static NovelDTO mapEntity(Novel dbNovel, boolean isAbridged) {
+		NovelDTOBuilder builder = NovelDTO.builder();
+		builder.id(dbNovel.getId())
+				.title(dbNovel.getTitle())
+				.coverUrl(dbNovel.getCoverUrl())
+				.synopsis(dbNovel.getSynopsis())
+				.createdDate(dbNovel.getCreatedDate())
+				.lastUpdatedDate(dbNovel.getLastUpdatedDate())
+				.author(AuthorDTO.mapEntity(dbNovel.getAuthor(), true))
+				.publicationStatus(PublicationStatusDTO.mapEntity(dbNovel.getPublicationStatus(), true));
 
-      for (Chapter dbChapter : dbNovel.getChapters()) {
-        ChapterDTO apiChapter = ChapterDTO.mapEntity(dbChapter, true);
-        builder.chapter(apiChapter);
-      }
-    }
+		if (!isAbridged) {
+			for (Chapter dbChapter : dbNovel.getChapters()) {
+				ChapterDTO apiChapter = ChapterDTO.mapEntity(dbChapter, true);
+				builder.chapter(apiChapter);
+			}
+		}
 
-    for (Genre dbGenre : dbNovel.getGenres()) {
-      GenreDTO apiGenre = GenreDTO.mapEntity(dbGenre, true);
-      builder.genre(apiGenre);
-    }
+		for (Genre dbGenre : dbNovel.getGenres()) {
+			GenreDTO apiGenre = GenreDTO.mapEntity(dbGenre, true);
+			builder.genre(apiGenre);
+		}
 
-    return builder.build();
-  }
+		for (Tag dbTag : dbNovel.getTags()) {
+			TagDTO apiTag = TagDTO.mapEntity(dbTag, true);
+			builder.tag(apiTag);
+		}
+
+		return builder.build();
+	}
 }
