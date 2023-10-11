@@ -1,17 +1,24 @@
-import { defineStore } from "pinia";
 import { ref, watch } from "vue";
+import { defineStore } from "pinia";
+import { searchWithMultipleCriteria } from "@/api/search";
 
 export const useAdvancedSearchStore = defineStore("advancedSearch", () => {
   const searchResults = ref([]);
-  const searchCriteria = ref({});
+  const searchCriteria = ref({
+    title: "",
+    author: "",
+    publicationStatuses: [],
+    genres: [],
+    tags: [],
+  });
 
   // We are using the deep watch to trigger the callback when the value of searchCriteria is changed.
   watch(
     searchCriteria,
-    (newSearchCriteria) => {
-      console.log("Search criteria changed");
-      console.log(searchCriteria);
-      //TODO: fetch data from backend & populate searchResults
+    async (newSearchCriteria) => {
+      // Call backend when search criteria changed.
+      const response = await searchWithMultipleCriteria(newSearchCriteria);
+      console.log(response.data);
     },
     { deep: true }
   );

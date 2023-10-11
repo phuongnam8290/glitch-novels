@@ -12,6 +12,7 @@
               class="search-author-input mt-4"
               style="font-family: 'Metropolis', FontAwesome, serif"
               placeholder="&#xF007; Author"
+              ref="searchAuthorInput"
             />
           </div>
 
@@ -80,7 +81,7 @@
 <script setup>
 import BaseModal from "@/components/common/modal/BaseModal.vue";
 
-import { onBeforeUnmount, onMounted, reactive, watch } from "vue";
+import { onBeforeUnmount, onMounted, reactive, ref, watch } from "vue";
 import { useAdvancedSearchStore } from "@/stores/advancedSearch";
 import { getSearchFilters } from "@/api/search";
 import { storeToRefs } from "pinia";
@@ -105,32 +106,30 @@ watch(selectedFilters, (newValue) => {
   }
 });
 
+const searchAuthorInput = ref(null);
 const advancedSearchStore = useAdvancedSearchStore();
 const { searchCriteria } = storeToRefs(advancedSearchStore);
 
 onMounted(async () => {
+  searchAuthorInput.value.value = searchCriteria.value.author;
+
   const response = await getSearchFilters();
 
   // Using the Object.assign method to assign all properties from the response to the filters object.
   Object.assign(filters, response.data);
 
-  // Set properties for the selectedFilters object. Each property is initialized with an empty array. It is necessary
-  // when grouping selected filters in the same group using v-model.
+  // Populate the selectedFilters object with values obtained from searchCriteria or an empty array if the corresponding
+  // property in searchCriteria does not exist (in case of the first time open the modal / select all filters in one
+  // group). It is necessary when grouping selected filters in the same group using v-model.
   for (const key in filters) {
-    selectedFilters[key] = [];
-  }
-
-  // Get previously selected filters from the store.
-  for (const key in searchCriteria.value) {
-    if (searchCriteria.value[key] instanceof Array) {
-      selectedFilters[key] = searchCriteria.value[key];
-    }
+    selectedFilters[key] = searchCriteria.value[key] ?? [];
   }
 });
 
-// Populate searchCriteria when closing the filter modal.
+// Update searchCriteria when closing the filter modal.
 onBeforeUnmount(() => {
   for (const key in selectedFilters) {
+    searchCriteria.value.author = searchAuthorInput.value.value;
     searchCriteria.value[key] = selectedFilters[key];
   }
 });
