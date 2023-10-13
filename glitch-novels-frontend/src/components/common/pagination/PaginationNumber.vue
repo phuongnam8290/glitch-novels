@@ -1,6 +1,6 @@
 <template>
   <button
-    class="pagination-item inline-block min-w-[3.5rem] border border-2 border-white-ink-1 py-2 px-3 text-center font-bold"
+    class="pagination-item inline-block min-w-[3.5rem] border-2 border-white-ink-1 py-2 px-3 text-center font-bold"
   >
     <slot>1</slot>
   </button>

@@ -1,7 +1,7 @@
 <template>
   <div class="pagination-ellipsis inline-block">
     <span
-      class="inline-block min-w-[3.5rem] cursor-pointer py-2 text-center hover:text-gold-brand-1"
+      class="inline-block min-w-[3.5rem] cursor-pointer border-2 border-transparent py-2 text-center hover:text-gold-brand-1"
       v-if="!isInputVisible"
       @click="showInput"
     >
@@ -9,7 +9,7 @@
     </span>
     <input
       type="text"
-      class="w-[3.5rem] min-w-[3.5rem] border border-2 border-gold-brand-1 bg-gray-selected-bg py-2 px-3 font-bold"
+      class="w-[3.5rem] min-w-[3.5rem] border-gold-brand-1 bg-gray-selected-bg font-bold"
       ref="input"
       v-else
       @keydown="handleKeyPress"
@@ -79,6 +79,10 @@ const confirmInput = (event) => {
 </script>
 
 <style scoped>
+input[type="text"] {
+  @apply border-2 py-2 px-3;
+}
+
 input:focus {
   @apply outline-0;
 }

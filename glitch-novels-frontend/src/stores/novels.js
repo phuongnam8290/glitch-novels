@@ -1,28 +1,23 @@
 import { defineStore } from "pinia";
 import { getNovels } from "@/api/novel";
+import { ref } from "vue";
+import { usePagination } from "@/composable/utils/pagination";
 
-import paginateUtils from "@/stores/paginateUtils";
+export const useNovelsStore = defineStore("novels", () => {
+  const NOVELS = ref([]);
+  const pagination = usePagination(NOVELS, {
+    dataName: "novels",
+    itemsPerPage: Number.parseInt(import.meta.env.VITE_NOVELS_PER_PAGE),
+  });
 
-const pagination = paginateUtils("novels");
+  const FETCH_NOVELS = async () => {
+    const response = await getNovels();
+    NOVELS.value = response.data.novels;
+  };
 
-export const useNovelsStore = defineStore("novels", {
-  state() {
-    return {
-      ...pagination.state,
-      novels: [],
-      currentPage: 1,
-      novelsPerPage: Number.parseInt(import.meta.env.VITE_NOVELS_PER_PAGE),
-    };
-  },
-  actions: {
-    async FETCH_NOVELS() {
-      const response = await getNovels();
-      this.novels = response.data.novels;
-    },
-
-    ...pagination.actions,
-  },
-  getters: {
-    ...pagination.getters,
-  },
+  return {
+    NOVELS,
+    FETCH_NOVELS,
+    ...pagination,
+  };
 });
