@@ -1,6 +1,6 @@
+import { ref } from "vue";
 import { defineStore } from "pinia";
 import { getNovels } from "@/api/novel";
-import { ref } from "vue";
 import { usePagination } from "@/composable/utils/pagination";
 
 export const useNovelsStore = defineStore("novels", () => {
