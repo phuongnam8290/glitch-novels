@@ -15,14 +15,14 @@ import { useAdvancedSearchStore } from "@/stores/advancedSearch";
 import { useRateLimiting } from "@/composable/utils/rateLimiter";
 
 const advancedSearchStore = useAdvancedSearchStore();
-const { searchCriteria } = storeToRefs(advancedSearchStore);
+const { SEARCH_CRITERIA } = storeToRefs(advancedSearchStore);
 
 const searchQuery = ref("");
 
 // Add debounce to SearchTitleInput to limit the times the search criteria are updated. Hence, limit the number of
 // calls to the backend.
 const { debounce } = useRateLimiting();
-const debounceUpdateSearchCriteria = debounce((title) => (searchCriteria.value.title = title), 500);
+const debounceUpdateSearchCriteria = debounce((title) => (SEARCH_CRITERIA.value.title = title), 500);
 
 watch(searchQuery, (newSearchQuery) => debounceUpdateSearchCriteria(newSearchQuery));
 </script>

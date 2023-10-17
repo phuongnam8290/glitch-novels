@@ -108,10 +108,10 @@ watch(selectedFilters, (newValue) => {
 
 const searchAuthorInput = ref(null);
 const advancedSearchStore = useAdvancedSearchStore();
-const { searchCriteria } = storeToRefs(advancedSearchStore);
+const { SEARCH_CRITERIA } = storeToRefs(advancedSearchStore);
 
 onMounted(async () => {
-  searchAuthorInput.value.value = searchCriteria.value.author;
+  searchAuthorInput.value.value = SEARCH_CRITERIA.value.author;
 
   const response = await getSearchFilters();
 
@@ -122,15 +122,15 @@ onMounted(async () => {
   // property in searchCriteria does not exist (in case of the first time open the modal / select all filters in one
   // group). It is necessary when grouping selected filters in the same group using v-model.
   for (const key in filters) {
-    selectedFilters[key] = searchCriteria.value[key] ?? [];
+    selectedFilters[key] = SEARCH_CRITERIA.value[key] ?? [];
   }
 });
 
 // Update searchCriteria when closing the filter modal.
 onBeforeUnmount(() => {
   for (const key in selectedFilters) {
-    searchCriteria.value.author = searchAuthorInput.value.value;
-    searchCriteria.value[key] = selectedFilters[key];
+    SEARCH_CRITERIA.value.author = searchAuthorInput.value.value;
+    SEARCH_CRITERIA.value[key] = selectedFilters[key];
   }
 });
 </script>
