@@ -39,7 +39,7 @@ export const usePagination = (data, options) => {
       return;
     }
 
-    page = page > getter.TOTAL_PAGES.value ? getter.TOTAL_PAGES.value : page < 1 ? 1 : page;
+    page = page > getter.TOTAL_PAGES.value ? getter.TOTAL_PAGES.value : page < 0 ? 0 : page;
     state.CURRENT_PAGE.value = page;
   };
 
