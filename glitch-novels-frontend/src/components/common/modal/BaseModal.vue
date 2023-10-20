@@ -20,7 +20,7 @@ import { onMounted, onUnmounted, ref } from "vue";
 
 // Emit the closeModal event when the user clicks the close button or outside the modal.
 const eventBus = useEventBus();
-const emitCloseBaseModal = () => eventBus.emit("closeBaseModal");
+const emitCloseBaseModal = () => eventBus.emit("clickOutsideModal");
 
 const overlay = ref(null);
 const modalWrapper = ref(null);

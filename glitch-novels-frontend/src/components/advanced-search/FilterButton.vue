@@ -10,7 +10,7 @@
 
   <FilterModal
     v-if="showFilterModal"
-    @close-search-modal="closeSearchModal"
+    @close-modal="closeFilterModal"
   />
 </template>
 
@@ -23,10 +23,10 @@ import FilterModal from "@/components/advanced-search/FilterModal.vue";
 const eventBus = useEventBus();
 const showFilterModal = ref(false);
 
-const closeSearchModal = () => (showFilterModal.value = false);
+const closeFilterModal = () => (showFilterModal.value = false);
 
-onMounted(() => eventBus.on("closeBaseModal", closeSearchModal));
-onUnmounted(() => eventBus.off("closeBaseModal"));
+onMounted(() => eventBus.on("clickOutsideModal", closeFilterModal));
+onUnmounted(() => eventBus.off("clickOutsideModal"));
 </script>
 
 <style scoped></style>

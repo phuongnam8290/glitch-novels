@@ -149,8 +149,8 @@ const handleCloseModal = () => {
 };
 
 const eventBus = useEventBus();
-onMounted(() => eventBus.on("closeBaseModal", handleCloseModal));
-onUnmounted(() => eventBus.off("closeBaseModal"));
+onMounted(() => eventBus.on("clickOutsideModal", handleCloseModal));
+onUnmounted(() => eventBus.off("clickOutsideModal"));
 </script>
 
 <style scoped>

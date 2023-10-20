@@ -65,7 +65,7 @@
 
           <button
             class="text-btn"
-            @click="$emit('closeSearchModal')"
+            @click="$emit('closeModal')"
           >
             <span>
               <i class="fa-sharp fa-light fa-xmark fa-lg"></i>
@@ -86,7 +86,7 @@ import { useAdvancedSearchStore } from "@/stores/advancedSearch";
 import { getSearchFilters } from "@/api/search";
 import { storeToRefs } from "pinia";
 
-defineEmits(["closeSearchModal"]);
+defineEmits(["closeModal"]);
 
 const filters = reactive({});
 const selectedFilters = reactive({});
