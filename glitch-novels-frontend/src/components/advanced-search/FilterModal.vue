@@ -56,6 +56,7 @@
         <div class="modal-footer flex justify-end gap-x-10">
           <button
             class="text-btn border border-gold-brand-2 bg-gold-brand-2 hover:border-gold-brand-1 hover:bg-gold-brand-1 hover:text-white-ink-1"
+            @click="applyFilters"
           >
             <span>
               <i class="fa-sharp fa-solid fa-filter"></i>
@@ -81,12 +82,12 @@
 <script setup>
 import BaseModal from "@/components/common/modal/BaseModal.vue";
 
-import { onBeforeUnmount, onMounted, reactive, ref, watch } from "vue";
+import { onMounted, reactive, ref, watch } from "vue";
 import { useAdvancedSearchStore } from "@/stores/advancedSearch";
 import { getSearchFilters } from "@/api/search";
 import { storeToRefs } from "pinia";
 
-defineEmits(["closeModal"]);
+const emits = defineEmits(["closeModal"]);
 
 const filters = reactive({});
 const selectedFilters = reactive({});
@@ -126,13 +127,16 @@ onMounted(async () => {
   }
 });
 
-// Update searchCriteria when closing the filter modal.
-onBeforeUnmount(() => {
+// Update searchCriteria when the filter button is clicked.
+const applyFilters = () => {
+  SEARCH_CRITERIA.value.author = searchAuthorInput.value.value;
+
   for (const key in selectedFilters) {
-    SEARCH_CRITERIA.value.author = searchAuthorInput.value.value;
     SEARCH_CRITERIA.value[key] = selectedFilters[key];
   }
-});
+
+  emits("closeModal");
+};
 </script>
 
 <style scoped>
