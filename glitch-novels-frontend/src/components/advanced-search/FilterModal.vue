@@ -66,12 +66,12 @@
 
           <button
             class="text-btn"
-            @click="$emit('closeModal')"
+            @click="resetFilters"
           >
             <span>
               <i class="fa-sharp fa-light fa-xmark fa-lg"></i>
             </span>
-            <span class="ml-2">Cancel</span>
+            <span class="ml-2">Reset</span>
           </button>
         </div>
       </div>
@@ -136,6 +136,16 @@ const applyFilters = () => {
   }
 
   emits("closeModal");
+};
+
+// Reset author's name & list of selected filters
+const resetFilters = () => {
+  searchAuthorInput.value.value = "";
+
+  for (const key in selectedFilters) {
+    console.log(key);
+    selectedFilters[key] = [];
+  }
 };
 </script>
 
